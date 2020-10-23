@@ -7,9 +7,16 @@ export const Navbar: React.FC = () => {
 
   return (
     <div
-      className={classNames('bg-transparent p-4 rounded-md relative z-10', {
-        'shadow-md md:shadow-none m-3 md:m-0': open,
-      })}
+      className={classNames(
+        'bg-white border-b border-gray-200 bg-opacity-25 p-4 rounded-md relative z-10',
+        {
+          'shadow-md md:shadow-none m-3 md:m-0': open,
+        }
+      )}
+      style={{
+        opacity: 5,
+        backdropFilter: 'blur(3px)',
+      }}
     >
       <div className="flex flex-col md:flex-row items-center justify-between container mx-auto">
         <div className="flex items-center justify-between w-full">
@@ -18,6 +25,7 @@ export const Navbar: React.FC = () => {
               'px-2': open,
             })}
           >
+            <span className="sr-only">Home</span>
             <img
               src="../../../static/logo.svg"
               alt="Pluto Logo"
