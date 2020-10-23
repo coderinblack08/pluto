@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight } from 'heroicons-react';
+import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import React from 'react';
 import { Navbar } from '../components/shared/navigation/navbar';
 
@@ -67,37 +67,37 @@ const Index: React.FC<{}> = () => {
       </div>
       <div className="bg-gray-900 py-24 shadow-inner" id="features">
         <div className="container mx-auto">
-          <p className="text-teal-500 font-bold text-lg text-center">
-            FEATURES
+          <p className="flex items-center justify-center text-teal-500 font-bold text-lg text-center">
+            <ColorSwatch size={20} /> <span className="ml-2">FEATURES</span>
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white text-center leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white text-center leading-tight">
             Convincing Features
-          </h1>
+          </h2>
           <p className="text-xl md:text-2xl text-gray-300 text-center font-semibold">
             Low footprint design with features you won’t forget
           </p>
           <div className="max-w-3xl w-full grid grid-cols-1 sm:grid-cols-2 mx-auto mt-12 gap-3 md:gap-2 px-3">
             <div className="group bg-gray-800 p-4 text-gray-200 hover:text-white text-lg rounded-md shadow-lg hover:bg-gradient-to-r hover:from-teal-500 hover:to-blue-500 transition ease-in-out duration-200">
-              <h1 className="font-bold text-xl">Easy to use</h1>
+              <h3 className="font-bold text-xl">Easy to use</h3>
               <p className="text-gray-400 group-hover:text-gray-200">
                 A simple and intuitive UI
               </p>
             </div>
             <div className="group bg-gray-800 p-4 text-gray-200 hover:text-white text-lg rounded-md shadow-lg hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 transition ease-in-out duration-200">
-              <h1 className="font-bold text-xl">Battery pack included</h1>
+              <h3 className="font-bold text-xl">Battery pack included</h3>
               <p className="text-gray-400 group-hover:text-gray-200">
                 Events, announcements, discussion threads, assignments, you name
                 it!
               </p>
             </div>
-            <div className="group bg-gray-800 p-4 text-gray-200 hover:text-white text-lg rounded-md shadow-lg hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-500 transition ease-in-out duration-200">
-              <h1 className="font-bold text-xl">Spread the word</h1>
+            <div className="group bg-gray-800 bg-opacity-50 p-4 text-gray-200 hover:text-white text-lg rounded-md shadow-lg hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-500 transition ease-in-out duration-200">
+              <h3 className="font-bold text-xl">Spread the word</h3>
               <p className="text-gray-400 group-hover:text-gray-200">
                 Extends the reach of your community
               </p>
             </div>
-            <div className="group bg-gray-800 p-4 text-gray-200 hover:text-white text-lg rounded-md shadow-lg hover:bg-gradient-to-r hover:from-green-500 hover:to-yellow-500 transition ease-in-out duration-200">
-              <h1 className="font-bold text-xl">For schools</h1>
+            <div className="group bg-gray-800 bg-opacity-50 p-4 text-gray-200 hover:text-white text-lg rounded-md shadow-lg hover:bg-gradient-to-r hover:from-green-500 hover:to-yellow-500 transition ease-in-out duration-200">
+              <h3 className="font-bold text-xl">For schools</h3>
               <p className="text-gray-400 group-hover:text-gray-200">
                 Gradebooks, assignments, and other features dedicated for
                 classroom settings
