@@ -22,4 +22,5 @@ module.exports = {
     'focus',
     // 'active',
   ],
+  plugins: [require('@tailwindcss/custom-forms')],
 };

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { ChevronDown, MenuAlt4, X } from 'heroicons-react';
 import React from 'react';
+import { NextLink } from '../nextlink';
 
 export const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -20,7 +21,8 @@ export const Navbar: React.FC = () => {
     >
       <div className="flex flex-col md:flex-row items-center justify-between container mx-auto">
         <div className="flex items-center justify-between w-full">
-          <div
+          <NextLink
+            href="/"
             className={classNames('flex items-center space-x-2', {
               'px-2': open,
             })}
@@ -34,7 +36,7 @@ export const Navbar: React.FC = () => {
             <h1 className="text-gray-700 text-2xl md:text-3xl font-medium">
               Pluto
             </h1>
-          </div>
+          </NextLink>
           <button
             className="flex items-center justify-center md:hidden text-gray-700 hover:text-gray-600 p-3 focus:bg-gray-200 focus:outline-none rounded-md"
             onClick={() => setOpen(!open)}
@@ -66,15 +68,18 @@ export const Navbar: React.FC = () => {
           >
             Pricing
           </a>
-          <a
-            href="#"
+          <NextLink
+            href="/login"
             className="font-normal box-border text-gray-700 md:mr-4 px-4 py-3 hover:bg-gray-200 w-full rounded-md"
           >
             Sign in
-          </a>
-          <button className="mt-3 sm:mt-0 font-medium focus:outline-none focus:shadow-outline inline-block w-full px-4 py-2 bg-gray-800 text-white rounded-md transition ease-in-out duration-150 focus:bg-gray-900 hover:bg-gray-700">
+          </NextLink>
+          <NextLink
+            href="/register"
+            className="mt-3 sm:mt-0 font-medium focus:outline-none focus:shadow-outline inline-block w-full px-4 py-2 bg-gray-800 text-white rounded-md transition ease-in-out duration-150 focus:bg-gray-900 hover:bg-gray-700"
+          >
             Get Started
-          </button>
+          </NextLink>
         </div>
       </div>
     </div>

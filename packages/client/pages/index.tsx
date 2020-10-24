@@ -1,18 +1,12 @@
 import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import React from 'react';
+import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 
 const Index: React.FC<{}> = () => {
   return (
     <div className="overflow-hidden">
-      <div className="flex items-center justify-center py-2 bg-gray-900 relative z-20 text-white font-medium">
-        <div className="flex items-center bg-gray-800 bg-opacity-50 rounded-full px-4 py-1">
-          Now available in alpha release.
-          <a href="#" className="ml-2 hover:underline text-indigo-200">
-            Learn More →
-          </a>
-        </div>
-      </div>
+      <Banner />
       <Navbar />
       <div className="relative container mx-auto py-10 md:py-20 xl:pt-32 lg:pb-20 px-5 lg:px-10 xl:px-0 sm:px-0">
         <div className="relative z-10 pb-10 md:pb-20 xl:pb-32">
@@ -184,7 +178,7 @@ const Index: React.FC<{}> = () => {
             Let's get our hands dirty
             <br />
             <span className="text-indigo-500">
-              Let the features do the convincing.
+              Let the features do the talking.
             </span>
           </h2>
           <div className="mt-8 flex lg:flex-shrink-0 lg:mt-0">
