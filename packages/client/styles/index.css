@@ -6,6 +6,14 @@ html {
   scroll-behavior: smooth;
 }
 
+.faq-answer {
+  @apply mt-3 text-lg text-gray-700;
+}
+
+.faq-question {
+  @apply flex items-center justify-between text-2xl font-medium;
+}
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

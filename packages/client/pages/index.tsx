@@ -14,14 +14,14 @@ const Index: React.FC<{}> = () => {
         </div>
       </div>
       <Navbar />
-      <div className="relative container mx-auto py-10 md:pt-32 md:pb-20 px-5 sm:px-0">
-        <div className="relative z-10 pb-10 md:pb-32">
+      <div className="relative container mx-auto py-10 md:py-20 xl:pt-32 lg:pb-20 px-5 lg:px-10 xl:px-0 sm:px-0">
+        <div className="relative z-10 pb-10 md:pb-20 xl:pb-32">
           <div className="flex items-center space-x-2">
             <div className="w-14 text-sm text-white font-bold flex items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-blue-500">
               NEW
             </div>
             <p
-              className="font-bold mb-2 text-lg bg-gradient-to-r from-blue-500 to-teal-500 mt-2"
+              className="font-bold mb-2 text-lg bg-gradient-to-r from-blue-400 to-teal-400 mt-2"
               style={{
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -30,7 +30,7 @@ const Index: React.FC<{}> = () => {
               NOW IN EARLY ACCESS
             </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black leading-tight text-gray-900">
             Community Discussion
             <br /> Through One Platform
           </h1>
@@ -39,14 +39,14 @@ const Index: React.FC<{}> = () => {
             <br className="hidden sm:block" />
             wished you had before!
           </p>
-          <div className="flex items-center space-x-3 mt-6">
-            <button className="group flex items-center bg-gray-800 px-3 py-3 rounded-md text-white font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-900">
+          <div className="flex flex-col sm:flex-row w-full items-end sm:items-center space-x-3 mt-6">
+            <button className="group flex items-center justify-between w-full sm:w-auto bg-gray-800 px-3 py-3 rounded-md text-white font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-900">
               <span className="ml-3">Get Started</span>
               <span className="ml-3 group-hover:translate-x-1 transform transition ease duration-200">
                 <ChevronRight size={28} />
               </span>
             </button>
-            <button className="text-gray-800 px-6 py-3 rounded-md bg-gray-200 font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-300">
+            <button className="text-gray-800 w-full sm:w-auto mt-2 sm:mt-0 px-6 py-3 rounded-md bg-gray-200 font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-300">
               Learn More
             </button>
           </div>
@@ -105,6 +105,67 @@ const Index: React.FC<{}> = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="">
+        <div className="text-center bg-gradient-to-tr from-gray-100 to-indigo-100 py-20 border-b">
+          <div className="flex items-center justify-center rounded-md mb-2 bg-gradient-to-r from-teal-500 to-blue-500 w-12 h-12 mx-auto">
+            <svg
+              className="w-8 h-8 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 21C7.58172 21 4 17.4183 4 13C4 8.58172 7.58172 5 12 5C16.4183 5 20 8.58172 20 13C19.995 17.4162 16.4162 20.995 12 21ZM12 7C8.68629 7 6 9.68629 6 13C6 16.3137 8.68629 19 12 19C15.3137 19 18 16.3137 18 13C17.9961 9.68789 15.3121 7.00386 12 7ZM13 14H11V9H13V14ZM19.293 7.707L17.293 5.707L18.707 4.293L20.707 6.293L19.294 7.706L19.293 7.707ZM15 4H9V2H15V4Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <h2 className="font-black text-4xl md:text-5xl lg:text-6xl leading-tight">
+            Frequently asked questions
+          </h2>
+          <p className="font-bold text-xl md:text-2xl max-w-xs sm:max-w-none mx-auto mt-2 text-gray-700">
+            With frequently given answers to quench your questions
+          </p>
+        </div>
+        <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 py-16 px-5 max-w-5xl mx-auto">
+          <div>
+            <dt className="faq-question">
+              What's the best thing about living a life?
+            </dt>
+            <dd className="mt-3 text-lg text-gray-700">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+              quaerat exercitationem fugiat quae.
+            </dd>
+          </div>
+          <div>
+            <dt className="faq-question">
+              What's the best thing about living a life?
+            </dt>
+            <dd className="faq-answer">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+              quaerat exercitationem fugiat quae.
+            </dd>
+          </div>
+          <div>
+            <dt className="faq-question">
+              What's the best thing about living a life?
+            </dt>
+            <dd className="faq-answer">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+              quaerat exercitationem fugiat quae.
+            </dd>
+          </div>
+          <div>
+            <dt className="faq-question">
+              What's the best thing about living a life?
+            </dt>
+            <dd className="faq-answer">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+              quaerat exercitationem fugiat quae.
+            </dd>
+          </div>
+        </dl>
       </div>
     </div>
   );
