@@ -12,5 +12,6 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'no-console': false,
+    'css-semicolonexpected': false,
   },
 };

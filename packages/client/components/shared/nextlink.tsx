@@ -7,6 +7,6 @@ export const NextLink: React.FC<{ href: string; className: string }> = ({
   className,
 }) => (
   <Link href={href}>
-    <a className={className}>{children}</a>
+    <a className={`underline text-blue-500 ${className}`}>{children}</a>
   </Link>
 );

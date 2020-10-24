@@ -8,7 +8,7 @@ const Index: React.FC<{}> = () => {
       <div className="flex items-center justify-center py-2 bg-gray-900 relative z-20 text-white font-medium">
         <div className="flex items-center bg-gray-800 bg-opacity-50 rounded-full px-4 py-1">
           Now available in alpha release.
-          <a href="#" className="ml-2 underline text-indigo-200">
+          <a href="#" className="ml-2 hover:underline text-indigo-200">
             Learn More →
           </a>
         </div>
@@ -106,9 +106,9 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <div className="">
-        <div className="text-center bg-gradient-to-tr from-gray-100 to-indigo-100 py-20 border-b">
-          <div className="flex items-center justify-center rounded-md mb-2 bg-gradient-to-r from-teal-500 to-blue-500 w-12 h-12 mx-auto">
+      <div>
+        <div className="relative overflow-hidden text-center bg-gradient-to-tr from-gray-100 to-indigo-100 py-20 border-b border-gray-200">
+          <div className="relative z-10 flex items-center justify-center rounded-md mb-2 bg-gradient-to-r from-teal-500 to-blue-500 w-12 h-12 mx-auto">
             <svg
               className="w-8 h-8 text-white"
               viewBox="0 0 24 24"
@@ -121,10 +121,21 @@ const Index: React.FC<{}> = () => {
               ></path>
             </svg>
           </div>
-          <h2 className="font-black text-4xl md:text-5xl lg:text-6xl leading-tight">
+          <h2
+            className="relative z-10 font-black text-4xl md:text-5xl lg:text-6xl leading-tight bg-gradient-to-r from-teal-500 to-indigo-500"
+            style={{
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
             Frequently asked questions
           </h2>
-          <p className="font-bold text-xl md:text-2xl max-w-xs sm:max-w-none mx-auto mt-2 text-gray-700">
+          <img
+            src="../static/dots.svg"
+            className="absolute top-0 left-0 h-full mt-3 z-0"
+            aria-hidden
+          />
+          <p className="relative z-10 font-bold text-xl md:text-2xl max-w-xs sm:max-w-none mx-auto mt-2 text-gray-700">
             With frequently given answers to quench your questions
           </p>
         </div>
@@ -166,6 +177,35 @@ const Index: React.FC<{}> = () => {
             </dd>
           </div>
         </dl>
+      </div>
+      <div className="bg-gray-100 mt-10 border-t border-gray-200">
+        <div className="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+          <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+            Let's get our hands dirty
+            <br />
+            <span className="text-indigo-500">
+              Let the features do the convincing.
+            </span>
+          </h2>
+          <div className="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+            <div className="inline-flex rounded-md shadow">
+              <a
+                href="#"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+              >
+                Get started
+              </a>
+            </div>
+            <div className="ml-3 inline-flex rounded-md shadow">
+              <a
+                href="#"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-500 bg-white hover:text-indigo-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+              >
+                Learn more
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

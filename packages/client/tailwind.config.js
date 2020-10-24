@@ -9,9 +9,6 @@ module.exports = {
       : [],
   theme: {
     extend: {
-      colors: {
-        'accent-1': '#333',
-      },
       width: {
         14: '3.5rem',
       },
@@ -25,5 +22,4 @@ module.exports = {
     'focus',
     // 'active',
   ],
-  plugins: [],
 };
