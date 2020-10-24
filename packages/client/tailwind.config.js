@@ -9,6 +9,9 @@ module.exports = {
       : [],
   theme: {
     extend: {
+      colors: {
+        'gray-50': '#f9fafb',
+      },
       width: {
         14: '3.5rem',
       },

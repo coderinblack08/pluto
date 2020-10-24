@@ -1,11 +1,14 @@
 import 'reflect-metadata';
-import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
+import { createConnection } from 'typeorm';
+import { ApolloServer } from 'apollo-server-express';
+import { HelloResolver } from './resolvers/HelloResolver';
 import { buildSchema } from 'type-graphql';
 import { port } from './constants';
-import { HelloResolver } from './resolvers/HelloResolver';
 
-const main = async () => {
+(async () => {
+  await createConnection();
+
   const app = express();
 
   const apolloServer = new ApolloServer({
@@ -18,9 +21,9 @@ const main = async () => {
 
   apolloServer.applyMiddleware({ app, cors: false });
 
-  app.get('/', (_, res) => res.redirect('/graphql'));
+  app.get('/', (_req, res) => res.redirect('/graphql'));
 
-  app.listen(port, () => console.log(`Listening on port ${port}`));
-};
-
-main().catch((err) => console.error(err));
+  app.listen(port, () =>
+    console.log(`Graphql server listening on port ${port}`)
+  );
+})().catch((err) => console.log(err));

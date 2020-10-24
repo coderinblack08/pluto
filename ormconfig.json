@@ -1,0 +1,20 @@
+[
+  {
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "",
+    "database": "pluto",
+    "synchronize": true,
+    "logging": true,
+    "entities": ["dist/entity/**/*.ts"],
+    "migrations": ["dist/migration/**/*.ts"],
+    "subscribers": ["dist/subscriber/**/*.ts"],
+    "cli": {
+      "entitiesDir": "dist/entity",
+      "migrationsDir": "dist/migration",
+      "subscribersDir": "dist/subscriber"
+    }
+  }
+]
