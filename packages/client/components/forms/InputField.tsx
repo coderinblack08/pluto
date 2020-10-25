@@ -40,6 +40,7 @@ export const InputField: React.FC<InputFieldProps> = ({
             : 'mt-1 px-3 py-2 rounded-md border focus:outline-none focus:shadow-outline w-full transition ease duration-200 shadow-sm',
           {
             'border-2 border-red-300 text-red-600 focus:shadow-error': hasError,
+            'focus:border focus:border-blue-400': !hasError,
           }
         )}
       />

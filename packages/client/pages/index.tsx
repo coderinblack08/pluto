@@ -46,7 +46,7 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
         <img
-          src="../static/skeleton.svg"
+          src={require('../public/static/skeleton.svg')}
           className="select-none hidden md:block absolute top-0 right-0 mt-10 md:-mt-10 lg:-mt-32 xl:-mt-48 -mr-32 md:-mr-48 xl:-mr-64 xl:max-w-6xl z-0 opacity-75"
           aria-hidden
         />
@@ -125,7 +125,7 @@ const Index: React.FC<{}> = () => {
             Frequently asked questions
           </h2>
           <img
-            src="../static/dots.svg"
+            src={require('../public/static/dots.svg')}
             className="select-none absolute top-0 left-0 h-full mt-3 z-0"
             aria-hidden
           />

@@ -11,6 +11,9 @@ export class RegisterArgs {
   @Field()
   password: string;
 
+  @Field()
+  confirmPassword: string;
+
   @Field(() => Boolean)
   schoolAccount?: boolean;
 }

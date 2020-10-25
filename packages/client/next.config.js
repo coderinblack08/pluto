@@ -1,3 +1,3 @@
-const withSvgr = require('next-svgr');
+const withImages = require('next-images');
 
-module.exports = withSvgr();
+module.exports = withImages();

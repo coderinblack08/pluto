@@ -5,7 +5,6 @@ import { NextLink } from '../nextlink';
 
 export const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
-
   return (
     <div
       className={classNames(
@@ -29,7 +28,7 @@ export const Navbar: React.FC = () => {
           >
             <span className="sr-only">Home</span>
             <img
-              src="../../../static/logo.svg"
+              src={require('../../../public/static/logo.svg')}
               alt="Pluto Logo"
               className="w-8 md:h-auto h-8 md:w-auto"
             />
@@ -55,7 +54,7 @@ export const Navbar: React.FC = () => {
         >
           <a
             href="#"
-            className="inline-flex items-center justify-between md:justify-start font-normal box-border text-gray-700 md:mr-4 px-4 py-3 hover:bg-gray-200 w-full rounded-md"
+            className="inline-flex items-center justify-between md:justify-start font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-md"
           >
             Solutions
             <div className="ml-2 text-gray-700">
@@ -64,13 +63,20 @@ export const Navbar: React.FC = () => {
           </a>
           <a
             href="#"
-            className="font-normal box-border text-gray-700 md:mr-4 px-4 py-3 hover:bg-gray-200 w-full rounded-md"
+            className="font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-md"
           >
             Pricing
           </a>
+          <a
+            href="#"
+            className="font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-md"
+          >
+            Contact
+          </a>
+          <hr className="hidden md:block border-l border-gray-400 h-5 ml-1 mr-2" />
           <NextLink
             href="/login"
-            className="font-normal box-border text-gray-700 md:mr-4 px-4 py-3 hover:bg-gray-200 w-full rounded-md"
+            className="font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-md"
           >
             Sign in
           </NextLink>

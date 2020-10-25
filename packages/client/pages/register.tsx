@@ -6,8 +6,10 @@ import { InputField } from '../components/forms/InputField';
 import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 import { NextLink } from '../components/shared/nextlink';
+import { useRegisterMutation } from '../generated/graphql';
 
 const Register: React.FC = () => {
+  const [register, { loading }] = useRegisterMutation();
   return (
     <div>
       <Banner />
@@ -28,17 +30,23 @@ const Register: React.FC = () => {
               name: '',
               email: '',
               password: '',
-              passwordConfirmation: '',
+              confirmPassword: '',
               schoolAccount: false,
             }}
             onSubmit={async (values, { setErrors }) => {
               console.log(values);
               const errors = await registerSchema.validate(values);
               setErrors(yupToFormErrors(errors));
+
+              const response = await register({
+                variables: { options: values },
+              });
+
+              console.log(response);
             }}
+            validationSchema={registerSchema}
             validateOnChange={false}
             validateOnBlur={false}
-            validationSchema={registerSchema}
           >
             {() => (
               <Form className="mt-8 space-y-5">
@@ -53,7 +61,7 @@ const Register: React.FC = () => {
                 <InputField name="password" type="password" label="Password" />
                 <InputField
                   type="password"
-                  name="passwordConfirmation"
+                  name="confirmPassword"
                   label="Confirm Password"
                 />
                 <div className="flex items-center">
