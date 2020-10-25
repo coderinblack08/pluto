@@ -14,7 +14,7 @@ const registerSchema = Yup.object().shape({
   email: Yup.string()
     .email()
     .max(255, 'Email Address exceed the character limit')
-    .required('Email Address  is required'),
+    .required('Email Address is required'),
   password: Yup.string()
     .min(8, 'Password must be at least 8 characters')
     .required('Password is required'),

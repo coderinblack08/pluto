@@ -2600,6 +2600,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/argon2@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@types/argon2/-/argon2-0.15.0.tgz#e149cb42fb0a4cb1a4d62f8a22309b4c824bd808"
+  integrity sha1-4UnLQvsKTLGk1i+KIjCbTIJL2Ag=
+  dependencies:
+    argon2 "*"
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.10"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.10.tgz#ca58fc195dd9734e77e57c6f2df565623636ab40"
@@ -3521,7 +3528,7 @@ are-we-there-yet@~1.1.2:
     delegates "^1.0.0"
     readable-stream "^2.0.6"
 
-argon2@^0.27.0:
+argon2@*, argon2@^0.27.0:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.27.0.tgz#0e92acfab23041544208d184acf8c3ca61a67e3f"
   integrity sha512-IkhJhz/4qaZ6RpYyRZvAMOu+EysF40z3J8jksvv0V9LvQFo13d2WBQr5lPuMzZid2k5XpdbQd2oVsgXR4Oi8TQ==

@@ -136,20 +136,20 @@ const Index: React.FC<{}> = () => {
         <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 py-16 px-5 max-w-5xl mx-auto">
           <div>
             <dt className="faq-question">
-              What's the best thing about living a life?
+              How can I integrate Pluto into my classroom/school?
             </dt>
             <dd className="mt-3 text-lg text-gray-700">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-              quaerat exercitationem fugiat quae.
+              Pluto offers the ability to post tests and assignment with a vast
+              variety of features that smoothly integrate with a grade book.
             </dd>
           </div>
           <div>
             <dt className="faq-question">
-              What's the best thing about living a life?
+              How can we move our in-person group onto Pluto?
             </dt>
             <dd className="faq-answer">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
-              quaerat exercitationem fugiat quae.
+              You can create a private or public community and invite others.
+              You can then post events, announcements, polls, and so much more.
             </dd>
           </div>
           <div>
@@ -177,7 +177,13 @@ const Index: React.FC<{}> = () => {
           <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
             Let's get our hands dirty
             <br />
-            <span className="text-indigo-500">
+            <span
+              className="bg-gradient-to-r from-teal-500 to-blue-500"
+              style={{
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
               Let the features do the talking.
             </span>
           </h2>
@@ -185,7 +191,7 @@ const Index: React.FC<{}> = () => {
             <div className="inline-flex rounded-md shadow">
               <a
                 href="#"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-gradient-to-r text-white from-teal-500 to-blue-500 hover:from-teal-400 hover:to-blue-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
               >
                 Get started
               </a>
@@ -193,7 +199,11 @@ const Index: React.FC<{}> = () => {
             <div className="ml-3 inline-flex rounded-md shadow">
               <a
                 href="#"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-500 bg-white hover:text-indigo-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-gradient-to-r from-teal-500 to-blue-500 bg-white focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                style={{
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
               >
                 Learn more
               </a>

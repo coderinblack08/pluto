@@ -8,13 +8,13 @@
     "database": "pluto",
     "synchronize": true,
     "logging": true,
-    "entities": ["dist/entity/**/*.ts"],
-    "migrations": ["dist/migration/**/*.ts"],
-    "subscribers": ["dist/subscriber/**/*.ts"],
+    "entities": ["dist/entity/**/*.js"],
+    "migrations": ["dist/migration/**/*.js"],
+    "subscribers": ["dist/subscriber/**/*.js"],
     "cli": {
-      "entitiesDir": "dist/entity",
-      "migrationsDir": "dist/migration",
-      "subscribersDir": "dist/subscriber"
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
     }
   }
 ]

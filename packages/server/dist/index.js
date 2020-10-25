@@ -46,6 +46,7 @@ var apollo_server_express_1 = require("apollo-server-express");
 var HelloResolver_1 = require("./resolvers/HelloResolver");
 var type_graphql_1 = require("type-graphql");
 var constants_1 = require("./constants");
+var UserResolver_1 = require("./resolvers/UserResolver");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var app, apolloServer, _a;
     var _b;
@@ -58,7 +59,7 @@ var constants_1 = require("./constants");
                 _a = apollo_server_express_1.ApolloServer.bind;
                 _b = {};
                 return [4 /*yield*/, type_graphql_1.buildSchema({
-                        resolvers: [HelloResolver_1.HelloResolver],
+                        resolvers: [HelloResolver_1.HelloResolver, UserResolver_1.UserResolver],
                         validate: false,
                     })];
             case 2:
