@@ -2,6 +2,7 @@ import React from 'react';
 import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
+import { NextLink } from '../components/shared/nextlink';
 
 const Index: React.FC<{}> = () => {
   return (
@@ -34,12 +35,15 @@ const Index: React.FC<{}> = () => {
             wished you had before!
           </p>
           <div className="flex flex-col sm:flex-row w-full items-end sm:items-center space-x-3 mt-6">
-            <button className="group flex items-center justify-between w-full sm:w-auto bg-gray-800 px-3 py-3 rounded-md text-white font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-900">
+            <NextLink
+              href="/register"
+              className="group flex items-center justify-between w-full sm:w-auto bg-gray-800 px-3 py-3 rounded-md text-white font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-900"
+            >
               <span className="ml-3">Get Started</span>
               <span className="ml-3 group-hover:translate-x-1 transform transition ease duration-200">
                 <ChevronRight size={28} />
               </span>
-            </button>
+            </NextLink>
             <button className="text-gray-800 w-full sm:w-auto mt-2 sm:mt-0 px-6 py-3 rounded-md bg-gray-200 font-medium text-xl transition ease duration-150 focus:outline-none focus:shadow-outline focus:bg-gray-300">
               Learn More
             </button>
@@ -124,11 +128,44 @@ const Index: React.FC<{}> = () => {
           >
             Frequently asked questions
           </h2>
-          <img
+          <svg
+            className="select-none absolute top-0 left-0 -ml-48 h-full mt-3 z-0"
+            width="404"
+            height="404"
+            fill="none"
+            viewBox="0 0 404 404"
+          >
+            <defs>
+              <pattern
+                id="85737c0e-0916-41d7-917f-596dc7edfa27"
+                name="85737c0e-0916-41d7-917f-596dc7edfa27"
+                x="0"
+                y="0"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="4"
+                  height="4"
+                  className="text-gray-300"
+                  fill="currentColor"
+                ></rect>
+              </pattern>
+            </defs>
+            <rect
+              width="404"
+              height="404"
+              fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)"
+            ></rect>
+          </svg>
+          {/* <img
             src={require('../public/static/dots.svg')}
             className="select-none absolute top-0 left-0 h-full mt-3 z-0"
             aria-hidden
-          />
+          /> */}
           <p className="relative z-10 font-bold text-xl md:text-2xl max-w-xs sm:max-w-none mx-auto mt-2 text-gray-700">
             With frequently given answers to quench your questions
           </p>
@@ -189,12 +226,12 @@ const Index: React.FC<{}> = () => {
           </h2>
           <div className="mt-8 flex lg:flex-shrink-0 lg:mt-0">
             <div className="inline-flex rounded-md shadow">
-              <a
-                href="#"
+              <NextLink
+                href="/register"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-gradient-to-r text-white from-teal-500 to-blue-500 hover:from-teal-400 hover:to-blue-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
               >
                 Get started
-              </a>
+              </NextLink>
             </div>
             <div className="ml-3 inline-flex rounded-md shadow">
               <a
