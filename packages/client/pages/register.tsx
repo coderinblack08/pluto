@@ -1,27 +1,11 @@
 import React from 'react';
-import * as Yup from 'yup';
-import { Form, Formik, validateYupSchema, yupToFormErrors } from 'formik';
+import { registerSchema } from '@pluto/common';
+import { Form, Formik, yupToFormErrors } from 'formik';
 import { LockClosed } from 'heroicons-react';
 import { InputField } from '../components/forms/InputField';
 import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 import { NextLink } from '../components/shared/nextlink';
-
-const registerSchema = Yup.object().shape({
-  name: Yup.string()
-    .max(255, 'Full Name exceed the character limit')
-    .required('Full name is required'),
-  email: Yup.string()
-    .email()
-    .max(255, 'Email Address exceed the character limit')
-    .required('Email Address is required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required'),
-  passwordConfirmation: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Please confirm your password'),
-});
 
 const Register: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
-import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import React from 'react';
+import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 
@@ -47,8 +47,8 @@ const Index: React.FC<{}> = () => {
         </div>
         <img
           src="../static/skeleton.svg"
-          alt="Skeleton Graphic"
-          className="hidden md:block absolute top-0 right-0 mt-10 md:-mt-10 lg:-mt-32 xl:-mt-48 -mr-32 md:-mr-48 xl:-mr-64 xl:max-w-6xl z-0 opacity-75"
+          className="select-none hidden md:block absolute top-0 right-0 mt-10 md:-mt-10 lg:-mt-32 xl:-mt-48 -mr-32 md:-mr-48 xl:-mr-64 xl:max-w-6xl z-0 opacity-75"
+          aria-hidden
         />
         <div className="hidden md:flex justify-center text-gray-600 hover:text-gray-800 animate-bounce">
           <a href="#features">
@@ -126,7 +126,7 @@ const Index: React.FC<{}> = () => {
           </h2>
           <img
             src="../static/dots.svg"
-            className="absolute top-0 left-0 h-full mt-3 z-0"
+            className="select-none absolute top-0 left-0 h-full mt-3 z-0"
             aria-hidden
           />
           <p className="relative z-10 font-bold text-xl md:text-2xl max-w-xs sm:max-w-none mx-auto mt-2 text-gray-700">

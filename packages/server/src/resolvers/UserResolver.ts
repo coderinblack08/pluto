@@ -1,7 +1,7 @@
 import argon2 from 'argon2';
 import { Arg, Mutation, Resolver } from 'type-graphql';
 import { User } from '../entity/User';
-import { RegisterArgs } from '../types/graphql/UserArgs';
+import { LoginArgs, RegisterArgs } from '../types/graphql/UserArgs';
 import { UserResponse } from '../types/graphql/UserResponse';
 
 const generateError = (field: string, message: string): UserResponse => {
@@ -24,5 +24,23 @@ export class UserResolver {
         return generateError('email', 'Email already exists');
       }
     }
+  }
+
+  @Mutation(() => UserResponse)
+  async login(@Arg('options') options: LoginArgs): Promise<UserResponse> {
+    const user = await User.findOne({
+      where: { email: options.email },
+    });
+    if (!user) {
+      return generateError('email', "Email doesn't exist");
+    }
+    const passwordMatches = await argon2.verify(
+      user.password,
+      options.password
+    );
+    if (!passwordMatches) {
+      return generateError('password', 'Password incorrect');
+    }
+    return { user };
   }
 }
