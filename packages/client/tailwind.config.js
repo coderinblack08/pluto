@@ -12,6 +12,9 @@ module.exports = {
       colors: {
         'gray-50': '#f9fafb',
       },
+      boxShadow: {
+        error: '0 0 0 3px #fed7d7',
+      },
       width: {
         14: '3.5rem',
       },

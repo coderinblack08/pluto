@@ -61,7 +61,7 @@ const Register: React.FC = () => {
                     name="school"
                     type="checkbox"
                     wrapper="flex items-center flex-row-reverse"
-                    className="form-checkbox transition ease duration-200 mr-2"
+                    className="form-checkbox border-gray-400 cursor-pointer transition ease duration-200 mr-2"
                     labelStyles="text-gray-700"
                     label="School Account?"
                   />

@@ -26,7 +26,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     <div className={wrapper || undefined}>
       <label
         htmlFor={field.name}
-        className={labelStyles || 'font-semibold text-gray-700 mb-1'}
+        className={labelStyles || 'font-semibold text-gray-700'}
       >
         {label}
       </label>
@@ -37,8 +37,10 @@ export const InputField: React.FC<InputFieldProps> = ({
         className={classNames(
           props.className
             ? props.className
-            : 'form-input w-full transition ease duration-200 shadow-sm',
-          { 'border-2 border-red-200 text-red-600': hasError }
+            : 'mt-1 px-3 py-2 rounded-md border focus:outline-none focus:shadow-outline w-full transition ease duration-200 shadow-sm',
+          {
+            'border-2 border-red-300 text-red-600 focus:shadow-error': hasError,
+          }
         )}
       />
       {hasError ? (

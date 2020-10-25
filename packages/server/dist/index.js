@@ -39,7 +39,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
 require("reflect-metadata");
+var ioredis_1 = __importDefault(require("ioredis"));
 var express_1 = __importDefault(require("express"));
 var typeorm_1 = require("typeorm");
 var apollo_server_express_1 = require("apollo-server-express");
@@ -47,8 +49,11 @@ var HelloResolver_1 = require("./resolvers/HelloResolver");
 var type_graphql_1 = require("type-graphql");
 var constants_1 = require("./constants");
 var UserResolver_1 = require("./resolvers/UserResolver");
+var express_session_1 = __importDefault(require("express-session"));
+var connect_redis_1 = __importDefault(require("connect-redis"));
+var cors_1 = __importDefault(require("cors"));
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var app, apolloServer, _a;
+    var app, RedisStore, redis, apolloServer, _a;
     var _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -56,6 +61,28 @@ var UserResolver_1 = require("./resolvers/UserResolver");
             case 1:
                 _c.sent();
                 app = express_1.default();
+                RedisStore = connect_redis_1.default(express_session_1.default);
+                redis = new ioredis_1.default();
+                app.use(cors_1.default({
+                    origin: constants_1.client_url,
+                    credentials: true,
+                }));
+                app.use(express_session_1.default({
+                    name: constants_1.cookie_name,
+                    store: new RedisStore({
+                        client: redis,
+                        disableTouch: true,
+                    }),
+                    cookie: {
+                        maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+                        httpOnly: true,
+                        secure: constants_1.__prod__,
+                        sameSite: 'lax',
+                    },
+                    saveUninitialized: false,
+                    secret: process.env.SESSION_SECRET,
+                    resave: false,
+                }));
                 _a = apollo_server_express_1.ApolloServer.bind;
                 _b = {};
                 return [4 /*yield*/, type_graphql_1.buildSchema({
@@ -66,7 +93,7 @@ var UserResolver_1 = require("./resolvers/UserResolver");
                 apolloServer = new (_a.apply(apollo_server_express_1.ApolloServer, [void 0, (_b.schema = _c.sent(),
                         _b.context = function (_a) {
                             var req = _a.req, res = _a.res;
-                            return ({ req: req, res: res });
+                            return ({ req: req, res: res, redis: redis });
                         },
                         _b)]))();
                 apolloServer.applyMiddleware({ app: app, cors: false });

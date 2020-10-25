@@ -1,8 +1,9 @@
 import argon2 from 'argon2';
-import { Arg, Mutation, Resolver } from 'type-graphql';
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 import { User } from '../entity/User';
 import { LoginArgs, RegisterArgs } from '../types/graphql/UserArgs';
 import { UserResponse } from '../types/graphql/UserResponse';
+import { MyContext } from '../types/MyContext';
 
 const generateError = (field: string, message: string): UserResponse => {
   return { errors: [{ field, message }] };
@@ -18,6 +19,7 @@ export class UserResolver {
         ...options,
         password: hashedPassword,
       }).save();
+
       return { user };
     } catch (error) {
       if (error.code === '23505' && error.detail.endsWith('already exists.')) {
@@ -27,20 +29,29 @@ export class UserResolver {
   }
 
   @Mutation(() => UserResponse)
-  async login(@Arg('options') options: LoginArgs): Promise<UserResponse> {
+  async login(
+    @Arg('options') options: LoginArgs,
+    @Ctx() { req }: MyContext
+  ): Promise<UserResponse> {
     const user = await User.findOne({
       where: { email: options.email },
     });
+
     if (!user) {
       return generateError('email', "Email doesn't exist");
     }
+
     const passwordMatches = await argon2.verify(
       user.password,
       options.password
     );
+
     if (!passwordMatches) {
       return generateError('password', 'Password incorrect');
     }
+
+    req.session.userId = user.id;
+
     return { user };
   }
 }
