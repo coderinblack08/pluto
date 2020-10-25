@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChevronDown, MenuAlt4 } from 'heroicons-react';
+import { ChevronDown, MenuAlt4, X } from 'heroicons-react';
 import React from 'react';
 import { useMeQuery } from '../../../generated/graphql';
 import { UserDropdown } from '../dropdown/user';
