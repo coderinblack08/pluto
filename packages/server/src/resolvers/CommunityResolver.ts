@@ -3,6 +3,9 @@ import { Community } from '../entity/Community';
 import { MyContext } from '../types/MyContext';
 import { CommunityArgs } from '../types/graphql/community/CommunityArgs';
 import { CommunityResponse } from '../types/graphql/community/CommunityResponse';
+import { PaginatedCommunitiesArgs } from '../types/graphql/community/pagination/PaginatedCommunitiesArgs';
+import { getConnection } from 'typeorm';
+import { PaginatedCommunities } from '../types/graphql/community/pagination/PaginatedCommunities';
 
 @Resolver()
 export class CommunityResolver {
@@ -22,8 +25,30 @@ export class CommunityResolver {
     }
   }
 
-  @Query(() => [Community])
-  async findCommunities(): Promise<Community[]> {
-    return Community.find({ where: { isPrivate: false } });
+  @Query(() => PaginatedCommunities)
+  async findCommunities(
+    @Arg('options', () => PaginatedCommunitiesArgs)
+    options: PaginatedCommunitiesArgs
+  ): Promise<PaginatedCommunities> {
+    const cappedLimit = Math.min(50, options.limit);
+    const queryBuilder = getConnection()
+      .getRepository(Community)
+      .createQueryBuilder('c');
+
+    if (options.cursor) {
+      queryBuilder.where('"createdAt" > :cursor', {
+        cursor: new Date(parseInt(options.cursor)),
+      });
+    }
+
+    const communities = await queryBuilder
+      .orderBy('"createdAt"', 'DESC')
+      .take(cappedLimit + 1)
+      .getMany();
+
+    return {
+      communities: communities.slice(0, cappedLimit),
+      hasMore: communities.length === cappedLimit + 1,
+    };
   }
 }
