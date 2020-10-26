@@ -14,7 +14,8 @@
     "class-validator": "^0.12.2",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
-    "typescript": "4.0.3"
+    "typescript": "4.0.3",
+    "@pluto/common": "1.0.0"
   },
   "dependencies": {
     "apollo-server-express": "^2.17.0",
