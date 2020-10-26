@@ -1,5 +1,5 @@
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 import { ChevronDown, MenuAlt4, X } from 'heroicons-react';
 import { useMeQuery } from '../../../generated/graphql';
 import { UserDropdown } from '../dropdown/user';
@@ -36,9 +36,9 @@ export const Navbar: React.FC = () => {
               alt="Pluto Logo"
               className="w-8 md:h-auto h-8 md:w-auto"
             />
-            <h1 className="text-gray-700 text-2xl md:text-3xl font-medium">
+            <span className="text-gray-700 text-2xl md:text-3xl font-medium">
               Pluto
-            </h1>
+            </span>
           </NextLink>
           <button
             className="flex items-center justify-center md:hidden text-gray-700 hover:text-gray-600 p-3 focus:bg-gray-200 focus:outline-none rounded-md"
@@ -58,7 +58,7 @@ export const Navbar: React.FC = () => {
         >
           <a
             href="#"
-            className="focus:outline-none focus:shadow-outline inline-flex items-center justify-between md:justify-start font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
+            className="inline-flex items-center justify-between md:justify-start font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
           >
             Solutions
             <div className="ml-2 text-gray-600">
@@ -67,20 +67,22 @@ export const Navbar: React.FC = () => {
           </a>
           <a
             href="#"
-            className="focus:outline-none focus:shadow-outline font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
+            className="font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
           >
             Pricing
           </a>
           <a
             href="https://forms.formium.io/f/5f95e07cf0736d000186e6e0"
             target="_blank"
-            className="focus:outline-none focus:shadow-outline font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
+            className="font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
           >
             Contact
           </a>
           <hr className="hidden md:block border-l border-gray-400 h-5 ml-1 mr-2" />
           {!loading && !!me.me ? (
-            <UserDropdown />
+            <div className="ml-3">
+              <UserDropdown />
+            </div>
           ) : (
             <>
               <NextLink
@@ -91,7 +93,7 @@ export const Navbar: React.FC = () => {
               </NextLink>
               <NextLink
                 href="/register"
-                className="mt-3 sm:mt-0 font-medium focus:outline-none focus:shadow-outline inline-block w-full px-4 py-2 bg-gray-800 text-white rounded-md transition ease-in-out duration-150 focus:bg-gray-900 hover:bg-gray-700"
+                className="mt-3 sm:mt-0 font-medium inline-block w-full px-4 py-2 bg-gray-800 text-white rounded-md transition ease-in-out duration-150 focus:bg-gray-900 hover:bg-gray-700"
               >
                 Get Started
               </NextLink>

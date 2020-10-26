@@ -170,7 +170,7 @@ const Index: React.FC<{}> = () => {
             With frequently given answers to quench your questions
           </p>
         </div>
-        <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 py-16 px-5 max-w-5xl mx-auto">
+        <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 py-20 px-5 max-w-5xl mx-auto">
           <div>
             <dt className="faq-question">
               How can I integrate Pluto into my classroom/school?
@@ -209,7 +209,7 @@ const Index: React.FC<{}> = () => {
           </div>
         </dl>
       </div>
-      <div className="bg-gray-100 mt-10 border-t border-gray-200">
+      <div className="bg-gray-100 mt-10 border border-gray-200">
         <div className="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
             Let's get our hands dirty
@@ -236,11 +236,7 @@ const Index: React.FC<{}> = () => {
             <div className="ml-3 inline-flex rounded-md shadow">
               <a
                 href="#"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-gradient-to-r from-teal-500 to-blue-500 bg-white focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
-                style={{
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-white text-teal-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
               >
                 Learn more
               </a>
@@ -248,6 +244,45 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
       </div>
+      <footer className="py-5">
+        <div className="container mx-auto flex items-between justify-between">
+          <NextLink href="/" className="flex items-center">
+            <img
+              src={require('../public/static/logo.svg')}
+              alt="Logo"
+              className="w-10 h-10 mr-2"
+            />
+            <span className="text-gray-700 text-xl md:text-2xl font-medium">
+              Pluto
+            </span>
+          </NextLink>
+          <ul className="flex items-center space-x-4 text-gray-700">
+            <li>
+              <a href="#" className="hover:underline hover:text-gray-900">
+                Pricing
+              </a>
+            </li>
+            <li className="font-black text-gray-600">&middot;</li>
+            <li>
+              <a href="#" className="hover:underline hover:text-gray-900">
+                Privacy Policy
+              </a>
+            </li>
+            <li className="font-black text-gray-600">&middot;</li>
+            <li>
+              <a href="#" className="hover:underline hover:text-gray-900">
+                Terms of Service
+              </a>
+            </li>
+            <li className="font-black text-gray-600">&middot;</li>
+            <li>
+              <a href="#" className="hover:underline hover:text-gray-900">
+                Invest
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </div>
   );
 };
