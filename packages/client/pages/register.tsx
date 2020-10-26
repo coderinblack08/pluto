@@ -7,9 +7,12 @@ import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 import { NextLink } from '../components/shared/nextlink';
 import { useRegisterMutation } from '../generated/graphql';
+import { useRouter } from 'next/router';
 
 const Register: React.FC = () => {
   const [register, { loading }] = useRegisterMutation();
+  const router = useRouter();
+
   return (
     <div>
       <Banner />
@@ -41,6 +44,8 @@ const Register: React.FC = () => {
               const response = await register({
                 variables: { options: values },
               });
+
+              router.push('/dashboard');
 
               console.log(response);
             }}

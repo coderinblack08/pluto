@@ -2,6 +2,7 @@ import { Plus } from 'heroicons-react';
 import React from 'react';
 import { useMeQuery } from '../../../generated/graphql';
 import { UserDropdown } from '../dropdown/user';
+import { NextLink } from '../nextlink';
 
 export const DashboardNavbar: React.FC = ({}) => {
   const { data: me } = useMeQuery();
@@ -9,8 +10,8 @@ export const DashboardNavbar: React.FC = ({}) => {
   return (
     <div className="bg-gray-800 p-4">
       <div className="flex flex-col lg:flex-row items-center justify-between container mx-auto">
-        <div className="flex space-x-10 items-center">
-          <div className="flex items-center space-x-2">
+        <div className="flex space-x-12 items-center">
+          <NextLink href="/dashboard" className="flex items-center space-x-2">
             <img
               src={require('../../../public/static/logo-light.svg')}
               className="w-8 md:h-auto h-8 md:w-auto"
@@ -19,12 +20,12 @@ export const DashboardNavbar: React.FC = ({}) => {
             <span className="text-gray-200 text-xl md:text-2xl font-medium">
               Pluto
             </span>
-          </div>
-          <ul className="flex items-center ml-10 space-x-5">
+          </NextLink>
+          <ul className="flex items-center space-x-5">
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 rounded-md text-gray-200 bg-gray-900 font-medium shadow-inner"
+                className="whitespace-no-wrap px-4 py-3 text-lg rounded-md text-gray-200 bg-gray-900 font-medium shadow-inner"
               >
                 Dashboard
               </a>
@@ -32,7 +33,7 @@ export const DashboardNavbar: React.FC = ({}) => {
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 rounded-md text-gray-300 bg-gray-800 font-medium shadow-inner"
+                className="whitespace-no-wrap px-4 py-3 text-lg rounded-md text-gray-300 bg-gray-800 font-medium shadow-inner"
               >
                 My Communities
               </a>
@@ -40,7 +41,7 @@ export const DashboardNavbar: React.FC = ({}) => {
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 rounded-md text-gray-300 bg-gray-800 font-medium shadow-inner"
+                className="whitespace-no-wrap px-4 py-3 text-lg rounded-md text-gray-300 bg-gray-800 font-medium shadow-inner"
               >
                 Browse
               </a>

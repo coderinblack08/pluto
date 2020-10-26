@@ -52,6 +52,7 @@ var UserResolver_1 = require("./resolvers/UserResolver");
 var express_session_1 = __importDefault(require("express-session"));
 var connect_redis_1 = __importDefault(require("connect-redis"));
 var cors_1 = __importDefault(require("cors"));
+var CommunityResolver_1 = require("./resolvers/CommunityResolver");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var app, RedisStore, redis, apolloServer, _a;
     var _b;
@@ -86,7 +87,7 @@ var cors_1 = __importDefault(require("cors"));
                 _a = apollo_server_express_1.ApolloServer.bind;
                 _b = {};
                 return [4 /*yield*/, type_graphql_1.buildSchema({
-                        resolvers: [HelloResolver_1.HelloResolver, UserResolver_1.UserResolver],
+                        resolvers: [HelloResolver_1.HelloResolver, UserResolver_1.UserResolver, CommunityResolver_1.CommunityResolver],
                         validate: false,
                     })];
             case 2:

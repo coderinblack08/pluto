@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
               <SortDescendingOutline size={18} className="mr-2" />
               Sort By
             </button>
-            <div className="cursor-pointer flex items-center space-x-1 text-gray-500 bg-gray-100 p-1 shadow-inner rounded-md">
+            <div className="cursor-pointer flex items-center space-x-2 text-gray-500 bg-gray-100 p-1 shadow-inner rounded-md">
               <div className="p-2 bg-white rounded-md shadow-md">
                 <ViewGrid />
               </div>

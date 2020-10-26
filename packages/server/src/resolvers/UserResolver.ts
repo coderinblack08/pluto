@@ -2,8 +2,8 @@ import argon2 from 'argon2';
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { cookie_name } from '../constants';
 import { User } from '../entity/User';
-import { LoginArgs, RegisterArgs } from '../types/graphql/UserArgs';
-import { UserResponse } from '../types/graphql/UserResponse';
+import { LoginArgs, RegisterArgs } from '../types/graphql/user/UserArgs';
+import { UserResponse } from '../types/graphql/user/UserResponse';
 import { MyContext } from '../types/MyContext';
 
 const generateError = (field: string, message: string): UserResponse => {

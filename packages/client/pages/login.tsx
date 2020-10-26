@@ -51,7 +51,7 @@ const Login: React.FC = () => {
                 },
               });
 
-              router.push('/');
+              router.push('/dashboard');
 
               console.log(response);
             }}
