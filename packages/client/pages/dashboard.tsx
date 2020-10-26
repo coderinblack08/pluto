@@ -1,28 +1,28 @@
 import { Collection, SortDescendingOutline, ViewGrid } from 'heroicons-react';
 import React from 'react';
-import { DashboardNavbar } from '../components/shared/navigation/DashboardNavbar';
+import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 
 const Dashboard: React.FC = () => {
   return (
     <div>
-      <DashboardNavbar />
+      <AuthenticatedNavbar />
       <div className="bg-white w-full">
         <div className="flex items-center justify-between px-5 container mx-auto border-b py-6">
           <h3 className="text-xl text-gray-800 font-medium">
             <span className="font-medium">12</span> Communities
           </h3>
           <div className="flex items-center space-x-5">
-            <button className="inline-flex items-center border shadow-sm rounded-md px-4 py-2 text-gray-600">
+            <button className="focus:outline-none focus:shadow-outline inline-flex items-center border shadow-sm rounded-md px-4 py-2 text-gray-600">
               <SortDescendingOutline size={18} className="mr-2" />
               Sort By
             </button>
             <div className="cursor-pointer flex items-center space-x-2 text-gray-500 bg-gray-100 p-1 shadow-inner rounded-md">
-              <div className="p-2 bg-white rounded-md shadow-md">
+              <button className="focus:outline-none p-2 bg-white rounded-md shadow-md">
                 <ViewGrid />
-              </div>
-              <div className="p-2 rounded-sm">
+              </button>
+              <button className="focus:outline-none p-2 rounded-sm">
                 <Collection />
-              </div>
+              </button>
             </div>
           </div>
         </div>

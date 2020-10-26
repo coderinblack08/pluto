@@ -1,11 +1,15 @@
 import { Plus } from 'heroicons-react';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useMeQuery } from '../../../generated/graphql';
 import { UserDropdown } from '../dropdown/user';
 import { NextLink } from '../nextlink';
 
-export const DashboardNavbar: React.FC = ({}) => {
+export const AuthenticatedNavbar: React.FC = ({}) => {
   const { data: me } = useMeQuery();
+  const router = useRouter();
+
+  const isOnRoute = (route: string) => router.pathname === route;
 
   return (
     <div className="bg-gray-800 p-4">
@@ -25,7 +29,7 @@ export const DashboardNavbar: React.FC = ({}) => {
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 text-lg rounded-md text-gray-200 bg-gray-900 font-medium shadow-inner"
+                className="whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-100 hover:bg-opacity-75 transition ease duration-200 bg-gray-900 font-medium shadow-inner"
               >
                 Dashboard
               </a>
@@ -33,7 +37,7 @@ export const DashboardNavbar: React.FC = ({}) => {
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 text-lg rounded-md text-gray-300 bg-gray-800 font-medium shadow-inner"
+                className="whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner"
               >
                 My Communities
               </a>
@@ -41,7 +45,7 @@ export const DashboardNavbar: React.FC = ({}) => {
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 text-lg rounded-md text-gray-300 bg-gray-800 font-medium shadow-inner"
+                className="whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner"
               >
                 Browse
               </a>
@@ -49,10 +53,13 @@ export const DashboardNavbar: React.FC = ({}) => {
           </ul>
         </div>
         <div className="flex items-center space-x-4 mt-5 lg:mt-0">
-          <button className="shadow-lg leading-none flex items-center px-4 py-2 text-white font-medium rounded-md bg-indigo-500">
+          <NextLink
+            href="/create-community"
+            className="focus:outline-none focus:shadow-outline shadow-lg leading-none flex items-center px-4 py-2 text-white font-medium rounded-md bg-indigo-500"
+          >
             <Plus size={25} className="mr-1" />
             Create
-          </button>
+          </NextLink>
           {!!me ? <UserDropdown dark /> : null}
         </div>
       </div>
