@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 import { NextLink } from '../components/shared/nextlink';
+import { useMeQuery } from '../generated/graphql';
+import { useRouter } from 'next/router';
 
 const Index: React.FC<{}> = () => {
+  const { data: me, loading } = useMeQuery();
+  const router = useRouter();
+  useEffect(() => {
+    if (!loading && me.me) {
+      router.push('/dashboard');
+    }
+  }, [me, loading]);
+
   return (
     <div className="overflow-hidden">
       <Banner />
@@ -244,37 +254,47 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <footer className="py-5">
-        <div className="container mx-auto flex items-between justify-between">
-          <NextLink href="/" className="flex items-center">
-            <img
-              src={require('../public/static/logo.svg')}
-              alt="Logo"
-              className="w-10 h-10 mr-2"
-            />
-            <span className="text-gray-700 text-xl md:text-2xl font-medium">
-              Pluto
-            </span>
-          </NextLink>
-          <ul className="flex items-center space-x-4 text-gray-700">
+      <footer className="py-6">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center">
+            <NextLink href="/" className="flex items-center">
+              <img
+                src={require('../public/static/logo.svg')}
+                alt="Logo"
+                className="w-8 h-8 mr-2"
+              />
+              <span className="text-gray-700 text-lg md:text-xl font-medium">
+                Pluto
+              </span>
+            </NextLink>
+            <p className="text-sm text-gray-600 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
+              © 2020 pluto —
+              <a
+                href="https://github.com/coderinblack08"
+                className="text-gray-600 ml-1"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                @coderinblack
+              </a>
+            </p>
+          </div>
+          <ul className="flex items-center space-x-8 font-base text-sm text-gray-600">
             <li>
-              <a href="#" className="hover:underline hover:text-gray-900">
+              <a href="#" className="hover:underline hover:text-gray-700">
                 Pricing
               </a>
             </li>
-            <li className="font-black text-gray-600">&middot;</li>
             <li>
-              <a href="#" className="hover:underline hover:text-gray-900">
+              <a href="#" className="hover:underline hover:text-gray-800">
                 Privacy Policy
               </a>
             </li>
-            <li className="font-black text-gray-600">&middot;</li>
             <li>
               <a href="#" className="hover:underline hover:text-gray-900">
                 Terms of Service
               </a>
             </li>
-            <li className="font-black text-gray-600">&middot;</li>
             <li>
               <a href="#" className="hover:underline hover:text-gray-900">
                 Invest

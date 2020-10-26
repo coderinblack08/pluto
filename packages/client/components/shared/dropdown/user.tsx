@@ -1,11 +1,14 @@
 import { useApolloClient } from '@apollo/client';
 import { Menu, Transition } from '@headlessui/react';
+import classNames from 'classnames';
 import { ChevronDown } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useLogoutMutation, useMeQuery } from '../../../generated/graphql';
 
-export const UserDropdown: React.FC = ({}) => {
+export const UserDropdown: React.FC<{ dark?: boolean }> = ({
+  dark = false,
+}) => {
   const { data: me } = useMeQuery();
   const [logout] = useLogoutMutation();
   const apolloClient = useApolloClient();
@@ -17,9 +20,23 @@ export const UserDropdown: React.FC = ({}) => {
         {({ open }) => (
           <>
             <span className="rounded-sm shadow-sm">
-              <Menu.Button className="inline-flex items-center justify-center w-full px-3 py-2 leading-5 text-gray-700 transition duration-150 ease-in-out bg-white rounded-sm hover:text-gray-600 focus:outline-none focus:shadow-outline active:bg-gray-50 active:text-gray-800">
+              <Menu.Button
+                className={classNames(
+                  'inline-flex items-center justify-center w-full leading-5 transition duration-150 ease-in-out rounded-md focus:outline-none focus:shadow-outline active:bg-gray-50 active:text-gray-800',
+                  {
+                    'hover:text-gray-300 text-gray-200 bg-gray-900 px-4 py-3': dark,
+                    'hover:text-gray-600 text-gray-700 bg-white px-3 py-2': !dark,
+                  }
+                )}
+              >
                 <span>{me.me?.name}</span>
-                <ChevronDown className="ml-2 -mr-1 text-gray-600" size={18} />
+                <ChevronDown
+                  className={classNames('ml-2 -mr-1', {
+                    'text-gray-300': dark,
+                    'text-gray-600': !dark,
+                  })}
+                  size={18}
+                />
               </Menu.Button>
             </span>
             <Transition
@@ -69,7 +86,7 @@ export const UserDropdown: React.FC = ({}) => {
                             : 'text-gray-700'
                         } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
                       >
-                        Support
+                        Upgrade
                       </a>
                     )}
                   </Menu.Item>
