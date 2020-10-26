@@ -2,9 +2,11 @@ import { useApolloClient } from '@apollo/client';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { ChevronDown } from 'heroicons-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useLogoutMutation, useMeQuery } from '../../../generated/graphql';
+import { NextLink } from '../nextlink';
 
 export const UserDropdown: React.FC<{ dark?: boolean }> = ({
   dark = false,
@@ -78,8 +80,8 @@ export const UserDropdown: React.FC<{ dark?: boolean }> = ({
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#support"
+                      <button
+                        onClick={() => router.push('/pricing')}
                         className={`${
                           active
                             ? 'bg-indigo-500 text-white font-semibold'
@@ -87,7 +89,7 @@ export const UserDropdown: React.FC<{ dark?: boolean }> = ({
                         } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
                       >
                         Upgrade
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                 </div>

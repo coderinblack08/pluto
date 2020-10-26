@@ -30,6 +30,10 @@ export class User extends BaseEntity {
   @Column('bool', { default: 'false' })
   schoolAccount: boolean;
 
+  @Field(() => Boolean)
+  @Column({ default: 'free' })
+  subscription: string;
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;

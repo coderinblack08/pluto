@@ -65,12 +65,12 @@ export const Navbar: React.FC = () => {
               <ChevronDown size={18} />
             </div>
           </a>
-          <a
-            href="#"
+          <NextLink
+            href="/pricing"
             className="font-normal box-border text-gray-700 md:mr-4 px-3 py-2 md:ml-1 hover:bg-gray-200 md:hover:bg-transparent md:hover:text-gray-900 w-full rounded-sm"
           >
             Pricing
-          </a>
+          </NextLink>
           <a
             href="https://forms.formium.io/f/5f95e07cf0736d000186e6e0"
             target="_blank"

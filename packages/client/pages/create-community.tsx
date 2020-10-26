@@ -1,11 +1,63 @@
+import React from 'react';
 import classNames from 'classnames';
 import { Form, Formik } from 'formik';
-import { isNode } from 'graphql/language/ast';
 import { CogOutline, GlobeAltOutline } from 'heroicons-react';
-import React from 'react';
 import { InputField } from '../components/forms/InputField';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { Tabs } from '../components/shared/tabs';
+import { toFormikValues } from '../utils/toFormikValues';
+
+const firstTabPanel = (
+  <div className="p-8 space-y-8">
+    <div className="max-w-lg">
+      <InputField name="name" placeholder="Example" label="Name" />
+    </div>
+    <div className="max-w-lg">
+      <InputField
+        name="website"
+        placeholder="https://example.com"
+        label="Website"
+      />
+    </div>
+    <div className="max-w-xl">
+      <InputField
+        name="about"
+        placeholder="Example..."
+        footer="Describe your community with a few words"
+        label="About"
+        textarea
+      />
+    </div>
+  </div>
+);
+
+const secondTabPanel = (
+  <div className="p-8 space-y-8">
+    <div className="max-w-lg">
+      <InputField
+        name="email"
+        placeholder="contact@example.com"
+        label="Email Address (optional)"
+      />
+    </div>
+    <div className="max-w-lg">
+      <InputField
+        name="location"
+        placeholder="Location"
+        label="Location (optional)"
+      />
+    </div>
+    <div className="max-w-xl">
+      <InputField
+        name="about"
+        placeholder="Example..."
+        footer="Describe your community with a few words"
+        label="About"
+        textarea
+      />
+    </div>
+  </div>
+);
 
 const Create: React.FC = () => {
   return (
@@ -18,8 +70,8 @@ const Create: React.FC = () => {
         <div className="container mx-auto px-5">
           <Tabs numberOfTabs={2}>
             {({ onTab, setTab }) => (
-              <div className="flex items-start gap-x-10">
-                <div className="flex flex-col max-w-xs w-full space-y-5">
+              <div className="flex items-start flex-col lg:flex-row lg:space-x-8">
+                <div className="flex flex-col max-w-xs md:max-w-none md:flex-row lg:flex-col lg:max-w-xs xl:max-w-sm w-full space-y-5 mb-5 lg:mb-0">
                   <button
                     role="tab"
                     className={classNames('p-5 rounded-md focus:outline-none', {
@@ -71,38 +123,18 @@ const Create: React.FC = () => {
                 </div>
                 <div className="w-full">
                   <Formik
-                    initialValues={{ name: '', about: '', website: '' }}
+                    initialValues={toFormikValues([
+                      'name',
+                      'about',
+                      'website',
+                      'email',
+                      'location',
+                    ])}
                     onSubmit={(values) => console.log(values)}
                   >
                     {() => (
                       <Form className="bg-white shadow-md rounded-lg">
-                        {onTab(0) ? (
-                          <div className="p-8 space-y-8">
-                            <div className="max-w-lg">
-                              <InputField
-                                name="name"
-                                placeholder="Example"
-                                label="Name"
-                              />
-                            </div>
-                            <div className="max-w-lg">
-                              <InputField
-                                name="website"
-                                placeholder="https://example.com"
-                                label="Website"
-                              />
-                            </div>
-                            <div className="max-w-xl">
-                              <InputField
-                                name="about"
-                                placeholder="Example..."
-                                footer="Describe your community with a few words"
-                                label="About"
-                                textarea
-                              />
-                            </div>
-                          </div>
-                        ) : null}
+                        {onTab(0) ? firstTabPanel : secondTabPanel}
                         <div className="mt-10 space-x-3 flex rounded-b-md items-center justify-end py-2 px-3 border-t border-gray-200 bg-gray-50">
                           <button className="focus:outline-none focus:shadow-outline px-6 py-3 rounded-md shadow-md bg-white text-indigo-500">
                             Save
