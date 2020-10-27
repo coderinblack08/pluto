@@ -10,6 +10,7 @@ import {
   CommunityArgs,
   useCreateCommunityMutation,
 } from '../generated/graphql';
+import { useRouter } from 'next/router';
 
 const onKeyDown = (keyEvent) => {
   if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
@@ -71,6 +72,7 @@ const secondTabPanel = (
 
 const Create: React.FC = () => {
   const [createCommunity] = useCreateCommunityMutation();
+  const router = useRouter();
 
   return (
     <div>
@@ -89,7 +91,7 @@ const Create: React.FC = () => {
                     className={classNames(
                       'flex flex-col items-start py-5 px-8 rounded-md focus:outline-none',
                       {
-                        'bg-white shadow-sm': onTab(0),
+                        'bg-white shadow': onTab(0),
                       }
                     )}
                     onClick={() => setTab(0)}
@@ -113,7 +115,7 @@ const Create: React.FC = () => {
                     className={classNames(
                       'flex flex-col items-start py-5 px-8 rounded-md focus:outline-none ',
                       {
-                        'bg-white shadow-sm': onTab(1),
+                        'bg-white shadow': onTab(1),
                       }
                     )}
                   >
@@ -153,6 +155,9 @@ const Create: React.FC = () => {
                           variables: { options: values as CommunityArgs },
                         });
                         console.log(community);
+                        router.push(
+                          `/c?id=${community.data.createCommunity.community.id}`
+                        );
                       } catch (error) {
                         console.error(error);
                       }

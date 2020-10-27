@@ -133,7 +133,7 @@ export type CommunityArgs = {
 
 export type CommunityFragment = (
   { __typename?: 'Community' }
-  & Pick<Community, 'name' | 'about' | 'email' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
+  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
 );
 
 export type ErrorFragment = (
@@ -231,6 +231,7 @@ export type MeQuery = (
 
 export const CommunityFragmentDoc = gql`
     fragment Community on Community {
+  id
   name
   about
   email

@@ -43,7 +43,7 @@ export const InputField: React.FC<InputFieldProps> = ({
               ? props.className
               : 'text-gray-800 mt-1 px-3 py-2 rounded-md border focus:outline-none focus:shadow-outline w-full transition ease duration-200 shadow-sm',
             {
-              'border-2 border-red-300 text-red-600 focus:shadow-error': hasError,
+              'border-2 border-red-400 text-red-600 focus:shadow-error': hasError,
               'focus:border focus:border-blue-400': !hasError,
             }
           )}
@@ -59,7 +59,7 @@ export const InputField: React.FC<InputFieldProps> = ({
                 ? props.className
                 : 'text-gray-800 mt-1 px-3 py-2 h-32 border focus:outline-none focus:shadow-outline w-full transition ease duration-200 shadow-sm',
               {
-                'border-2 border-red-300 text-red-600 focus:shadow-error': hasError,
+                'border-2 border-red-400 text-red-600 focus:shadow-error': hasError,
                 'focus:border focus:border-blue-400': !hasError,
                 'rounded-t-md': !!footer,
                 'rounded-md': !footer,
@@ -74,7 +74,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         </div>
       )}
       {hasError ? (
-        <p className="flex items-center text-red-500 mt-1">
+        <p className="flex items-center text-red-500 mt-2">
           <ExclamationCircle size={18} className="mr-1" />
           {error}
         </p>

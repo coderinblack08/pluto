@@ -1,4 +1,5 @@
 fragment Community on Community {
+  id
   name
   about
   email
