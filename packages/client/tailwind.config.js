@@ -22,6 +22,9 @@ module.exports = {
       maxWidth: {
         'sm-md': '26rem',
       },
+      padding: {
+        7: '1.75rem',
+      },
     },
   },
   variants: [
