@@ -52,6 +52,7 @@ import { CommunityResolver } from './resolvers/CommunityResolver';
       resolvers: [HelloResolver, UserResolver, CommunityResolver],
       validate: false,
     }),
+    // extensions: [() => new BasicLogging()],
     context: ({ req, res }) => ({ req, res, redis }),
   });
 

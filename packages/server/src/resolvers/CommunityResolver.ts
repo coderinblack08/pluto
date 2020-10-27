@@ -6,6 +6,8 @@ import { CommunityResponse } from '../types/graphql/community/CommunityResponse'
 import { PaginatedCommunitiesArgs } from '../types/graphql/community/pagination/PaginatedCommunitiesArgs';
 import { getConnection } from 'typeorm';
 import { PaginatedCommunities } from '../types/graphql/community/pagination/PaginatedCommunities';
+import { communitySchema } from '@pluto/common';
+import { parseYupErrors } from '../utils/parseYupErrors';
 
 @Resolver()
 export class CommunityResolver {
@@ -14,6 +16,12 @@ export class CommunityResolver {
     @Arg('options', () => CommunityArgs) options: CommunityArgs,
     @Ctx() { req }: MyContext
   ): Promise<CommunityResponse> {
+    try {
+      await communitySchema.validate(options);
+    } catch (error) {
+      return { errors: [parseYupErrors(error)] };
+    }
+
     try {
       const community = await Community.create({
         ...options,

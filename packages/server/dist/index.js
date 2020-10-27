@@ -92,6 +92,7 @@ var CommunityResolver_1 = require("./resolvers/CommunityResolver");
                     })];
             case 2:
                 apolloServer = new (_a.apply(apollo_server_express_1.ApolloServer, [void 0, (_b.schema = _c.sent(),
+                        // extensions: [() => new BasicLogging()],
                         _b.context = function (_a) {
                             var req = _a.req, res = _a.res;
                             return ({ req: req, res: res, redis: redis });

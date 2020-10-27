@@ -1,10 +1,12 @@
 import argon2 from 'argon2';
+import { registerSchema } from '@pluto/common';
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { cookie_name } from '../constants';
 import { User } from '../entity/User';
 import { LoginArgs, RegisterArgs } from '../types/graphql/user/UserArgs';
 import { UserResponse } from '../types/graphql/user/UserResponse';
 import { MyContext } from '../types/MyContext';
+import { parseYupErrors } from '../utils/parseYupErrors';
 
 const generateError = (field: string, message: string): UserResponse => {
   return { errors: [{ field, message }] };
@@ -35,6 +37,12 @@ export class UserResolver {
 
     const hashedPassword = await argon2.hash(options.password);
     delete options.confirmPassword;
+
+    try {
+      await registerSchema.validate(options);
+    } catch (error) {
+      return { errors: [parseYupErrors(error)] };
+    }
 
     try {
       const user = await User.create({

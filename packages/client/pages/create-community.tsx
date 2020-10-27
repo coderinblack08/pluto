@@ -5,8 +5,11 @@ import { communitySchema } from '@pluto/common';
 import { InputField } from '../components/forms/InputField';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { Tabs } from '../components/shared/tabs';
-import { toFormikValues } from '../utils/toFormikValues';
 import { TagsField } from '../components/forms/TagField';
+import {
+  CommunityArgs,
+  useCreateCommunityMutation,
+} from '../generated/graphql';
 
 const onKeyDown = (keyEvent) => {
   if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
@@ -29,7 +32,7 @@ const secondTabPanel = (
     <div className="max-w-lg">
       <InputField
         type="number"
-        name="maximumMembers"
+        name="maxParticipants"
         placeholder="50"
         label="Maximum Members"
       />
@@ -67,6 +70,8 @@ const secondTabPanel = (
 );
 
 const Create: React.FC = () => {
+  const [createCommunity] = useCreateCommunityMutation();
+
   return (
     <div>
       <AuthenticatedNavbar />
@@ -78,7 +83,7 @@ const Create: React.FC = () => {
           <Tabs numberOfTabs={2}>
             {({ onTab, setTab }) => (
               <div className="flex items-start flex-col lg:flex-row lg:space-x-8">
-                <div className="flex flex-col max-w-xs md:max-w-none md:flex-row lg:flex-col lg:max-w-xs xl:max-w-sm w-full space-y-5 mb-5 lg:mb-0">
+                <div className="flex flex-col max-w-xs md:max-w-none md:flex-row lg:flex-col lg:max-w-xs xl:max-w-sm w-full lg:space-y-5 mb-5 lg:mb-0">
                   <button
                     type="button"
                     className={classNames(
@@ -106,7 +111,7 @@ const Create: React.FC = () => {
                     type="button"
                     onClick={() => setTab(1)}
                     className={classNames(
-                      'flex flex-col items-start py-5 px-8 rounded-md focus:outline-none',
+                      'flex flex-col items-start py-5 px-8 rounded-md focus:outline-none ',
                       {
                         'bg-white shadow-sm': onTab(1),
                       }
@@ -128,22 +133,30 @@ const Create: React.FC = () => {
                 </div>
                 <div className="w-full">
                   <Formik
-                    initialValues={toFormikValues([
-                      'name',
-                      'about',
-                      'website',
-                      'email',
-                      'location',
-                      'tags',
-                      'isPrivate',
-                      'isSchool',
-                      'maximumMembers',
-                      'emailNotifications',
-                    ])}
+                    initialValues={{
+                      name: '',
+                      about: '',
+                      website: '',
+                      email: '',
+                      location: '',
+                      tags: [],
+                      isPrivate: false,
+                      isSchool: false,
+                      emailNotifications: false,
+                    }}
                     validationSchema={communitySchema}
                     validateOnChange={false}
                     validateOnBlur={false}
-                    onSubmit={(values) => console.log(values)}
+                    onSubmit={async (values) => {
+                      try {
+                        const community = await createCommunity({
+                          variables: { options: values as CommunityArgs },
+                        });
+                        console.log(community);
+                      } catch (error) {
+                        console.error(error);
+                      }
+                    }}
                   >
                     {({ setFieldValue }) => (
                       <Form
@@ -156,7 +169,12 @@ const Create: React.FC = () => {
                               <InputField
                                 name="name"
                                 placeholder="Example"
-                                label="Name*"
+                                label={
+                                  <p>
+                                    Name
+                                    <span className="text-red-500 ml-1">*</span>
+                                  </p>
+                                }
                               />
                             </div>
                             <div className="max-w-lg">
@@ -181,7 +199,7 @@ const Create: React.FC = () => {
                                 label={
                                   <p>
                                     About
-                                    <span className="text-red-500">*</span>
+                                    <span className="text-red-500 ml-1">*</span>
                                   </p>
                                 }
                                 textarea

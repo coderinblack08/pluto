@@ -7,7 +7,6 @@ export const communitySchema = Yup.object().shape({
   email: Yup.string().email(),
   website: Yup.string().url(),
   about: Yup.string()
-    .email()
     .max(1e5, 'About exceeds the character limit')
     .required('About is required'),
   location: Yup.string(),

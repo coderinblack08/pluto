@@ -15,6 +15,12 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
+  findCommunities: PaginatedCommunities;
+};
+
+
+export type QueryFindCommunitiesArgs = {
+  options: PaginatedCommunitiesArgs;
 };
 
 export type User = {
@@ -23,8 +29,39 @@ export type User = {
   name: Scalars['String'];
   email: Scalars['String'];
   schoolAccount: Scalars['Boolean'];
+  subscription: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+export type PaginatedCommunities = {
+  __typename?: 'PaginatedCommunities';
+  communities: Array<Community>;
+  hasMore: Scalars['Boolean'];
+};
+
+export type Community = {
+  __typename?: 'Community';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  about: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
+  tags: Array<Scalars['String']>;
+  maxParticipants?: Maybe<Scalars['Int']>;
+  isSchool: Scalars['Boolean'];
+  isPrivate: Scalars['Boolean'];
+  emailNotifications: Scalars['Boolean'];
+  creatorId: Scalars['Float'];
+  creator: User;
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type PaginatedCommunitiesArgs = {
+  limit: Scalars['Float'];
+  cursor?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -32,6 +69,7 @@ export type Mutation = {
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
+  createCommunity: CommunityResponse;
 };
 
 
@@ -42,6 +80,11 @@ export type MutationRegisterArgs = {
 
 export type MutationLoginArgs = {
   options: LoginArgs;
+};
+
+
+export type MutationCreateCommunityArgs = {
+  options: CommunityArgs;
 };
 
 export type UserResponse = {
@@ -69,6 +112,30 @@ export type LoginArgs = {
   password: Scalars['String'];
 };
 
+export type CommunityResponse = {
+  __typename?: 'CommunityResponse';
+  errors?: Maybe<Array<Error>>;
+  community?: Maybe<Community>;
+};
+
+export type CommunityArgs = {
+  name: Scalars['String'];
+  about: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
+  tags: Array<Scalars['String']>;
+  maxParticipants?: Maybe<Scalars['Int']>;
+  isSchool?: Maybe<Scalars['Boolean']>;
+  isPrivate?: Maybe<Scalars['Boolean']>;
+  emailNotifications?: Maybe<Scalars['Boolean']>;
+};
+
+export type CommunityFragment = (
+  { __typename?: 'Community' }
+  & Pick<Community, 'name' | 'about' | 'email' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
+);
+
 export type ErrorFragment = (
   { __typename?: 'Error' }
   & Pick<Error, 'field' | 'message'>
@@ -88,6 +155,25 @@ export type UserResponseFragment = (
     { __typename?: 'User' }
     & UserFragment
   )> }
+);
+
+export type CreateCommunityMutationVariables = Exact<{
+  options: CommunityArgs;
+}>;
+
+
+export type CreateCommunityMutation = (
+  { __typename?: 'Mutation' }
+  & { createCommunity: (
+    { __typename?: 'CommunityResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'Error' }
+      & ErrorFragment
+    )>>, community?: Maybe<(
+      { __typename?: 'Community' }
+      & CommunityFragment
+    )> }
+  ) }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -143,6 +229,22 @@ export type MeQuery = (
   )> }
 );
 
+export const CommunityFragmentDoc = gql`
+    fragment Community on Community {
+  name
+  about
+  email
+  tags
+  website
+  location
+  isPrivate
+  isSchool
+  maxParticipants
+  emailNotifications
+  createdAt
+  updatedAt
+}
+    `;
 export const ErrorFragmentDoc = gql`
     fragment Error on Error {
   field
@@ -168,6 +270,44 @@ export const UserResponseFragmentDoc = gql`
 }
     ${ErrorFragmentDoc}
 ${UserFragmentDoc}`;
+export const CreateCommunityDocument = gql`
+    mutation CreateCommunity($options: CommunityArgs!) {
+  createCommunity(options: $options) {
+    errors {
+      ...Error
+    }
+    community {
+      ...Community
+    }
+  }
+}
+    ${ErrorFragmentDoc}
+${CommunityFragmentDoc}`;
+export type CreateCommunityMutationFn = Apollo.MutationFunction<CreateCommunityMutation, CreateCommunityMutationVariables>;
+
+/**
+ * __useCreateCommunityMutation__
+ *
+ * To run a mutation, you first call `useCreateCommunityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommunityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommunityMutation, { data, loading, error }] = useCreateCommunityMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useCreateCommunityMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommunityMutation, CreateCommunityMutationVariables>) {
+        return Apollo.useMutation<CreateCommunityMutation, CreateCommunityMutationVariables>(CreateCommunityDocument, baseOptions);
+      }
+export type CreateCommunityMutationHookResult = ReturnType<typeof useCreateCommunityMutation>;
+export type CreateCommunityMutationResult = Apollo.MutationResult<CreateCommunityMutation>;
+export type CreateCommunityMutationOptions = Apollo.BaseMutationOptions<CreateCommunityMutation, CreateCommunityMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($options: LoginArgs!) {
   login(options: $options) {
