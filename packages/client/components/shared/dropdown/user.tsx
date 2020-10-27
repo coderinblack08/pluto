@@ -2,6 +2,7 @@ import { useApolloClient } from '@apollo/client';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { ChevronDown } from 'heroicons-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useLogoutMutation, useMeQuery } from '../../../generated/graphql';
@@ -51,9 +52,11 @@ export const UserDropdown: React.FC<{ dark?: boolean }> = ({
             >
               <Menu.Items
                 static
-                className="z-50 absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg outline-none"
+                className={`z-50 absolute right-0 w-56 mt-2 origin-top-right bg-white ${
+                  dark ? 'border-none' : 'border border-gray-200'
+                } divide-y divide-gray-200 rounded-md shadow-lg outline-none`}
               >
-                <div className="px-4 py-3 bg-gray-50">
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
                   <p className="text-sm leading-5 text-gray-800">
                     Signed in as
                   </p>
@@ -65,30 +68,34 @@ export const UserDropdown: React.FC<{ dark?: boolean }> = ({
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#account-settings"
-                        className={`${
-                          active
-                            ? 'bg-indigo-500 text-white font-semibold'
-                            : 'text-gray-700'
-                        } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
-                      >
-                        Account settings
-                      </a>
+                      <div className="relative z-50">
+                        <NextLink
+                          href="/account-settings"
+                          className={`${
+                            active
+                              ? 'bg-indigo-500 text-white font-semibold'
+                              : 'text-gray-700'
+                          } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
+                        >
+                          Account settings
+                        </NextLink>
+                      </div>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <NextLink
-                        href="/pricing"
-                        className={`${
-                          active
-                            ? 'bg-indigo-500 text-white font-semibold'
-                            : 'text-gray-700'
-                        } relative z-50 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
-                      >
-                        Upgrade
-                      </NextLink>
+                      <div className="relative z-50">
+                        <NextLink
+                          href="/pricing"
+                          className={`${
+                            active
+                              ? 'bg-indigo-500 text-white font-semibold'
+                              : 'text-gray-700'
+                          } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
+                        >
+                          Upgrade
+                        </NextLink>
+                      </div>
                     )}
                   </Menu.Item>
                 </div>

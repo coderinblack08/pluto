@@ -25,6 +25,9 @@ module.exports = {
       padding: {
         7: '1.75rem',
       },
+      margin: {
+        7: '1.75rem',
+      },
     },
   },
   variants: [

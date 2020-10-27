@@ -1,4 +1,4 @@
-fragment Error on Error {
+fragment Error on FieldError {
   field
   message
 }

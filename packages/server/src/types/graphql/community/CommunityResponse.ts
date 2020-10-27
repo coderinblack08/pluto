@@ -1,11 +1,11 @@
 import { ObjectType, Field } from 'type-graphql';
 import { Community } from '../../../entity/Community';
-import { Error } from '../shared/Error';
+import { FieldError } from '../shared/FieldError';
 
 @ObjectType()
 export class CommunityResponse {
-  @Field(() => [Error], { nullable: true })
-  errors?: Error[];
+  @Field(() => [FieldError], { nullable: true })
+  errors?: FieldError[];
 
   @Field(() => Community, { nullable: true })
   community?: Community;

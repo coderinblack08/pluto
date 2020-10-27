@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { DotsHorizontalOutline, Plus } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -9,7 +10,7 @@ export const AuthenticatedNavbar: React.FC = ({}) => {
   const { data: me } = useMeQuery();
   const router = useRouter();
 
-  const isOnRoute = (route: string) => router.pathname === route;
+  const isOnRoute = (...routes: string[]) => routes.includes(router.pathname);
 
   return (
     <div className="bg-gray-800 p-4">
@@ -27,17 +28,31 @@ export const AuthenticatedNavbar: React.FC = ({}) => {
           </NextLink>
           <ul className="flex items-center space-x-5">
             <li>
-              <a
-                href="#"
-                className="whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-100 hover:bg-opacity-75 transition ease duration-200 bg-gray-900 font-medium shadow-inner"
+              <NextLink
+                href="/dashboard"
+                className={classNames(
+                  'whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner',
+                  {
+                    'bg-gray-900 text-gray-100 hover:bg-opacity-75': isOnRoute(
+                      '/dashboard'
+                    ),
+                  }
+                )}
               >
                 Dashboard
-              </a>
+              </NextLink>
             </li>
             <li>
               <a
                 href="#"
-                className="whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner"
+                className={classNames(
+                  'whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner',
+                  {
+                    'bg-gray-900 text-gray-100 hover:bg-opacity-75': isOnRoute(
+                      '/c'
+                    ),
+                  }
+                )}
               >
                 My Communities
               </a>

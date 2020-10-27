@@ -1,0 +1,8 @@
+query GetCommunity($id: String!) {
+  getCommunity(id: $id) {
+    ...Community
+    creator {
+      ...User
+    }
+  }
+}

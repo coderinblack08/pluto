@@ -15,7 +15,13 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
+  getCommunity: Community;
   findCommunities: PaginatedCommunities;
+};
+
+
+export type QueryGetCommunityArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -32,12 +38,6 @@ export type User = {
   subscription: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
-};
-
-export type PaginatedCommunities = {
-  __typename?: 'PaginatedCommunities';
-  communities: Array<Community>;
-  hasMore: Scalars['Boolean'];
 };
 
 export type Community = {
@@ -57,6 +57,12 @@ export type Community = {
   creator: User;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+export type PaginatedCommunities = {
+  __typename?: 'PaginatedCommunities';
+  communities: Array<Community>;
+  hasMore: Scalars['Boolean'];
 };
 
 export type PaginatedCommunitiesArgs = {
@@ -89,12 +95,12 @@ export type MutationCreateCommunityArgs = {
 
 export type UserResponse = {
   __typename?: 'UserResponse';
-  errors?: Maybe<Array<Error>>;
+  errors?: Maybe<Array<FieldError>>;
   user?: Maybe<User>;
 };
 
-export type Error = {
-  __typename?: 'Error';
+export type FieldError = {
+  __typename?: 'FieldError';
   field: Scalars['String'];
   message: Scalars['String'];
 };
@@ -114,7 +120,7 @@ export type LoginArgs = {
 
 export type CommunityResponse = {
   __typename?: 'CommunityResponse';
-  errors?: Maybe<Array<Error>>;
+  errors?: Maybe<Array<FieldError>>;
   community?: Maybe<Community>;
 };
 
@@ -137,8 +143,8 @@ export type CommunityFragment = (
 );
 
 export type ErrorFragment = (
-  { __typename?: 'Error' }
-  & Pick<Error, 'field' | 'message'>
+  { __typename?: 'FieldError' }
+  & Pick<FieldError, 'field' | 'message'>
 );
 
 export type UserFragment = (
@@ -149,7 +155,7 @@ export type UserFragment = (
 export type UserResponseFragment = (
   { __typename?: 'UserResponse' }
   & { errors?: Maybe<Array<(
-    { __typename?: 'Error' }
+    { __typename?: 'FieldError' }
     & ErrorFragment
   )>>, user?: Maybe<(
     { __typename?: 'User' }
@@ -167,7 +173,7 @@ export type CreateCommunityMutation = (
   & { createCommunity: (
     { __typename?: 'CommunityResponse' }
     & { errors?: Maybe<Array<(
-      { __typename?: 'Error' }
+      { __typename?: 'FieldError' }
       & ErrorFragment
     )>>, community?: Maybe<(
       { __typename?: 'Community' }
@@ -210,6 +216,23 @@ export type RegisterMutation = (
   ) }
 );
 
+export type GetCommunityQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetCommunityQuery = (
+  { __typename?: 'Query' }
+  & { getCommunity: (
+    { __typename?: 'Community' }
+    & { creator: (
+      { __typename?: 'User' }
+      & UserFragment
+    ) }
+    & CommunityFragment
+  ) }
+);
+
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -247,7 +270,7 @@ export const CommunityFragmentDoc = gql`
 }
     `;
 export const ErrorFragmentDoc = gql`
-    fragment Error on Error {
+    fragment Error on FieldError {
   field
   message
 }
@@ -402,6 +425,43 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const GetCommunityDocument = gql`
+    query GetCommunity($id: String!) {
+  getCommunity(id: $id) {
+    ...Community
+    creator {
+      ...User
+    }
+  }
+}
+    ${CommunityFragmentDoc}
+${UserFragmentDoc}`;
+
+/**
+ * __useGetCommunityQuery__
+ *
+ * To run a query within a React component, call `useGetCommunityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommunityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommunityQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetCommunityQuery(baseOptions?: Apollo.QueryHookOptions<GetCommunityQuery, GetCommunityQueryVariables>) {
+        return Apollo.useQuery<GetCommunityQuery, GetCommunityQueryVariables>(GetCommunityDocument, baseOptions);
+      }
+export function useGetCommunityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommunityQuery, GetCommunityQueryVariables>) {
+          return Apollo.useLazyQuery<GetCommunityQuery, GetCommunityQueryVariables>(GetCommunityDocument, baseOptions);
+        }
+export type GetCommunityQueryHookResult = ReturnType<typeof useGetCommunityQuery>;
+export type GetCommunityLazyQueryHookResult = ReturnType<typeof useGetCommunityLazyQuery>;
+export type GetCommunityQueryResult = Apollo.QueryResult<GetCommunityQuery, GetCommunityQueryVariables>;
 export const HelloDocument = gql`
     query Hello {
   hello

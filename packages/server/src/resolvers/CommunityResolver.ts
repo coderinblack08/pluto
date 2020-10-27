@@ -33,6 +33,15 @@ export class CommunityResolver {
     }
   }
 
+  @Query(() => Community)
+  async getCommunity(@Arg('id') id: string) {
+    const community = Community.findOne({ id }, { relations: ['creator'] });
+    if (!community) {
+      throw new Error('Community Not Found');
+    }
+    return community;
+  }
+
   @Query(() => PaginatedCommunities)
   async findCommunities(
     @Arg('options', () => PaginatedCommunitiesArgs)
