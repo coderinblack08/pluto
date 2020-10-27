@@ -2,7 +2,6 @@ import { useApolloClient } from '@apollo/client';
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { ChevronDown } from 'heroicons-react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useLogoutMutation, useMeQuery } from '../../../generated/graphql';
@@ -52,7 +51,7 @@ export const UserDropdown: React.FC<{ dark?: boolean }> = ({
             >
               <Menu.Items
                 static
-                className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg outline-none"
+                className="z-50 absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg outline-none"
               >
                 <div className="px-4 py-3 bg-gray-50">
                   <p className="text-sm leading-5 text-gray-800">
@@ -80,16 +79,16 @@ export const UserDropdown: React.FC<{ dark?: boolean }> = ({
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <button
-                        onClick={() => router.push('/pricing')}
+                      <NextLink
+                        href="/pricing"
                         className={`${
                           active
                             ? 'bg-indigo-500 text-white font-semibold'
                             : 'text-gray-700'
-                        } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
+                        } relative z-50 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none`}
                       >
                         Upgrade
-                      </button>
+                      </NextLink>
                     )}
                   </Menu.Item>
                 </div>
