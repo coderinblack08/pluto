@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const registerSchema = Yup.object().shape({
+export const communitySchema = Yup.object().shape({
   name: Yup.string()
     .max(255, 'Name exceeds the character limit')
     .required('Name is required'),

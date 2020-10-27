@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Form, Formik } from 'formik';
+import { communitySchema } from '@pluto/common';
 import { InputField } from '../components/forms/InputField';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { Tabs } from '../components/shared/tabs';
@@ -19,21 +20,25 @@ const secondTabPanel = (
       <InputField
         name="email"
         placeholder="contact@example.com"
-        label="Email Address (optional)"
+        label="Email Address"
       />
     </div>
     <div className="max-w-lg">
+      <InputField name="location" placeholder="Location" label="Location" />
+    </div>
+    <div className="max-w-lg">
       <InputField
-        name="location"
-        placeholder="Location"
-        label="Location (optional)"
+        type="number"
+        name="maximumMembers"
+        placeholder="50"
+        label="Maximum Members"
       />
     </div>
     <div>
       <h3 className="text-gray-800 font-medium mb-2">Options</h3>
       <div className="space-y-3">
         <InputField
-          name="school"
+          name="isSchool"
           type="checkbox"
           wrapper="flex items-center flex-row-reverse"
           className="form-checkbox border-gray-400 cursor-pointer transition ease duration-200 mr-2 text-indigo-500"
@@ -41,7 +46,7 @@ const secondTabPanel = (
           label="School or Classroom (enables gradebook)"
         />
         <InputField
-          name="private"
+          name="isPrivate"
           type="checkbox"
           wrapper="flex items-center flex-row-reverse"
           className="form-checkbox border-gray-400 cursor-pointer transition ease duration-200 mr-2 text-indigo-500"
@@ -79,9 +84,7 @@ const Create: React.FC = () => {
                     className={classNames(
                       'flex flex-col items-start py-5 px-8 rounded-md focus:outline-none',
                       {
-                        'border-l-8 border-indigo-400 bg-white shadow-sm': onTab(
-                          0
-                        ),
+                        'bg-white shadow-sm': onTab(0),
                       }
                     )}
                     onClick={() => setTab(0)}
@@ -105,9 +108,7 @@ const Create: React.FC = () => {
                     className={classNames(
                       'flex flex-col items-start py-5 px-8 rounded-md focus:outline-none',
                       {
-                        'border-l-8 border-indigo-400 bg-white shadow-sm': onTab(
-                          1
-                        ),
+                        'bg-white shadow-sm': onTab(1),
                       }
                     )}
                   >
@@ -134,10 +135,17 @@ const Create: React.FC = () => {
                       'email',
                       'location',
                       'tags',
+                      'isPrivate',
+                      'isSchool',
+                      'maximumMembers',
+                      'emailNotifications',
                     ])}
+                    validationSchema={communitySchema}
+                    validateOnChange={false}
+                    validateOnBlur={false}
                     onSubmit={(values) => console.log(values)}
                   >
-                    {({ setFieldValue, values }) => (
+                    {({ setFieldValue }) => (
                       <Form
                         className="bg-white shadow-md rounded-lg"
                         onKeyDown={onKeyDown}
@@ -148,7 +156,7 @@ const Create: React.FC = () => {
                               <InputField
                                 name="name"
                                 placeholder="Example"
-                                label="Name"
+                                label="Name*"
                               />
                             </div>
                             <div className="max-w-lg">
@@ -170,7 +178,12 @@ const Create: React.FC = () => {
                                 name="about"
                                 placeholder="Example..."
                                 footer="Describe your community with a few words"
-                                label="About"
+                                label={
+                                  <p>
+                                    About
+                                    <span className="text-red-500">*</span>
+                                  </p>
+                                }
                                 textarea
                               />
                             </div>
@@ -179,10 +192,16 @@ const Create: React.FC = () => {
                           secondTabPanel
                         )}
                         <div className="mt-10 space-x-3 flex rounded-b-md items-center justify-end py-2 px-3 border-t border-gray-200 bg-gray-50">
-                          <button className="focus:outline-none focus:shadow-outline px-6 py-3 rounded-md shadow-md bg-white text-indigo-500">
+                          <button
+                            type="button"
+                            className="focus:outline-none focus:shadow-outline px-6 py-3 rounded-md shadow-md bg-white text-indigo-500"
+                          >
                             Save
                           </button>
-                          <button className="focus:outline-none focus:shadow-outline px-6 py-3 rounded-md shadow-md text-white bg-indigo-500">
+                          <button
+                            type="submit"
+                            className="focus:outline-none focus:shadow-outline px-6 py-3 rounded-md shadow-md text-white bg-indigo-500"
+                          >
                             Submit
                           </button>
                         </div>

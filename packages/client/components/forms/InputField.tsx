@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { useField } from 'formik';
 import { ExclamationCircle } from 'heroicons-react';
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, ReactNode } from 'react';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> &
   InputHTMLAttributes<HTMLTextAreaElement> & {
-    label?: string;
+    label?: string | ReactNode;
     name: string;
     wrapper?: string;
     labelStyles?: string;

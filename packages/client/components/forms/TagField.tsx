@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { X } from 'heroicons-react';
 import React, { InputHTMLAttributes, useState } from 'react';
 
-type TagFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+type TagsFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   initialTags?: any[];
   setFormikValues: (
@@ -12,7 +12,7 @@ type TagFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   ) => void;
 };
 
-export const TagsField: React.FC<TagFieldProps> = ({
+export const TagsField: React.FC<TagsFieldProps> = ({
   name,
   initialTags,
   setFormikValues,
