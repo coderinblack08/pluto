@@ -5,7 +5,7 @@ import { communitySchema } from '@pluto/common';
 import { InputField } from '../components/forms/InputField';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { Tabs } from '../components/shared/tabs';
-import { TagsField } from '../components/forms/TagField';
+import { TagsField } from '../components/forms/TagsField';
 import {
   CommunityArgs,
   useCreateCommunityMutation,

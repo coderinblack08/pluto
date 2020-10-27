@@ -26,7 +26,7 @@ export const TagsField: React.FC<TagsFieldProps> = ({
       <label htmlFor="tags" className="capitalize">
         {name}
       </label>
-      <div className="flex items-center mt-1 rounded-md border w-full transition ease duration-200 shadow-sm focus:border focus:border-blue-400">
+      <div className="flex flex-col sm:flex-row sm:items-center mt-1 rounded-md border w-full transition ease duration-200 shadow-sm focus:border focus:border-blue-400">
         <div
           className={classNames(
             'flex overflow-x-scroll space-x-2 items-center',
@@ -65,9 +65,9 @@ export const TagsField: React.FC<TagsFieldProps> = ({
         <input
           type="text"
           className={classNames(
-            'rounded-r-md border-l px-3 py-2 focus:outline-none focus:shadow-outline text-gray-800 focus:placeholder-gray-500',
+            'sm:rounded-r-md border-l px-3 py-2 focus:outline-none focus:shadow-outline text-gray-800 focus:placeholder-gray-500',
             {
-              'rounded-md border-none': !tags.length,
+              'rounded-t-md sm:rounded-l-md border-none': !tags.length,
             }
           )}
           style={{
@@ -85,6 +85,15 @@ export const TagsField: React.FC<TagsFieldProps> = ({
             }
           }}
         />
+        {!tags.length ? (
+          <div className="my-2 ml-3 sm:my-0 sm:mb-0 sm:ml-auto mr-3 flex items-center text-gray-600 text-sm">
+            Press
+            <div className="mx-2 bg-gray-50 border p-1 text-gray-700 text-sm leading-none rounded">
+              ↵
+            </div>
+            to create
+          </div>
+        ) : null}
       </div>
     </div>
   );

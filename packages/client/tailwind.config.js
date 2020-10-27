@@ -30,6 +30,7 @@ module.exports = {
   variants: [
     'responsive',
     'group-hover',
+    'focus-within',
     // 'disabled',
     'hover',
     'focus',

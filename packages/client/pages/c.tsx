@@ -24,7 +24,7 @@ const Community: React.FC = () => {
       <AuthenticatedNavbar />
       <div className="bg-gray-800 h-48">
         <div className="container mx-auto py-10 border-t border-gray-700">
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-5 mx-5 lg:mx-0">
             <h1 className="font-bold text-3xl mt-4 text-white">The Foodies</h1>
             <div className="flex items-center space-x-2 mt-5">
               <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-indigo-500 text-white font-medium rounded">
@@ -36,7 +36,7 @@ const Community: React.FC = () => {
             </div>
           </div>
           <div className="container mx-auto">
-            <div className="relative bg-white rounded-md shadow">
+            <div className="relative bg-white rounded-md shadow mx-5 lg:mx-0">
               <button className="focus:outline-none focus:shadow-outline flex items-center absolute right-0 top-0 m-6 text-indigo-500">
                 <Pencil size={18} className="mr-1" />
                 Edit
@@ -77,8 +77,8 @@ const Community: React.FC = () => {
             </div>
           </div>
           <div className="container mx-auto">
-            <div className="grid grid-cols-12 divide-x divide-gray-200 gap-2 py-10">
-              <div className="col-span-8 px-5 space-y-4">
+            <div className="flex flex-col-reverse lg:flex-row lg:grid-cols-12 lg:divide-x lg:divide-gray-200 lg:space-x-4 py-16 lg:py-12">
+              <div className="w-full mt-10 lg:mt-0 lg:w-2/3 px-5 space-y-4">
                 <div className="bg-white hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
                   <div className="flex items-start space-x-6">
                     <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 p-2 rounded">
@@ -132,7 +132,7 @@ const Community: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-4 pl-10">
+              <div className="w-full lg:w-1/3 px-10 lg:px-0 lg:pl-10">
                 <h3 className="flex items-center text-2xl font-bold text-gray-800">
                   <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-teal-500 to-blue-500 p-2 rounded mr-4">
                     <CalendarOutline size={18} />
@@ -147,36 +147,85 @@ const Community: React.FC = () => {
                     Upcoming Events
                   </span>
                 </h3>
-                <ul className="mt-4">
+                <ul className="mt-4 space-y-8">
                   <li>
-                    <a href="#">
-                      <div className="flex items-center justify-between group">
-                        <h4
-                          className="bg-gradient-to-r from-teal-500 to-blue-500 font-bold text-xl"
-                          style={{
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                          }}
-                        >
-                          Dinner night at Flamingo!
-                        </h4>
-                        <ChevronRight
-                          size={20}
-                          className="text-blue-500 transform group-hover:translate-x-1 transition ease duration-200"
-                        />
-                      </div>
+                    <a
+                      href="#"
+                      className="flex items-center justify-between group"
+                    >
+                      <h4 className="font-bold text-xl text-gray-700 truncate">
+                        Dinner night at Flamingo!
+                      </h4>
+                      <ChevronRight
+                        size={20}
+                        className="text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
+                      />
                     </a>
                     <p className="truncate text-gray-600 mb-3">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua
                     </p>
-                    <button className="bg-indigo-400 mr-2 text-white font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
+                    <button className="bg-indigo-400 hover:bg-indigo-500 shadow mr-2 text-white font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
                       Add to Calendar
                     </button>
-                    <button className="border border-indigo-400 text-indigo-400 font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
+                    <button className="border shadow border-indigo-400 hover:border-indigo-500 text-indigo-400 hover:text-indigo-500 font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
                       View More
                     </button>
+                  </li>
+                  <li className="group">
+                    <a
+                      href="#"
+                      className="flex items-center justify-between group"
+                    >
+                      <h4 className="font-bold text-xl  group-hover:text-gray-700 text-gray-600 truncate">
+                        Food fight at Eddy's
+                      </h4>
+                      <ChevronRight
+                        size={20}
+                        className="text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
+                      />
+                    </a>
+                    <p className="truncate group-hover:text-gray-600 text-gray-500 mb-3">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua
+                    </p>
+                    <div className="hidden group-hover:block">
+                      <button className="bg-teal-500 hover:bg-teal-600 shadow mr-2 text-white font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
+                        Add to Calendar
+                      </button>
+                      <button className="border shadow border-teal-500 hover:border-teal-600 hover:text-teal-600 text-teal-500 font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
+                        View More
+                      </button>
+                    </div>
+                  </li>
+                  <li className="group">
+                    <a
+                      href="#"
+                      className="flex items-center justify-between group"
+                    >
+                      <h4 className="font-bold text-xl  group-hover:text-gray-700 text-gray-600 truncate">
+                        Napa Valley Wine Tasting
+                      </h4>
+                      <ChevronRight
+                        size={20}
+                        className="text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
+                      />
+                    </a>
+                    <p className="truncate group-hover:text-gray-600 text-gray-500 mb-3">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua
+                    </p>
+                    <div className="hidden group-hover:block">
+                      <button className="bg-teal-500 hover:bg-teal-600 shadow mr-2 text-white font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
+                        Add to Calendar
+                      </button>
+                      <button className="border shadow border-teal-500 hover:border-teal-600 hover:text-teal-600 text-teal-500 font-semibold focus:outline-none focus:shadow-outline py-1 leading-loose text-sm px-3 rounded">
+                        View More
+                      </button>
+                    </div>
                   </li>
                 </ul>
               </div>

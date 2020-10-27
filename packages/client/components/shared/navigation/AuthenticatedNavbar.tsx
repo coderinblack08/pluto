@@ -1,4 +1,4 @@
-import { Plus } from 'heroicons-react';
+import { DotsHorizontalOutline, Plus } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useMeQuery } from '../../../generated/graphql';
@@ -13,7 +13,7 @@ export const AuthenticatedNavbar: React.FC = ({}) => {
 
   return (
     <div className="bg-gray-800 p-4">
-      <div className="flex flex-col lg:flex-row items-center justify-between container mx-auto">
+      <div className="flex flex-row items-center justify-between container mx-auto">
         <div className="flex space-x-12 items-center">
           <NextLink href="/dashboard" className="flex items-center space-x-2">
             <img
@@ -50,9 +50,14 @@ export const AuthenticatedNavbar: React.FC = ({}) => {
                 Browse
               </a>
             </li>
+            <li>
+              <button className="block lg:hidden whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner">
+                <DotsHorizontalOutline />
+              </button>
+            </li>
           </ul>
         </div>
-        <div className="flex items-center space-x-4 mt-5 lg:mt-0">
+        <div className="hidden lg:flex items-center space-x-4 mt-5 lg:mt-0">
           <NextLink
             href="/create-community"
             className="focus:outline-none focus:shadow-outline shadow-lg leading-none flex items-center px-4 py-2 text-white font-medium rounded-md bg-indigo-500"
