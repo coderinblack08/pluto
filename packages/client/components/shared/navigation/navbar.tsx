@@ -79,7 +79,7 @@ export const Navbar: React.FC = () => {
             Contact
           </a>
           <hr className="hidden md:block border-l border-gray-400 h-5 ml-1 mr-2" />
-          {!loading && me.hasOwnProperty('me') && !!me.me ? (
+          {!loading && me && !!me?.me ? (
             <div className="ml-3">
               <UserDropdown />
             </div>

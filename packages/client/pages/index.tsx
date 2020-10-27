@@ -10,7 +10,7 @@ const Index: React.FC<{}> = () => {
   const { data: me, loading } = useMeQuery();
   const router = useRouter();
   useEffect(() => {
-    if (!loading && me?.me && me.hasOwnProperty('me')) {
+    if (!loading && me?.me && me) {
       router.push('/dashboard');
     }
   }, [me, loading]);
