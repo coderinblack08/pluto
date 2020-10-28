@@ -43,19 +43,20 @@ export const AuthenticatedNavbar: React.FC = ({}) => {
               </NextLink>
             </li>
             <li>
-              <a
-                href="#"
+              <NextLink
+                href="/my-communities"
                 className={classNames(
                   'whitespace-no-wrap px-4 py-3 text-md rounded-md text-gray-300 hover:text-gray-100 transition ease duration-200 bg-gray-800 font-medium shadow-inner',
                   {
                     'bg-gray-900 text-gray-100 hover:bg-opacity-75': isOnRoute(
-                      '/c'
+                      '/c',
+                      '/my-communities'
                     ),
                   }
                 )}
               >
                 My Communities
-              </a>
+              </NextLink>
             </li>
             <li>
               <a

@@ -6,6 +6,7 @@ import {
   HeartOutline,
   LocationMarker,
   Pencil,
+  PresentationChartBar,
   SpeakerphoneOutline,
   Users,
 } from 'heroicons-react';
@@ -27,7 +28,8 @@ const Community: React.FC = () => {
   return (
     <div>
       {!loading && community ? (
-        <div>
+        <main>
+          <div className="fixed w-screen h-screen bg-gray-50 -z-1" />
           <AuthenticatedNavbar />
           <div className="bg-gray-800 h-48">
             <div className="container mx-auto py-6 border-t border-gray-700">
@@ -103,11 +105,66 @@ const Community: React.FC = () => {
                 </div>
               </div>
               <div className="container mx-auto">
-                <div className="flex flex-col-reverse lg:flex-row lg:grid-cols-12 lg:divide-x lg:divide-gray-200 lg:space-x-4 py-16 lg:py-12">
-                  <div className="w-full mt-10 lg:mt-0 lg:w-2/3 px-5 space-y-4">
-                    <div className="bg-white hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
+                <div className="flex flex-col-reverse lg:flex-row lg:grid-cols-12 lg:divide-x lg:divide-gray-200 lg:space-x-1 py-16 lg:py-12">
+                  <section className="w-full mt-10 lg:mt-0 lg:w-2/3 px-5 space-y-4 border-t lg:border-none border-gray-200 pt-10 lg:pt-0">
+                    {/* <div className="bg-white shadow-sm hover:bg-gradient-to-r hover:from-blue-400 hover:to-indigo-400 px-6 py-8 rounded-md hover:shadow-inner group">
                       <div className="flex items-start space-x-6">
-                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 p-2 rounded">
+                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:shadow-md p-2 rounded">
+                          <PresentationChartBar size={20} />
+                        </div>
+                        <div className="flex flex-col flex-start">
+                          <h2 className="text-2xl font-bold text-gray-800 group-hover:text-white leading-snug">
+                            Favorite Food
+                          </h2>
+                          <form>
+                            <div className="space-y-2 mt-2">
+                              <label className="flex items-center">
+                                <input
+                                  type="radio"
+                                  className="form-radio text-indigo-500 group-hover:border-none"
+                                />
+                                <span className="ml-2 text-gray-600 group-hover:text-gray-100">
+                                  Hotdogs
+                                </span>
+                              </label>
+                              <label className="flex items-center">
+                                <input
+                                  type="radio"
+                                  className="form-radio text-indigo-500 group-hover:border-none"
+                                />
+                                <span className="ml-2 text-gray-600 group-hover:text-gray-100">
+                                  Cheese Pizza
+                                </span>
+                              </label>
+                              <label className="flex items-center">
+                                <input
+                                  type="radio"
+                                  className="form-radio text-indigo-500 group-hover:border-none"
+                                />
+                                <span className="ml-2 text-gray-600 group-hover:text-gray-100">
+                                  Banana Split
+                                </span>
+                              </label>
+                              <label className="flex items-center">
+                                <input
+                                  type="radio"
+                                  className="form-radio text-indigo-500 group-hover:border-none"
+                                />
+                                <span className="ml-2 text-gray-600 group-hover:text-gray-100">
+                                  Other
+                                </span>
+                              </label>
+                            </div>
+                            <button className="block mt-5 w-20 focus:outline-none focus:shadow-outline group-hover:bg-white group-hover:text-indigo-500 bg-indigo-500 text-white px-4 py-1 leading-relaxed font-semibold rounded shadow-sm">
+                              Vote
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div> */}
+                    <div className="bg-white shadow-sm hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
+                      <div className="flex items-start space-x-6">
+                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 group-hover:shadow-md p-2 rounded">
                           <SpeakerphoneOutline size={20} />
                         </div>
                         <div className="flex flex-col">
@@ -132,9 +189,9 @@ const Community: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-white hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
+                    <div className="bg-white shadow-sm hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
                       <div className="flex items-start space-x-6">
-                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 p-2 rounded">
+                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 p-2 group-hover:shadow-md rounded">
                           <SpeakerphoneOutline size={20} />
                         </div>
                         <div className="flex flex-col">
@@ -159,24 +216,18 @@ const Community: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="w-full lg:w-1/3 px-10 lg:px-0 lg:pl-10">
+                  </section>
+                  <aside className="w-full lg:w-1/3 px-10 lg:px-0 lg:pl-6">
                     <h3 className="flex items-center text-2xl font-bold text-gray-800">
                       <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-teal-500 to-blue-500 p-2 rounded mr-4">
                         <CalendarOutline size={18} />
                       </div>
-                      <span
-                        className="bg-gradient-to-r from-teal-500 to-blue-500"
-                        style={{
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                        }}
-                      >
+                      <span className="bg-gradient-to-r text-gradient from-teal-500 to-blue-500">
                         Upcoming Events
                       </span>
                     </h3>
                     <ul className="mt-4 space-y-8">
-                      <li>
+                      <li className="p-5 bg-white rounded shadow-sm">
                         <a
                           href="#"
                           className="flex items-center justify-between group"
@@ -189,7 +240,7 @@ const Community: React.FC = () => {
                             className="text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
                           />
                         </a>
-                        <p className="truncate text-gray-600 mb-3">
+                        <p className="text-gray-600 mb-3">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit, sed do eiusmod tempor incididunt ut labore et
                           dolore magna aliqua
@@ -211,7 +262,7 @@ const Community: React.FC = () => {
                           </h4>
                           <ChevronRight
                             size={20}
-                            className="text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
+                            className="group-hover:rotate-90 text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
                           />
                         </a>
                         <p className="truncate group-hover:text-gray-600 text-gray-500 mb-3">
@@ -238,7 +289,7 @@ const Community: React.FC = () => {
                           </h4>
                           <ChevronRight
                             size={20}
-                            className="text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
+                            className="group-hover:rotate-90 text-gray-600 transform group-hover:translate-x-1 transition ease duration-200"
                           />
                         </a>
                         <p className="truncate group-hover:text-gray-600 text-gray-500 mb-3">
@@ -256,12 +307,12 @@ const Community: React.FC = () => {
                         </div>
                       </li>
                     </ul>
-                  </div>
+                  </aside>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </main>
       ) : null}
     </div>
   );

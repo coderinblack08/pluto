@@ -53,7 +53,7 @@ const Register: React.FC = () => {
             validateOnChange={false}
             validateOnBlur={false}
           >
-            {() => (
+            {({ isSubmitting }) => (
               <Form className="mt-8 space-y-5">
                 <div className="grid grid-cols-7 space-x-2">
                   <div className="col-span-4">
@@ -81,6 +81,7 @@ const Register: React.FC = () => {
                 </div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="focus:outline-none focus:shadow-outline transition ease duration-200 flex items-center bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-600 w-full p-2 rounded-md text-white font-bold"
                 >
                   <div className="text-indigo-100">

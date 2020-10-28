@@ -163,7 +163,7 @@ const Create: React.FC = () => {
                       }
                     }}
                   >
-                    {({ setFieldValue }) => (
+                    {({ setFieldValue, isSubmitting }) => (
                       <Form
                         className="bg-white shadow-md rounded-lg"
                         onKeyDown={onKeyDown}
@@ -223,6 +223,7 @@ const Create: React.FC = () => {
                           </button>
                           <button
                             type="submit"
+                            disabled={isSubmitting}
                             className="focus:outline-none focus:shadow-outline px-6 py-3 rounded-md shadow-md text-white bg-indigo-500"
                           >
                             Submit

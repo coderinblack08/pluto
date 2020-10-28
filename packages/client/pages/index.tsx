@@ -25,13 +25,7 @@ const Index: React.FC<{}> = () => {
             <div className="w-14 text-sm text-white font-bold flex items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-blue-500">
               NEW
             </div>
-            <p
-              className="font-bold mb-2 text-lg bg-gradient-to-r from-blue-400 to-teal-400 mt-2"
-              style={{
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
+            <p className="font-bold mb-2 text-lg text-gradient bg-gradient-to-r from-blue-400 to-teal-400 mt-2">
               NOW IN EARLY ACCESS
             </p>
           </div>
@@ -129,13 +123,7 @@ const Index: React.FC<{}> = () => {
               ></path>
             </svg>
           </div>
-          <h2
-            className="relative z-10 font-black text-4xl md:text-5xl lg:text-6xl leading-tight bg-gradient-to-r from-teal-500 to-indigo-500"
-            style={{
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
+          <h2 className="relative z-10 font-black text-4xl md:text-5xl lg:text-6xl leading-tight bg-gradient-to-r from-teal-500 to-indigo-500 text-gradient">
             Frequently asked questions
           </h2>
           <svg
@@ -224,13 +212,7 @@ const Index: React.FC<{}> = () => {
           <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
             Let's get our hands dirty
             <br />
-            <span
-              className="bg-gradient-to-r from-teal-500 to-blue-500"
-              style={{
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
+            <span className="bg-gradient-to-r text-gradient from-teal-500 to-blue-500">
               Let the features do the talking.
             </span>
           </h2>

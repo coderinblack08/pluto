@@ -14,6 +14,12 @@ html {
   @apply flex items-center justify-between text-2xl font-medium;
 }
 
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */

@@ -216,6 +216,22 @@ export type RegisterMutation = (
   ) }
 );
 
+export type FindCommunitiesQueryVariables = Exact<{
+  options: PaginatedCommunitiesArgs;
+}>;
+
+
+export type FindCommunitiesQuery = (
+  { __typename?: 'Query' }
+  & { findCommunities: (
+    { __typename?: 'PaginatedCommunities' }
+    & { communities: Array<(
+      { __typename?: 'Community' }
+      & CommunityFragment
+    )> }
+  ) }
+);
+
 export type GetCommunityQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -425,6 +441,41 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const FindCommunitiesDocument = gql`
+    query FindCommunities($options: PaginatedCommunitiesArgs!) {
+  findCommunities(options: $options) {
+    communities {
+      ...Community
+    }
+  }
+}
+    ${CommunityFragmentDoc}`;
+
+/**
+ * __useFindCommunitiesQuery__
+ *
+ * To run a query within a React component, call `useFindCommunitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCommunitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCommunitiesQuery({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useFindCommunitiesQuery(baseOptions?: Apollo.QueryHookOptions<FindCommunitiesQuery, FindCommunitiesQueryVariables>) {
+        return Apollo.useQuery<FindCommunitiesQuery, FindCommunitiesQueryVariables>(FindCommunitiesDocument, baseOptions);
+      }
+export function useFindCommunitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCommunitiesQuery, FindCommunitiesQueryVariables>) {
+          return Apollo.useLazyQuery<FindCommunitiesQuery, FindCommunitiesQueryVariables>(FindCommunitiesDocument, baseOptions);
+        }
+export type FindCommunitiesQueryHookResult = ReturnType<typeof useFindCommunitiesQuery>;
+export type FindCommunitiesLazyQueryHookResult = ReturnType<typeof useFindCommunitiesLazyQuery>;
+export type FindCommunitiesQueryResult = Apollo.QueryResult<FindCommunitiesQuery, FindCommunitiesQueryVariables>;
 export const GetCommunityDocument = gql`
     query GetCommunity($id: String!) {
   getCommunity(id: $id) {

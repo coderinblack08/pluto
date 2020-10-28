@@ -1,0 +1,7 @@
+query FindCommunities($options: PaginatedCommunitiesArgs!) {
+  findCommunities(options: $options) {
+    communities {
+      ...Community
+    }
+  }
+}

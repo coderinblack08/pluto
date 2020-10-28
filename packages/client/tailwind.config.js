@@ -28,6 +28,9 @@ module.exports = {
       margin: {
         7: '1.75rem',
       },
+      zIndex: {
+        '-1': '-1',
+      },
     },
   },
   variants: [

@@ -59,12 +59,13 @@ const Login: React.FC = () => {
             validateOnChange={false}
             validateOnBlur={false}
           >
-            {() => (
+            {({ isSubmitting }) => (
               <Form className="mt-8 space-y-5">
                 <InputField name="email" label="Email Address" />
                 <InputField name="password" type="password" label="Password" />
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="focus:outline-none focus:shadow-outline transition ease duration-200 flex items-center bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-600 w-full p-2 rounded-md text-white font-bold"
                 >
                   <div className="text-indigo-100">
