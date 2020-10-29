@@ -43,11 +43,20 @@ export class CommunityResolver {
   }
 
   @Query(() => Community)
-  async getCommunity(@Arg('id') id: string) {
-    const community = Community.findOne({ id }, { relations: ['creator'] });
+  async getCommunity(@Arg('id') id: string, @Ctx() { req }: MyContext) {
+    const includesCreatorJoin = (req.body.query as string).includes('creator');
+
+    const community = await Community.findOne(
+      { id },
+      { relations: includesCreatorJoin ? ['creator'] : undefined }
+    );
+
     if (!community) {
       throw new Error('Community Not Found');
     }
+
+    community.isCreator = req.session.userId === community.creator.id;
+
     return community;
   }
 

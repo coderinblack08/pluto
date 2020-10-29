@@ -12,6 +12,9 @@ const Browse: React.FC = () => {
   const { data: communities, fetchMore, variables } = useFindCommunitiesQuery({
     variables: { options: { limit: 2, cursor: null } },
   });
+
+  console.log(communities);
+
   return (
     <main>
       <AuthenticatedNavbar />

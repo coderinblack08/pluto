@@ -71,6 +71,9 @@ export class Community extends BaseEntity {
   @ManyToOne(() => User)
   creator: User;
 
+  @Field()
+  isCreator: boolean;
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;

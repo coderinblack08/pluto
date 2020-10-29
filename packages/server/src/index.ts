@@ -1,18 +1,18 @@
-import 'dotenv/config';
-import 'reflect-metadata';
-import Redis from 'ioredis';
-import express from 'express';
-import { createConnection } from 'typeorm';
 import { ApolloServer } from 'apollo-server-express';
-import { HelloResolver } from './resolvers/HelloResolver';
-import { buildSchema } from 'type-graphql';
-import { client_url, cookie_name, port, __prod__ } from './constants';
-import { UserResolver } from './resolvers/UserResolver';
-import session from 'express-session';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
-import { CommunityResolver } from './resolvers/CommunityResolver';
+import 'dotenv/config';
+import express from 'express';
+import session from 'express-session';
+import Redis from 'ioredis';
+import 'reflect-metadata';
+import { buildSchema } from 'type-graphql';
+import { createConnection } from 'typeorm';
+import { client_url, cookie_name, port, __prod__ } from './constants';
 import { AnnouncementResolver } from './resolvers/AnnouncementResolver';
+import { CommunityResolver } from './resolvers/CommunityResolver';
+import { HelloResolver } from './resolvers/HelloResolver';
+import { UserResolver } from './resolvers/UserResolver';
 
 (async () => {
   await createConnection();

@@ -1,4 +1,11 @@
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from 'type-graphql';
+import {
+  Arg,
+  Ctx,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from 'type-graphql';
 import { Announcement } from '../entity/Announcement';
 import { Community } from '../entity/Community';
 import { Post } from '../entity/Post';
@@ -9,8 +16,8 @@ import { MyContext } from '../types/MyContext';
 
 @Resolver()
 export class AnnouncementResolver {
-  @Mutation(() => AnnouncementResponse)
   @UseMiddleware(isAuth)
+  @Mutation(() => AnnouncementResponse)
   async createAnnouncement(
     @Arg('options', () => AnnouncementArgs) options: AnnouncementArgs,
     @Ctx() { req }: MyContext
@@ -20,7 +27,7 @@ export class AnnouncementResolver {
     });
 
     if (req.session.userId !== community.creator.id) {
-      throw new Error('You are not the creator of this contest');
+      throw new Error('You are not the creator of this community');
     }
 
     const post = await Post.create({ communityId: options.communityId }).save();
@@ -30,6 +37,8 @@ export class AnnouncementResolver {
       postId: post.id,
     }).save();
 
+    await Post.update(post.id, { announcementId: announcement.id });
+
     const joinedPost = {
       ...post,
       announcement,
@@ -38,5 +47,15 @@ export class AnnouncementResolver {
     return {
       post: joinedPost as Post,
     };
+  }
+
+  @Query(() => [Post])
+  async findPosts(@Arg('communityId') communityId: string) {
+    const posts = await Post.find({
+      where: { communityId },
+      relations: ['announcement'],
+    });
+    console.log(posts);
+    return posts;
   }
 }

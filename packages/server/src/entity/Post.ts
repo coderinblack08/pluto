@@ -36,8 +36,12 @@ export class Post extends BaseEntity {
   @ManyToOne(() => Community)
   community: Community;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  announcementId?: number;
+
   @Field(() => Announcement)
-  @JoinColumn()
+  @JoinColumn({ name: 'announcementId' })
   @OneToOne(() => Announcement)
   announcement: Announcement;
 

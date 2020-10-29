@@ -6,7 +6,6 @@ import {
   HeartOutline,
   LocationMarker,
   Pencil,
-  PresentationChartBar,
   SpeakerphoneOutline,
   Users,
 } from 'heroicons-react';
@@ -50,6 +49,12 @@ const Community: React.FC = () => {
                   </p>
                 </div>
                 <div className="flex items-center space-x-2 mt-5">
+                  {community.getCommunity.isCreator ? (
+                    <button className="flex items-center focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-gradient-to-r from-teal-500 to-blue-500 focus-within:from-teal-600 focus:to-blue-600 text-white font-medium rounded transition ease duration-200">
+                      <Flag size={15} className="mr-2" />
+                      Post
+                    </button>
+                  ) : null}
                   <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-indigo-500 focus:bg-indigo-600 text-white font-medium rounded transition ease duration-200">
                     Join
                   </button>

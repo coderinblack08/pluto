@@ -13,10 +13,16 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
-  me?: Maybe<User>;
+  findPosts: Array<Post>;
   getCommunity: Community;
   findCommunities: PaginatedCommunities;
+  hello: Scalars['String'];
+  me?: Maybe<User>;
+};
+
+
+export type QueryFindPostsArgs = {
+  communityId: Scalars['String'];
 };
 
 
@@ -29,13 +35,15 @@ export type QueryFindCommunitiesArgs = {
   options: PaginatedCommunitiesArgs;
 };
 
-export type User = {
-  __typename?: 'User';
+export type Post = {
+  __typename?: 'Post';
   id: Scalars['Float'];
-  name: Scalars['String'];
-  email: Scalars['String'];
-  schoolAccount: Scalars['Boolean'];
-  subscription: Scalars['Boolean'];
+  comments: Scalars['Float'];
+  likes: Scalars['Float'];
+  communityId: Scalars['String'];
+  community: Community;
+  announcementId?: Maybe<Scalars['Float']>;
+  announcement: Announcement;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -53,16 +61,38 @@ export type Community = {
   isSchool: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
   emailNotifications: Scalars['Boolean'];
+  posts: Scalars['Float'];
   creatorId: Scalars['Float'];
   creator: User;
+  isCreator: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
 
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Float'];
+  name: Scalars['String'];
+  email: Scalars['String'];
+  schoolAccount: Scalars['Boolean'];
+  subscription: Scalars['Boolean'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type Announcement = {
+  __typename?: 'Announcement';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  announcement: Scalars['String'];
+  postId: Scalars['Float'];
+  post: Post;
+};
+
 export type PaginatedCommunities = {
   __typename?: 'PaginatedCommunities';
-  communities: Array<Community>;
   hasMore: Scalars['Boolean'];
+  communities: Array<Community>;
 };
 
 export type PaginatedCommunitiesArgs = {
@@ -72,10 +102,21 @@ export type PaginatedCommunitiesArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createAnnouncement: AnnouncementResponse;
+  createCommunity: CommunityResponse;
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
-  createCommunity: CommunityResponse;
+};
+
+
+export type MutationCreateAnnouncementArgs = {
+  options: AnnouncementArgs;
+};
+
+
+export type MutationCreateCommunityArgs = {
+  options: CommunityArgs;
 };
 
 
@@ -88,15 +129,10 @@ export type MutationLoginArgs = {
   options: LoginArgs;
 };
 
-
-export type MutationCreateCommunityArgs = {
-  options: CommunityArgs;
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
+export type AnnouncementResponse = {
+  __typename?: 'AnnouncementResponse';
   errors?: Maybe<Array<FieldError>>;
-  user?: Maybe<User>;
+  post?: Maybe<Post>;
 };
 
 export type FieldError = {
@@ -105,17 +141,10 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
-export type RegisterArgs = {
-  name: Scalars['String'];
-  email: Scalars['String'];
-  password: Scalars['String'];
-  confirmPassword: Scalars['String'];
-  schoolAccount: Scalars['Boolean'];
-};
-
-export type LoginArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+export type AnnouncementArgs = {
+  title: Scalars['String'];
+  announcement: Scalars['String'];
+  communityId: Scalars['String'];
 };
 
 export type CommunityResponse = {
@@ -135,6 +164,25 @@ export type CommunityArgs = {
   isSchool?: Maybe<Scalars['Boolean']>;
   isPrivate?: Maybe<Scalars['Boolean']>;
   emailNotifications?: Maybe<Scalars['Boolean']>;
+};
+
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  errors?: Maybe<Array<FieldError>>;
+  user?: Maybe<User>;
+};
+
+export type RegisterArgs = {
+  name: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+  confirmPassword: Scalars['String'];
+  schoolAccount: Scalars['Boolean'];
+};
+
+export type LoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type CommunityFragment = (
@@ -242,6 +290,7 @@ export type GetCommunityQuery = (
   { __typename?: 'Query' }
   & { getCommunity: (
     { __typename?: 'Community' }
+    & Pick<Community, 'isCreator'>
     & { creator: (
       { __typename?: 'User' }
       & UserFragment
@@ -482,6 +531,7 @@ export const GetCommunityDocument = gql`
     query GetCommunity($id: String!) {
   getCommunity(id: $id) {
     ...Community
+    isCreator
     creator {
       ...User
     }
