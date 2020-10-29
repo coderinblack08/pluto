@@ -1,4 +1,11 @@
-import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Ctx,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from 'type-graphql';
 import { Community } from '../entity/Community';
 import { MyContext } from '../types/MyContext';
 import { CommunityArgs } from '../types/graphql/community/CommunityArgs';
@@ -8,10 +15,12 @@ import { getConnection } from 'typeorm';
 import { PaginatedCommunities } from '../types/graphql/community/pagination/PaginatedCommunities';
 import { communitySchema } from '@pluto/common';
 import { parseYupErrors } from '../utils/parseYupErrors';
+import { isAuth } from '../middlewares/isAuth';
 
 @Resolver()
 export class CommunityResolver {
   @Mutation(() => CommunityResponse)
+  @UseMiddleware(isAuth)
   async createCommunity(
     @Arg('options', () => CommunityArgs) options: CommunityArgs,
     @Ctx() { req }: MyContext
@@ -48,20 +57,23 @@ export class CommunityResolver {
     options: PaginatedCommunitiesArgs
   ): Promise<PaginatedCommunities> {
     const cappedLimit = Math.min(50, options.limit);
-    const queryBuilder = getConnection()
-      .getRepository(Community)
-      .createQueryBuilder('c');
+
+    const replacements: any[] = [cappedLimit + 1];
 
     if (options.cursor) {
-      queryBuilder.where('"createdAt" > :cursor', {
-        cursor: new Date(parseInt(options.cursor)),
-      });
+      replacements.push(new Date(parseInt(options.cursor)));
     }
 
-    const communities = await queryBuilder
-      .orderBy('"createdAt"', 'DESC')
-      .take(cappedLimit + 1)
-      .getMany();
+    const communities = await getConnection().query(
+      `
+      select c.*
+      from community c
+      ${options.cursor ? `where c."createdAt" < $2` : ''}
+      order by c."createdAt" DESC
+      limit $1
+    `,
+      replacements
+    );
 
     return {
       communities: communities.slice(0, cappedLimit),

@@ -59,6 +59,10 @@ export class Community extends BaseEntity {
   emailNotifications: boolean;
 
   @Field()
+  @Column({ default: 0 })
+  posts: number;
+
+  @Field()
   @Column()
   creatorId: number;
 

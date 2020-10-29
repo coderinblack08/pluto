@@ -12,6 +12,7 @@ import session from 'express-session';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
 import { CommunityResolver } from './resolvers/CommunityResolver';
+import { AnnouncementResolver } from './resolvers/AnnouncementResolver';
 
 (async () => {
   await createConnection();
@@ -49,7 +50,12 @@ import { CommunityResolver } from './resolvers/CommunityResolver';
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, UserResolver, CommunityResolver],
+      resolvers: [
+        HelloResolver,
+        UserResolver,
+        CommunityResolver,
+        AnnouncementResolver,
+      ],
       validate: false,
     }),
     // extensions: [() => new BasicLogging()],

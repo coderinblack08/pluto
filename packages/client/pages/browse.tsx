@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Flag, LocationMarker, Users } from 'heroicons-react';
 import React from 'react';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
+import { NextLink } from '../components/shared/nextlink';
 import {
   FindCommunitiesQuery,
   useFindCommunitiesQuery,
@@ -49,7 +50,8 @@ const Browse: React.FC = () => {
           <div className="flex flex-col w-full mt-8 lg:mt-0">
             {communities?.findCommunities.communities.map(
               (community, index) => (
-                <button
+                <NextLink
+                  href={`/c?id=${community.id}`}
                   key={community.id}
                   className={classNames(
                     'relative text-left focus:outline-none p-5 hover:bg-white hover:bg-opacity-50 hover:shadow-sm rounded mb-5',
@@ -74,13 +76,12 @@ const Browse: React.FC = () => {
                       <Users className="mr-2" size={20} />
                       1.2k Members
                     </div>
-                    <a
-                      href="#"
-                      className="flex items-center text-red-500 hover:underline font-medium pl-4 pr-4"
-                    >
-                      <LocationMarker className="mr-2" size={20} />
-                      Santa Cruz, CA
-                    </a>
+                    {community.location ? (
+                      <div className="flex items-center text-red-500 font-medium pl-4 pr-4">
+                        <LocationMarker className="mr-2" size={20} />
+                        {community.location}
+                      </div>
+                    ) : null}
                     <div className="flex items-center text-gray-500 font-medium pl-4">
                       <Flag className="mr-2" size={20} />
                       24 Posts
@@ -89,7 +90,7 @@ const Browse: React.FC = () => {
                   <p className="text-gray-700 max-w-xl mt-1 truncate">
                     {community.about}
                   </p>
-                </button>
+                </NextLink>
               )
             )}
             {communities?.findCommunities.hasMore ? (
