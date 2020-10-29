@@ -2,11 +2,14 @@ import classNames from 'classnames';
 import { Flag, LocationMarker, Users } from 'heroicons-react';
 import React from 'react';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
-import { useFindCommunitiesQuery } from '../generated/graphql';
+import {
+  FindCommunitiesQuery,
+  useFindCommunitiesQuery,
+} from '../generated/graphql';
 
-const MyCommunities: React.FC = () => {
-  const { data: communities } = useFindCommunitiesQuery({
-    variables: { options: { limit: 2 } },
+const Browse: React.FC = () => {
+  const { data: communities, fetchMore, variables } = useFindCommunitiesQuery({
+    variables: { options: { limit: 2, cursor: null } },
   });
   return (
     <main>
@@ -14,7 +17,7 @@ const MyCommunities: React.FC = () => {
       <div className="fixed w-screen h-screen bg-gray-50 -z-1" />
       <div className="container mx-auto py-10 px-5">
         <h1 className="text-2xl font-bold">Explore Communities</h1>
-        <div className="flex flex-col md:flex-row items-start md:space-x-10 mt-6">
+        <div className="flex flex-col lg:flex-row items-start lg:space-x-10 mt-6">
           <ul
             className="flex-flex-col divide-y divide-gray-200 bg-white rounded shadow-sm border border-gray-200"
             style={{ width: '20rem' }}
@@ -43,22 +46,25 @@ const MyCommunities: React.FC = () => {
               </p>
             </li>
           </ul>
-          <div className="flex flex-col w-full mt-5 md:mt-0">
+          <div className="flex flex-col w-full mt-8 lg:mt-0">
             {communities?.findCommunities.communities.map(
               (community, index) => (
                 <button
                   key={community.id}
                   className={classNames(
-                    'relative text-left focus:outline-none p-5 focus-within:bg-white focus-within:shadow-sm rounded mb-5',
+                    'relative text-left focus:outline-none p-5 hover:bg-white hover:bg-opacity-50 hover:shadow-sm rounded mb-5',
                     {
-                      'px-8': !index,
+                      'px-8 bg-white shadow-sm': !index,
                     }
                   )}
                 >
                   {!index ? (
-                    <div className="absolute top-0 left-0 -ml-4 mt-5 flex items-center justify-center bg-gradient bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold rounded-full w-8 h-8 shadow">
-                      1
-                    </div>
+                    <>
+                      <div className="absolute top-0 left-0 z-10 -ml-4 mt-5 flex items-center justify-center bg-gradient bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold rounded-full w-8 h-8 shadow">
+                        1
+                      </div>
+                      <div className="absolute top-0 left-0 z-0 rounded-l flex items-center justify-center bg-gradient bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold w-1 h-full" />
+                    </>
                   ) : null}
                   <h2 className="font-semibold text-xl text-gray-800">
                     {community.name}
@@ -86,9 +92,48 @@ const MyCommunities: React.FC = () => {
                 </button>
               )
             )}
-            <button className="focus:outline-none focus:shadow-outline focus:bg-gray-50 bg-white w-32 px-4 py-3 text-gray-700 rounded shadow-sm">
-              Load More
-            </button>
+            {communities?.findCommunities.hasMore ? (
+              <button
+                className="focus:outline-none focus:shadow-outline focus:bg-gray-50 bg-white w-32 px-4 py-3 text-gray-700 rounded shadow-sm"
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      options: {
+                        limit: variables.options.limit,
+                        cursor:
+                          communities.findCommunities.communities[
+                            communities.findCommunities.communities.length - 1
+                          ].createdAt,
+                      },
+                    },
+                    updateQuery: (
+                      previousValue,
+                      { fetchMoreResult }
+                    ): FindCommunitiesQuery => {
+                      if (!fetchMoreResult) {
+                        return previousValue as FindCommunitiesQuery;
+                      }
+
+                      return {
+                        __typename: 'Query',
+                        findCommunities: {
+                          communities: [
+                            ...(previousValue as FindCommunitiesQuery)
+                              .findCommunities.communities,
+                            ...(fetchMoreResult as FindCommunitiesQuery)
+                              .findCommunities.communities,
+                          ],
+                          hasMore: (fetchMoreResult as FindCommunitiesQuery)
+                            .findCommunities.hasMore,
+                        },
+                      };
+                    },
+                  });
+                }}
+              >
+                Load More
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
@@ -96,4 +141,4 @@ const MyCommunities: React.FC = () => {
   );
 };
 
-export default MyCommunities;
+export default Browse;

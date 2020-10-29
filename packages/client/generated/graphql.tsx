@@ -225,6 +225,7 @@ export type FindCommunitiesQuery = (
   { __typename?: 'Query' }
   & { findCommunities: (
     { __typename?: 'PaginatedCommunities' }
+    & Pick<PaginatedCommunities, 'hasMore'>
     & { communities: Array<(
       { __typename?: 'Community' }
       & CommunityFragment
@@ -447,6 +448,7 @@ export const FindCommunitiesDocument = gql`
     communities {
       ...Community
     }
+    hasMore
   }
 }
     ${CommunityFragmentDoc}`;

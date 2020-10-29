@@ -3,5 +3,6 @@ query FindCommunities($options: PaginatedCommunitiesArgs!) {
     communities {
       ...Community
     }
+    hasMore
   }
 }
