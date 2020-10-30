@@ -50,17 +50,36 @@ const Community: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-2 mt-5">
                   {community.getCommunity.isCreator ? (
-                    <button className="flex items-center focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-gradient-to-r from-teal-500 to-blue-500 focus-within:from-teal-600 focus:to-blue-600 text-white font-medium rounded transition ease duration-200">
-                      <Flag size={15} className="mr-2" />
-                      Post
-                    </button>
+                    <div
+                      className="flex items-center justify-center bg-gradient-to-r from-blue-500 via-yellow-500 to-pink-500 rounded shadow"
+                      style={{ padding: '2px' }}
+                    >
+                      <NextLink
+                        href={`/post?id=${id}`}
+                        className="flex items-center focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed bg-gray-800 text-white font-medium rounded transition ease duration-200"
+                      >
+                        <Flag size={15} className="mr-2" />
+                        Post
+                      </NextLink>
+                    </div>
                   ) : null}
-                  <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-indigo-500 focus:bg-indigo-600 text-white font-medium rounded transition ease duration-200">
-                    Join
-                  </button>
-                  <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-gray-700 focus:bg-gray-800 text-white font-medium rounded transition ease duration-200">
-                    Contact
-                  </button>
+                  <div
+                    className="flex items-center justify-center bg-indigo-500 focus-within:bg-indigo-600 rounded shadow"
+                    style={{ padding: '2px' }}
+                  >
+                    <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-indigo-500 focus:bg-indigo-600 text-white font-medium rounded transition ease duration-200">
+                      Join
+                    </button>
+                  </div>
+
+                  <div
+                    className="flex items-center justify-center bg-gray-700 focus-within:bg-gray-800 rounded shadow"
+                    style={{ padding: '2px' }}
+                  >
+                    <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-gray-700 focus:bg-gray-800 text-white font-medium rounded transition ease duration-200">
+                      Contact
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="container mx-auto">
