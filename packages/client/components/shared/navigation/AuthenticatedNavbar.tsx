@@ -7,7 +7,7 @@ import { UserDropdown } from '../dropdown/user';
 import { NextLink } from '../nextlink';
 
 export const AuthenticatedNavbar: React.FC = ({}) => {
-  const { data: me } = useMeQuery();
+  const { data: me, loading } = useMeQuery();
   const router = useRouter();
 
   const isOnRoute = (...routes: string[]) => routes.includes(router.pathname);
@@ -88,7 +88,7 @@ export const AuthenticatedNavbar: React.FC = ({}) => {
             <Plus size={25} className="mr-1" />
             Create
           </NextLink>
-          {!!me ? <UserDropdown dark /> : null}
+          {!loading && me && !!me?.me ? <UserDropdown dark /> : null}
         </div>
       </div>
     </div>

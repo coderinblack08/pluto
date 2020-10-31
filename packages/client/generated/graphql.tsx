@@ -44,6 +44,7 @@ export type Post = {
   community: Community;
   announcementId?: Maybe<Scalars['Float']>;
   announcement: Announcement;
+  pinned: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -103,6 +104,7 @@ export type PaginatedCommunitiesArgs = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAnnouncement: AnnouncementResponse;
+  deletePost: Scalars['Boolean'];
   createCommunity: CommunityResponse;
   register: UserResponse;
   login: UserResponse;
@@ -112,6 +114,11 @@ export type Mutation = {
 
 export type MutationCreateAnnouncementArgs = {
   options: AnnouncementArgs;
+};
+
+
+export type MutationDeletePostArgs = {
+  postId: Scalars['Float'];
 };
 
 
@@ -145,6 +152,7 @@ export type AnnouncementArgs = {
   title: Scalars['String'];
   announcement: Scalars['String'];
   communityId: Scalars['String'];
+  pinned: Scalars['Boolean'];
 };
 
 export type CommunityResponse = {
@@ -195,6 +203,15 @@ export type ErrorFragment = (
   & Pick<FieldError, 'field' | 'message'>
 );
 
+export type PostFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id' | 'likes' | 'comments'>
+  & { announcement: (
+    { __typename?: 'Announcement' }
+    & Pick<Announcement, 'title' | 'announcement'>
+  ) }
+);
+
 export type UserFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'name' | 'email' | 'schoolAccount'>
@@ -209,6 +226,25 @@ export type UserResponseFragment = (
     { __typename?: 'User' }
     & UserFragment
   )> }
+);
+
+export type CreateAnnouncementMutationVariables = Exact<{
+  options: AnnouncementArgs;
+}>;
+
+
+export type CreateAnnouncementMutation = (
+  { __typename?: 'Mutation' }
+  & { createAnnouncement: (
+    { __typename?: 'AnnouncementResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & ErrorFragment
+    )>>, post?: Maybe<(
+      { __typename?: 'Post' }
+      & PostFragment
+    )> }
+  ) }
 );
 
 export type CreateCommunityMutationVariables = Exact<{
@@ -228,6 +264,16 @@ export type CreateCommunityMutation = (
       & CommunityFragment
     )> }
   ) }
+);
+
+export type DeletePostMutationVariables = Exact<{
+  postId: Scalars['Float'];
+}>;
+
+
+export type DeletePostMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deletePost'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -318,6 +364,19 @@ export type MeQuery = (
   )> }
 );
 
+export type FindPostsQueryVariables = Exact<{
+  communityId: Scalars['String'];
+}>;
+
+
+export type FindPostsQuery = (
+  { __typename?: 'Query' }
+  & { findPosts: Array<(
+    { __typename?: 'Post' }
+    & PostFragment
+  )> }
+);
+
 export const CommunityFragmentDoc = gql`
     fragment Community on Community {
   id
@@ -333,6 +392,17 @@ export const CommunityFragmentDoc = gql`
   emailNotifications
   createdAt
   updatedAt
+}
+    `;
+export const PostFragmentDoc = gql`
+    fragment Post on Post {
+  id
+  likes
+  comments
+  announcement {
+    title
+    announcement
+  }
 }
     `;
 export const ErrorFragmentDoc = gql`
@@ -360,6 +430,44 @@ export const UserResponseFragmentDoc = gql`
 }
     ${ErrorFragmentDoc}
 ${UserFragmentDoc}`;
+export const CreateAnnouncementDocument = gql`
+    mutation CreateAnnouncement($options: AnnouncementArgs!) {
+  createAnnouncement(options: $options) {
+    errors {
+      ...Error
+    }
+    post {
+      ...Post
+    }
+  }
+}
+    ${ErrorFragmentDoc}
+${PostFragmentDoc}`;
+export type CreateAnnouncementMutationFn = Apollo.MutationFunction<CreateAnnouncementMutation, CreateAnnouncementMutationVariables>;
+
+/**
+ * __useCreateAnnouncementMutation__
+ *
+ * To run a mutation, you first call `useCreateAnnouncementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAnnouncementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAnnouncementMutation, { data, loading, error }] = useCreateAnnouncementMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useCreateAnnouncementMutation(baseOptions?: Apollo.MutationHookOptions<CreateAnnouncementMutation, CreateAnnouncementMutationVariables>) {
+        return Apollo.useMutation<CreateAnnouncementMutation, CreateAnnouncementMutationVariables>(CreateAnnouncementDocument, baseOptions);
+      }
+export type CreateAnnouncementMutationHookResult = ReturnType<typeof useCreateAnnouncementMutation>;
+export type CreateAnnouncementMutationResult = Apollo.MutationResult<CreateAnnouncementMutation>;
+export type CreateAnnouncementMutationOptions = Apollo.BaseMutationOptions<CreateAnnouncementMutation, CreateAnnouncementMutationVariables>;
 export const CreateCommunityDocument = gql`
     mutation CreateCommunity($options: CommunityArgs!) {
   createCommunity(options: $options) {
@@ -398,6 +506,36 @@ export function useCreateCommunityMutation(baseOptions?: Apollo.MutationHookOpti
 export type CreateCommunityMutationHookResult = ReturnType<typeof useCreateCommunityMutation>;
 export type CreateCommunityMutationResult = Apollo.MutationResult<CreateCommunityMutation>;
 export type CreateCommunityMutationOptions = Apollo.BaseMutationOptions<CreateCommunityMutation, CreateCommunityMutationVariables>;
+export const DeletePostDocument = gql`
+    mutation DeletePost($postId: Float!) {
+  deletePost(postId: $postId)
+}
+    `;
+export type DeletePostMutationFn = Apollo.MutationFunction<DeletePostMutation, DeletePostMutationVariables>;
+
+/**
+ * __useDeletePostMutation__
+ *
+ * To run a mutation, you first call `useDeletePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePostMutation, { data, loading, error }] = useDeletePostMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useDeletePostMutation(baseOptions?: Apollo.MutationHookOptions<DeletePostMutation, DeletePostMutationVariables>) {
+        return Apollo.useMutation<DeletePostMutation, DeletePostMutationVariables>(DeletePostDocument, baseOptions);
+      }
+export type DeletePostMutationHookResult = ReturnType<typeof useDeletePostMutation>;
+export type DeletePostMutationResult = Apollo.MutationResult<DeletePostMutation>;
+export type DeletePostMutationOptions = Apollo.BaseMutationOptions<DeletePostMutation, DeletePostMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($options: LoginArgs!) {
   login(options: $options) {
@@ -627,3 +765,36 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const FindPostsDocument = gql`
+    query FindPosts($communityId: String!) {
+  findPosts(communityId: $communityId) {
+    ...Post
+  }
+}
+    ${PostFragmentDoc}`;
+
+/**
+ * __useFindPostsQuery__
+ *
+ * To run a query within a React component, call `useFindPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindPostsQuery({
+ *   variables: {
+ *      communityId: // value for 'communityId'
+ *   },
+ * });
+ */
+export function useFindPostsQuery(baseOptions?: Apollo.QueryHookOptions<FindPostsQuery, FindPostsQueryVariables>) {
+        return Apollo.useQuery<FindPostsQuery, FindPostsQueryVariables>(FindPostsDocument, baseOptions);
+      }
+export function useFindPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindPostsQuery, FindPostsQueryVariables>) {
+          return Apollo.useLazyQuery<FindPostsQuery, FindPostsQueryVariables>(FindPostsDocument, baseOptions);
+        }
+export type FindPostsQueryHookResult = ReturnType<typeof useFindPostsQuery>;
+export type FindPostsLazyQueryHookResult = ReturnType<typeof useFindPostsLazyQuery>;
+export type FindPostsQueryResult = Apollo.QueryResult<FindPostsQuery, FindPostsQueryVariables>;

@@ -26,6 +26,7 @@ const constants_1 = require("./constants");
 const AnnouncementResolver_1 = require("./resolvers/AnnouncementResolver");
 const CommunityResolver_1 = require("./resolvers/CommunityResolver");
 const HelloResolver_1 = require("./resolvers/HelloResolver");
+const PostResolver_1 = require("./resolvers/PostResolver");
 const UserResolver_1 = require("./resolvers/UserResolver");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield typeorm_1.createConnection();
@@ -55,6 +56,7 @@ const UserResolver_1 = require("./resolvers/UserResolver");
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
             resolvers: [
+                PostResolver_1.PostResolver,
                 HelloResolver_1.HelloResolver,
                 UserResolver_1.UserResolver,
                 CommunityResolver_1.CommunityResolver,

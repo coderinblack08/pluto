@@ -10,4 +10,7 @@ export class AnnouncementArgs {
 
   @Field()
   communityId: string;
+
+  @Field()
+  pinned: boolean;
 }

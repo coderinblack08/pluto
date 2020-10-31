@@ -60,6 +60,7 @@ export class UserResolver {
         return generateError('email', 'Email already exists');
       }
     }
+    return {};
   }
 
   @Mutation(() => UserResponse)

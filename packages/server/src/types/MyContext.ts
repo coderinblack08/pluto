@@ -1,4 +1,4 @@
-import { Request, Response, Express } from 'express';
+import { Request, Response, Express as _ } from 'express';
 import { Redis } from 'ioredis';
 
 export type MyContext = {

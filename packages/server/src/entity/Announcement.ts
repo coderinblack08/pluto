@@ -30,6 +30,6 @@ export class Announcement extends BaseEntity {
 
   @Field(() => Post)
   @JoinColumn({ name: 'postId' })
-  @OneToOne(() => Post)
+  @OneToOne(() => Post, { onDelete: 'CASCADE' })
   post: Post;
 }

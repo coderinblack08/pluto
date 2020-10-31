@@ -1,0 +1,10 @@
+mutation CreateAnnouncement($options: AnnouncementArgs!) {
+  createAnnouncement(options: $options) {
+    errors {
+      ...Error
+    }
+    post {
+      ...Post
+    }
+  }
+}

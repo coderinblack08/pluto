@@ -40,6 +40,7 @@ export class CommunityResolver {
     } catch (error) {
       console.error(error);
     }
+    return {};
   }
 
   @Query(() => Community)

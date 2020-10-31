@@ -1,11 +1,4 @@
-import {
-  Arg,
-  Ctx,
-  Mutation,
-  Query,
-  Resolver,
-  UseMiddleware,
-} from 'type-graphql';
+import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from 'type-graphql';
 import { Announcement } from '../entity/Announcement';
 import { Community } from '../entity/Community';
 import { Post } from '../entity/Post';
@@ -25,6 +18,10 @@ export class AnnouncementResolver {
     const community = await Community.findOne(options.communityId, {
       relations: ['creator'],
     });
+
+    if (!community) {
+      throw new Error('Community Not Found');
+    }
 
     if (req.session.userId !== community.creator.id) {
       throw new Error('You are not the creator of this community');
@@ -47,15 +44,5 @@ export class AnnouncementResolver {
     return {
       post: joinedPost as Post,
     };
-  }
-
-  @Query(() => [Post])
-  async findPosts(@Arg('communityId') communityId: string) {
-    const posts = await Post.find({
-      where: { communityId },
-      relations: ['announcement'],
-    });
-    console.log(posts);
-    return posts;
   }
 }

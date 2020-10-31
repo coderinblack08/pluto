@@ -42,8 +42,12 @@ export class Post extends BaseEntity {
 
   @Field(() => Announcement)
   @JoinColumn({ name: 'announcementId' })
-  @OneToOne(() => Announcement)
+  @OneToOne(() => Announcement, { onDelete: 'CASCADE' })
   announcement: Announcement;
+
+  @Field()
+  @Column({ default: 'false' })
+  pinned: boolean;
 
   @Field(() => String)
   @UpdateDateColumn()

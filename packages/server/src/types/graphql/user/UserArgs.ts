@@ -12,7 +12,7 @@ export class RegisterArgs {
   password: string;
 
   @Field()
-  confirmPassword: string;
+  confirmPassword?: string;
 
   @Field(() => Boolean)
   schoolAccount?: boolean;

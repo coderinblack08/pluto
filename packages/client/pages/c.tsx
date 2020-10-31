@@ -1,27 +1,32 @@
 import {
   CalendarOutline,
-  ChatOutline,
   ChevronRight,
   Flag,
-  HeartOutline,
   LocationMarker,
   Pencil,
-  SpeakerphoneOutline,
+  Photograph,
   Users,
 } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { Card } from '../components/community/card';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { NextLink } from '../components/shared/nextlink';
-import { useGetCommunityQuery } from '../generated/graphql';
+import { useFindPostsQuery, useGetCommunityQuery } from '../generated/graphql';
 
 const Community: React.FC = () => {
   const {
     query: { id },
   } = useRouter();
 
+  const apolloFriendlyId = Array.isArray(id) ? id[0] : id;
+
   const { data: community, loading } = useGetCommunityQuery({
-    variables: { id: Array.isArray(id) ? id[0] : id },
+    variables: { id: apolloFriendlyId },
+  });
+
+  const { data: posts } = useFindPostsQuery({
+    variables: { communityId: apolloFriendlyId },
   });
 
   return (
@@ -50,33 +55,33 @@ const Community: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-2 mt-5">
                   {community.getCommunity.isCreator ? (
-                    <div
-                      className="flex items-center justify-center bg-gradient-to-r from-blue-500 via-yellow-500 to-pink-500 rounded shadow"
+                    <button
+                      className="flex items-center justify-center focus:outline-none focus:shadow-outline bg-gradient-to-r from-blue-500 via-yellow-500 to-pink-500 rounded shadow"
                       style={{ padding: '2px' }}
                     >
                       <NextLink
                         href={`/post?id=${id}`}
-                        className="flex items-center focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed bg-gray-800 text-white font-medium rounded transition ease duration-200"
+                        className="flex items-center px-5 py-2 leading-relaxed bg-opacity-50 bg-gray-800 text-white font-medium rounded transition ease duration-200"
                       >
-                        <Flag size={15} className="mr-2" />
+                        <Flag size={15} className="mr-2 text-gray-200" />
                         Post
                       </NextLink>
-                    </div>
+                    </button>
                   ) : null}
-                  <div
-                    className="flex items-center justify-center bg-indigo-500 focus-within:bg-indigo-600 rounded shadow"
+                  <button
+                    className="flex items-center focus:outline-none focus:shadow-outline justify-center bg-indigo-500 rounded shadow"
                     style={{ padding: '2px' }}
                   >
-                    <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-indigo-500 focus:bg-indigo-600 text-white font-medium rounded transition ease duration-200">
+                    <div className="px-5 py-2 leading-relaxed bg-indigo-500 text-white font-medium transition ease duration-200">
                       Join
-                    </button>
-                  </div>
+                    </div>
+                  </button>
 
                   <div
-                    className="flex items-center justify-center bg-gray-700 focus-within:bg-gray-800 rounded shadow"
+                    className="flex items-center justify-center bg-gray-700 rounded shadow"
                     style={{ padding: '2px' }}
                   >
-                    <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed shadow bg-gray-700 focus:bg-gray-800 text-white font-medium rounded transition ease duration-200">
+                    <button className="focus:outline-none focus:shadow-outline px-5 py-2 leading-relaxed bg-gray-700 text-white font-medium rounded transition ease duration-200">
                       Contact
                     </button>
                   </div>
@@ -114,11 +119,7 @@ const Community: React.FC = () => {
                     </p>
                   </div>
                   <div className="bg-gray-50 border-t border-gray-200 w-full px-6 py-4 inline-flex items-center space-x-3">
-                    {/* <img
-                      className="inline-block h-7 w-7 rounded-full text-white shadow-solid"
-                      src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt="Avatar Image"
-                    /> */}
+                    {/* IMAGE TAG: className="inline-block h-7 w-7 rounded-full text-white shadow-solid" */}
                     <p className="text-gray-700 font-xl">
                       Created by{' '}
                       <a className="text-indigo-500 hover:underline" href="#">
@@ -186,60 +187,50 @@ const Community: React.FC = () => {
                         </div>
                       </div>
                     </div> */}
-                    <div className="bg-white shadow-sm hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
-                      <div className="flex items-start space-x-6">
-                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 group-hover:shadow-md p-2 rounded">
-                          <SpeakerphoneOutline size={20} />
-                        </div>
-                        <div className="flex flex-col">
-                          <h2 className="text-2xl font-bold text-gray-800 group-hover:text-white leading-snug">
-                            Foodies Announcement
-                          </h2>
-                          <p className="text-gray-600 group-hover:text-gray-100 mt-1 leading-relaxed">
-                            Please checkout our Dinner night at Flamingo! Join
-                            us at 7pm with your family and friends on November
-                            21, 2020!
-                          </p>
-                          <div className="flex items-center mt-4 divide-x">
-                            <button className="focus:outline-none hover:text-red-600 group-hover:text-red-100 inline-flex items-center text-red-500 pr-5">
-                              <HeartOutline size={18} className="mr-2" />
-                              1.7k Likes
-                            </button>
-                            <div className="inline-flex items-center text-gray-600 group-hover:text-gray-100 pl-5">
-                              <ChatOutline size={18} className="mr-2" />
-                              841 Comments
+                    {!posts?.findPosts.length ? (
+                      <div className="border-2 bg-white bg-opacity-25 border-gray-200 border-dashed py-16 rounded-lg text-gray-500 flex flex-col items-center">
+                        <Photograph size={30} className="text-gray-400 mb-2" />
+                        <h3 className="text-lg">
+                          No Posts Found
+                          {community.getCommunity.isCreator ? (
+                            <div className="inline">
+                              .
+                              <NextLink
+                                href={`/post?id=${id}`}
+                                className="inline text-indigo-400 hover:underline ml-1"
+                              >
+                                Create One
+                              </NextLink>
                             </div>
-                          </div>
-                        </div>
+                          ) : null}
+                        </h3>
                       </div>
-                    </div>
-                    <div className="bg-white shadow-sm hover:bg-gradient-to-r hover:from-orange-400 hover:to-red-400 px-6 py-8 rounded-md hover:shadow-inner group">
-                      <div className="flex items-start space-x-6">
-                        <div className="inline-flex items-center justify-center text-white bg-gradient-to-r from-orange-500 to-red-500 p-2 group-hover:shadow-md rounded">
-                          <SpeakerphoneOutline size={20} />
-                        </div>
-                        <div className="flex flex-col">
-                          <h2 className="text-2xl font-bold text-gray-800 group-hover:text-white leading-snug">
-                            Foodies Announcement
-                          </h2>
-                          <p className="text-gray-600 group-hover:text-gray-100 mt-1 leading-relaxed">
-                            Please checkout our Dinner night at Flamingo! Join
-                            us at 7pm with your family and friends on November
-                            21, 2020!
-                          </p>
-                          <div className="flex items-center mt-4 divide-x">
-                            <button className="focus:outline-none hover:text-red-600 group-hover:text-red-100 inline-flex items-center text-red-500 pr-5">
-                              <HeartOutline size={18} className="mr-2" />
-                              1.7k Likes
-                            </button>
-                            <div className="inline-flex items-center text-gray-600 group-hover:text-gray-100 pl-5">
-                              <ChatOutline size={18} className="mr-2" />
-                              841 Comments
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    ) : (
+                      posts?.findPosts.map((post, index) => (
+                        <Card
+                          id={post.id}
+                          key={post.id}
+                          title={post.announcement.title}
+                          announcement={post.announcement.announcement}
+                          likes={post.likes}
+                          comments={post.comments}
+                          isFirst={!index}
+                        />
+                      ))
+                    )}
+                    {/* <Card
+                        title="Foodies Announcement"
+                        announcement="Please checkout our Dinner night at Flamingo! Join us at 7pm with your family and friends on November 21, 2020!"
+                        likes="1.7k"
+                        comments="841"
+                        isFirst
+                      />
+                    <Card
+                      title="Pizza Day"
+                      announcement="Let's celebrate pizza day by making our own homemade pizza! Join us on the pizza day zoom meeting!"
+                      likes="1.2k"
+                      comments="128"
+                    /> */}
                   </section>
                   <aside className="w-full lg:w-1/3 px-10 lg:px-0 lg:pl-6">
                     <h3 className="flex items-center text-2xl font-bold text-gray-800">

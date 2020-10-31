@@ -12,6 +12,7 @@ import { client_url, cookie_name, port, __prod__ } from './constants';
 import { AnnouncementResolver } from './resolvers/AnnouncementResolver';
 import { CommunityResolver } from './resolvers/CommunityResolver';
 import { HelloResolver } from './resolvers/HelloResolver';
+import { PostResolver } from './resolvers/PostResolver';
 import { UserResolver } from './resolvers/UserResolver';
 
 (async () => {
@@ -43,7 +44,7 @@ import { UserResolver } from './resolvers/UserResolver';
         sameSite: 'lax',
       },
       saveUninitialized: false,
-      secret: process.env.SESSION_SECRET,
+      secret: process.env.SESSION_SECRET!,
       resave: false,
     })
   );
@@ -51,6 +52,7 @@ import { UserResolver } from './resolvers/UserResolver';
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [
+        PostResolver,
         HelloResolver,
         UserResolver,
         CommunityResolver,
