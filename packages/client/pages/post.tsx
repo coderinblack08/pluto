@@ -15,6 +15,8 @@ import {
   AnnouncementArgs,
   FindPostsDocument,
   FindPostsQuery,
+  GetCommunityDocument,
+  GetCommunityQuery,
   useCreateAnnouncementMutation,
   useFindPostsQuery,
   useGetCommunityQuery,
@@ -123,6 +125,16 @@ const Post: React.FC = () => {
                               data.createAnnouncement.post,
                               ...(posts.findPosts || []),
                             ],
+                          },
+                        });
+                        cache.writeQuery<GetCommunityQuery>({
+                          query: GetCommunityDocument,
+                          data: {
+                            __typename: 'Query',
+                            getCommunity: {
+                              ...community.getCommunity,
+                              posts: community.getCommunity.posts + 1,
+                            },
                           },
                         });
                       },

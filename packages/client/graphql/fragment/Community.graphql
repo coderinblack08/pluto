@@ -8,6 +8,7 @@ fragment Community on Community {
   location
   isPrivate
   isSchool
+  posts
   maxParticipants
   emailNotifications
   createdAt

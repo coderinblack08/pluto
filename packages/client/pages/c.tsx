@@ -43,11 +43,8 @@ const Community: React.FC = () => {
                     {community.getCommunity.name}
                   </h1>
                   <p className="flex items-center text-gray-300">
-                    <NextLink
-                      href="/my-communities"
-                      className="hover:text-gray-50"
-                    >
-                      My Communities
+                    <NextLink href="/browse" className="hover:text-gray-50">
+                      Browse
                     </NextLink>
                     <ChevronRight size={18} className="text-gray-500 mx-1" />
                     {community.getCommunity.name}
@@ -111,7 +108,7 @@ const Community: React.FC = () => {
                       ) : null}
                       <div className="flex items-center text-gray-500 font-medium pl-4">
                         <Flag className="mr-2" size={20} />
-                        24 Posts
+                        {community.getCommunity.posts} Posts
                       </div>
                     </div>
                     <p className="text-base leading-7 text-gray-700 mt-4 max-w-2xl">
@@ -189,8 +186,21 @@ const Community: React.FC = () => {
                     </div> */}
                     {!posts?.findPosts.length ? (
                       <div className="border-2 bg-white bg-opacity-25 border-gray-200 border-dashed py-16 rounded-lg text-gray-500 flex flex-col items-center">
-                        <Photograph size={30} className="text-gray-400 mb-2" />
-                        <h3 className="text-lg">
+                        <div className="relative mb-12">
+                          <Photograph
+                            size={48}
+                            className="absolute z-10 left-0 -ml-1 top-0 text-indigo-200 -mt-1"
+                          />
+                          <Photograph
+                            size={38}
+                            className="absolute z-0 top-0 -ml-10 mt-1 transform -rotate-12 text-gray-300 mb-2"
+                          />
+                          <Photograph
+                            size={38}
+                            className="absolute z-0 top-0 ml-10 mt-1 transform rotate-12 text-gray-300 mb-2"
+                          />
+                        </div>
+                        <h3 className="text-lg mt-2">
                           No Posts Found
                           {community.getCommunity.isCreator ? (
                             <div className="inline">
@@ -209,11 +219,14 @@ const Community: React.FC = () => {
                       posts?.findPosts.map((post, index) => (
                         <Card
                           id={post.id}
+                          index={index}
                           key={post.id}
                           title={post.announcement.title}
                           announcement={post.announcement.announcement}
                           likes={post.likes}
                           comments={post.comments}
+                          communityId={apolloFriendlyId}
+                          isLiked={post.isLiked}
                           isFirst={!index}
                         />
                       ))

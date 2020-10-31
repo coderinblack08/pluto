@@ -13,16 +13,11 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  findPosts: Array<Post>;
   getCommunity: Community;
   findCommunities: PaginatedCommunities;
   hello: Scalars['String'];
+  findPosts: Array<Post>;
   me?: Maybe<User>;
-};
-
-
-export type QueryFindPostsArgs = {
-  communityId: Scalars['String'];
 };
 
 
@@ -35,18 +30,9 @@ export type QueryFindCommunitiesArgs = {
   options: PaginatedCommunitiesArgs;
 };
 
-export type Post = {
-  __typename?: 'Post';
-  id: Scalars['Float'];
-  comments: Scalars['Float'];
-  likes: Scalars['Float'];
+
+export type QueryFindPostsArgs = {
   communityId: Scalars['String'];
-  community: Community;
-  announcementId?: Maybe<Scalars['Float']>;
-  announcement: Announcement;
-  pinned: Scalars['Boolean'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
 };
 
 export type Community = {
@@ -81,15 +67,6 @@ export type User = {
   updatedAt: Scalars['String'];
 };
 
-export type Announcement = {
-  __typename?: 'Announcement';
-  id: Scalars['Float'];
-  title: Scalars['String'];
-  announcement: Scalars['String'];
-  postId: Scalars['Float'];
-  post: Post;
-};
-
 export type PaginatedCommunities = {
   __typename?: 'PaginatedCommunities';
   hasMore: Scalars['Boolean'];
@@ -101,11 +78,37 @@ export type PaginatedCommunitiesArgs = {
   cursor?: Maybe<Scalars['String']>;
 };
 
+export type Post = {
+  __typename?: 'Post';
+  id: Scalars['Float'];
+  comments: Scalars['Float'];
+  likes: Scalars['Float'];
+  communityId: Scalars['String'];
+  community: Community;
+  announcementId?: Maybe<Scalars['Float']>;
+  announcement: Announcement;
+  pinned: Scalars['Boolean'];
+  isLiked: Scalars['Boolean'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type Announcement = {
+  __typename?: 'Announcement';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  announcement: Scalars['String'];
+  postId: Scalars['Float'];
+  post: Post;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAnnouncement: AnnouncementResponse;
-  deletePost: Scalars['Boolean'];
   createCommunity: CommunityResponse;
+  deletePost: Scalars['Boolean'];
+  likePost: Scalars['Boolean'];
+  unlikePost: Scalars['Boolean'];
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
@@ -117,13 +120,23 @@ export type MutationCreateAnnouncementArgs = {
 };
 
 
+export type MutationCreateCommunityArgs = {
+  options: CommunityArgs;
+};
+
+
 export type MutationDeletePostArgs = {
   postId: Scalars['Float'];
 };
 
 
-export type MutationCreateCommunityArgs = {
-  options: CommunityArgs;
+export type MutationLikePostArgs = {
+  postId: Scalars['Float'];
+};
+
+
+export type MutationUnlikePostArgs = {
+  postId: Scalars['Float'];
 };
 
 
@@ -195,7 +208,7 @@ export type LoginArgs = {
 
 export type CommunityFragment = (
   { __typename?: 'Community' }
-  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
+  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'posts' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
 );
 
 export type ErrorFragment = (
@@ -274,6 +287,26 @@ export type DeletePostMutationVariables = Exact<{
 export type DeletePostMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deletePost'>
+);
+
+export type LikePostMutationVariables = Exact<{
+  postId: Scalars['Float'];
+}>;
+
+
+export type LikePostMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'likePost'>
+);
+
+export type UnlikePostMutationVariables = Exact<{
+  postId: Scalars['Float'];
+}>;
+
+
+export type UnlikePostMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'unlikePost'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -373,6 +406,7 @@ export type FindPostsQuery = (
   { __typename?: 'Query' }
   & { findPosts: Array<(
     { __typename?: 'Post' }
+    & Pick<Post, 'isLiked'>
     & PostFragment
   )> }
 );
@@ -388,6 +422,7 @@ export const CommunityFragmentDoc = gql`
   location
   isPrivate
   isSchool
+  posts
   maxParticipants
   emailNotifications
   createdAt
@@ -536,6 +571,66 @@ export function useDeletePostMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeletePostMutationHookResult = ReturnType<typeof useDeletePostMutation>;
 export type DeletePostMutationResult = Apollo.MutationResult<DeletePostMutation>;
 export type DeletePostMutationOptions = Apollo.BaseMutationOptions<DeletePostMutation, DeletePostMutationVariables>;
+export const LikePostDocument = gql`
+    mutation LikePost($postId: Float!) {
+  likePost(postId: $postId)
+}
+    `;
+export type LikePostMutationFn = Apollo.MutationFunction<LikePostMutation, LikePostMutationVariables>;
+
+/**
+ * __useLikePostMutation__
+ *
+ * To run a mutation, you first call `useLikePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likePostMutation, { data, loading, error }] = useLikePostMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useLikePostMutation(baseOptions?: Apollo.MutationHookOptions<LikePostMutation, LikePostMutationVariables>) {
+        return Apollo.useMutation<LikePostMutation, LikePostMutationVariables>(LikePostDocument, baseOptions);
+      }
+export type LikePostMutationHookResult = ReturnType<typeof useLikePostMutation>;
+export type LikePostMutationResult = Apollo.MutationResult<LikePostMutation>;
+export type LikePostMutationOptions = Apollo.BaseMutationOptions<LikePostMutation, LikePostMutationVariables>;
+export const UnlikePostDocument = gql`
+    mutation UnlikePost($postId: Float!) {
+  unlikePost(postId: $postId)
+}
+    `;
+export type UnlikePostMutationFn = Apollo.MutationFunction<UnlikePostMutation, UnlikePostMutationVariables>;
+
+/**
+ * __useUnlikePostMutation__
+ *
+ * To run a mutation, you first call `useUnlikePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnlikePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unlikePostMutation, { data, loading, error }] = useUnlikePostMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useUnlikePostMutation(baseOptions?: Apollo.MutationHookOptions<UnlikePostMutation, UnlikePostMutationVariables>) {
+        return Apollo.useMutation<UnlikePostMutation, UnlikePostMutationVariables>(UnlikePostDocument, baseOptions);
+      }
+export type UnlikePostMutationHookResult = ReturnType<typeof useUnlikePostMutation>;
+export type UnlikePostMutationResult = Apollo.MutationResult<UnlikePostMutation>;
+export type UnlikePostMutationOptions = Apollo.BaseMutationOptions<UnlikePostMutation, UnlikePostMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($options: LoginArgs!) {
   login(options: $options) {
@@ -769,6 +864,7 @@ export const FindPostsDocument = gql`
     query FindPosts($communityId: String!) {
   findPosts(communityId: $communityId) {
     ...Post
+    isLiked
   }
 }
     ${PostFragmentDoc}`;

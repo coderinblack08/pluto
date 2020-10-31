@@ -1,0 +1,3 @@
+mutation UnlikePost($postId: Float!) {
+  unlikePost(postId: $postId)
+}

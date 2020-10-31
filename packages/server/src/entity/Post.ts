@@ -49,6 +49,9 @@ export class Post extends BaseEntity {
   @Column({ default: 'false' })
   pinned: boolean;
 
+  @Field()
+  isLiked: boolean;
+
   @Field(() => String)
   @UpdateDateColumn()
   createdAt: Date;

@@ -1,4 +1,5 @@
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from 'type-graphql';
+import { getConnection } from 'typeorm';
 import { Announcement } from '../entity/Announcement';
 import { Community } from '../entity/Community';
 import { Post } from '../entity/Post';
@@ -35,6 +36,15 @@ export class AnnouncementResolver {
     }).save();
 
     await Post.update(post.id, { announcementId: announcement.id });
+
+    await getConnection().query(
+      `
+      update community
+      set posts = posts + 1
+      where id = $1;
+    `,
+      [options.communityId]
+    );
 
     const joinedPost = {
       ...post,

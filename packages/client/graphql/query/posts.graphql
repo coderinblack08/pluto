@@ -1,5 +1,6 @@
 query FindPosts($communityId: String!) {
   findPosts(communityId: $communityId) {
     ...Post
+    isLiked
   }
 }
