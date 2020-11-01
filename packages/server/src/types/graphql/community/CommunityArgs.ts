@@ -17,6 +17,9 @@ export class CommunityArgs {
   @Field({ nullable: true })
   location?: string;
 
+  @Field({ nullable: true })
+  category: string;
+
   @Field(() => [String])
   tags: string[];
 

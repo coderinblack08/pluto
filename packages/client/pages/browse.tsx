@@ -3,6 +3,7 @@ import { Flag, LocationMarker, Users } from 'heroicons-react';
 import React from 'react';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { NextLink } from '../components/shared/nextlink';
+import { categories } from '../constants/categories';
 import {
   FindCommunitiesQuery,
   useFindCommunitiesQuery,
@@ -29,26 +30,22 @@ const Browse: React.FC = () => {
             <li className="px-6 py-3 bg-gray-100">
               <h2 className="font-medium text-gray-900">Categories</h2>
             </li>
-            <li className="px-6 py-3">
-              <p className="text-indigo-500 font-medium whitespace-no-wrap">
-                Gaming
-              </p>
-            </li>
-            <li className="px-6 py-3">
-              <p className="text-gray-700 hover:text-gray-900 whitespace-no-wrap">
-                Sports
-              </p>
-            </li>
-            <li className="px-6 py-3">
-              <p className="text-gray-700 hover:text-gray-900 whitespace-no-wrap">
-                News
-              </p>
-            </li>
-            <li className="px-6 py-3">
-              <p className="text-gray-700 hover:text-gray-900 whitespace-no-wrap">
-                Science / Technology
-              </p>
-            </li>
+            {categories.map((category, key) => (
+              <li key={key}>
+                <button
+                  className={classNames(
+                    'transition ease duration-200 relative focus:z-10 px-6 py-3 w-full text-left focus:outline-none focus:shadow-outline-blue border border-white focus:border-blue-300',
+                    {
+                      'rounded-b': key === categories.length - 1,
+                    }
+                  )}
+                >
+                  <p className="text-gray-700 hover:text-gray-900 whitespace-no-wrap">
+                    {category}
+                  </p>
+                </button>
+              </li>
+            ))}
           </ul>
           <div className="flex flex-col w-full mt-8 lg:mt-0">
             {communities?.findCommunities.communities.map(

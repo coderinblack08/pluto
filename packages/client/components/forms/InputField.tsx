@@ -29,7 +29,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     <div className={wrapper || undefined}>
       <label
         htmlFor={field.name}
-        className={labelStyles || 'font-semibold text-gray-700'}
+        className={labelStyles || 'font-semibold text-gray-700 text-sm'}
       >
         {label}
       </label>
@@ -41,7 +41,7 @@ export const InputField: React.FC<InputFieldProps> = ({
           className={classNames(
             props.className
               ? props.className
-              : 'text-gray-800 mt-1 px-3 py-2 rounded-md border focus:outline-none focus:shadow-outline w-full transition ease duration-200 shadow-sm',
+              : 'text-gray-800 mt-1 px-3 py-2 rounded-md border focus:outline-none focus:border-blue-300 focus:shadow-outline-blue w-full transition ease duration-200 shadow-sm',
             {
               'border-2 border-red-400 text-red-600 focus:shadow-error': hasError,
               'focus:border focus:border-blue-400': !hasError,
@@ -57,7 +57,7 @@ export const InputField: React.FC<InputFieldProps> = ({
             className={classNames(
               props.className
                 ? props.className
-                : 'text-gray-800 mt-1 px-3 py-2 h-32 border focus:outline-none focus:shadow-outline w-full transition ease duration-200 shadow-sm',
+                : 'text-gray-800 mt-1 px-3 py-2 h-32 border focus:outline-none focus:border-blue-300 focus:shadow-outline-blue w-full transition ease duration-200 shadow-sm',
               {
                 'border-2 border-red-400 text-red-600 focus:shadow-error': hasError,
                 'focus:border focus:border-blue-400': !hasError,

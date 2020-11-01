@@ -37,7 +37,7 @@ const Community: React.FC = () => {
           <AuthenticatedNavbar />
           <div className="bg-gray-800 h-48">
             <div className="container mx-auto py-6 border-t border-gray-700">
-              <div className="flex items-center justify-between mb-7 mx-5 lg:mx-0">
+              <div className="flex flex-wrap items-center justify-between mb-7 mx-5 lg:mx-0">
                 <div>
                   <h1 className="font-bold text-3xl mt-4 text-white">
                     {community.getCommunity.name}
@@ -111,11 +111,11 @@ const Community: React.FC = () => {
                         {community.getCommunity.posts} Posts
                       </div>
                     </div>
-                    <p className="text-base leading-7 text-gray-700 mt-4 max-w-2xl">
+                    <p className="text-base leading-7 text-gray-700 mt-4 max-w-3xl">
                       {community.getCommunity.about}
                     </p>
                   </div>
-                  <div className="bg-gray-50 border-t border-gray-200 w-full px-6 py-4 inline-flex items-center space-x-3">
+                  <div className="bg-gray-50 border-t border-gray-200 w-full px-6 py-4 inline-flex items-center space-x-3 rounded-b">
                     {/* IMAGE TAG: className="inline-block h-7 w-7 rounded-full text-white shadow-solid" */}
                     <p className="text-gray-700 font-xl">
                       Created by{' '}
@@ -186,10 +186,10 @@ const Community: React.FC = () => {
                     </div> */}
                     {!posts?.findPosts.length ? (
                       <div className="border-2 bg-white bg-opacity-25 border-gray-200 border-dashed py-16 rounded-lg text-gray-500 flex flex-col items-center">
-                        <div className="relative mb-12">
+                        <div className="relative mb-16 -ml-8">
                           <Photograph
                             size={48}
-                            className="absolute z-10 left-0 -ml-1 top-0 text-indigo-200 -mt-1"
+                            className="absolute z-10 left-0 -ml-1 top-0 text-indigo-200 -mt-2"
                           />
                           <Photograph
                             size={38}

@@ -3,6 +3,7 @@ import {
   ChatOutline,
   Heart,
   HeartOutline,
+  PencilAltOutline,
   SpeakerphoneOutline,
   TrashOutline,
 } from 'heroicons-react';
@@ -73,9 +74,9 @@ export const Card: React.FC<CardProps> = ({
           <p className="text-gray-600 group-hover:text-gray-100 mt-1 leading-relaxed">
             {announcement}
           </p>
-          <div className="flex items-center mt-4 divide-x">
+          <div className="flex sm:items-center flex-wrap mt-4 sm:divide-x">
             <button
-              className="focus:outline-none hover:text-red-600 group-hover:text-red-100 inline-flex items-center text-red-500 pr-5"
+              className="focus:outline-none hover:text-red-600 group-hover:text-red-100 hidden sm:inline-flex items-center text-red-500 pr-5"
               onClick={async () => {
                 const newPosts = JSON.parse(
                   JSON.stringify(posts.findPosts)
@@ -123,35 +124,45 @@ export const Card: React.FC<CardProps> = ({
               {posts.findPosts[index].likes} Like
               {posts.findPosts[index].likes !== 1 ? 's' : ''}
             </button>
-            <div className="inline-flex items-center text-gray-600 group-hover:text-gray-100 pl-5 pr-5">
+            <div className="hidden sm:inline-flex items-center text-gray-600 group-hover:text-gray-100 pl-5 pr-5">
               <ChatOutline size={18} className="mr-2" />
               {comments} Comments
             </div>
             {community.getCommunity.isCreator ? (
-              <div className="pl-5">
-                <button
-                  className="focus:outline-none inline-flex items-center focus:shadow-outline bg-red-100 leading-loose px-3 group-hover:bg-opacity-25 rounded text-red-500 hover:text-red-600 group-hover:text-red-100"
-                  onClick={async () => {
-                    await deletePost({
-                      variables: { postId: id },
-                      update: (cache) => {
-                        cache.evict({ id: 'Post:' + id });
-                        cache.writeQuery<GetCommunityQuery>({
-                          query: GetCommunityDocument,
-                          data: {
-                            __typename: 'Query',
-                            getCommunity: {
-                              ...community.getCommunity,
-                              posts: community.getCommunity.posts - 1,
+              <div className="flex items-center">
+                <div className="sm:pl-5">
+                  <button
+                    className="focus:outline-none inline-flex items-center focus:shadow-outline bg-red-100 leading-loose px-3 group-hover:bg-opacity-25 rounded text-red-500 hover:text-red-600 group-hover:text-red-100"
+                    onClick={async () => {
+                      await deletePost({
+                        variables: { postId: id },
+                        update: (cache) => {
+                          cache.evict({ id: 'Post:' + id });
+                          cache.writeQuery<GetCommunityQuery>({
+                            query: GetCommunityDocument,
+                            data: {
+                              __typename: 'Query',
+                              getCommunity: {
+                                ...community.getCommunity,
+                                posts: community.getCommunity.posts - 1,
+                              },
                             },
-                          },
-                        });
-                      },
-                    });
-                  }}
-                >
-                  <TrashOutline size={18} className="mr-2" /> Delete
-                </button>
+                          });
+                        },
+                      });
+                    }}
+                  >
+                    <TrashOutline size={18} className="mr-2" /> Delete
+                  </button>
+                </div>
+                <div className="pl-3">
+                  <button
+                    className="focus:outline-none inline-flex items-center focus:shadow-outline bg-indigo-100 leading-loose px-3 group-hover:bg-opacity-25 rounded text-indigo-500 hover:text-indigo-600 group-hover:text-indigo-100"
+                    onClick={async () => {}}
+                  >
+                    <PencilAltOutline size={18} className="mr-2" /> Edit
+                  </button>
+                </div>
               </div>
             ) : null}
           </div>

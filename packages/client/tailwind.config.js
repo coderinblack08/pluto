@@ -14,6 +14,7 @@ module.exports = {
       },
       boxShadow: {
         error: '0 0 0 3px #fed7d7',
+        'outline-blue': '0 0 0 3px rgba(164, 202, 254, .45)',
       },
       width: {
         7: '1.75rem',

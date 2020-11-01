@@ -38,6 +38,10 @@ export class Community extends BaseEntity {
   @Column({ nullable: true })
   location?: string;
 
+  @Field()
+  @Column({ default: 'Other' })
+  category: string;
+
   @Field(() => [String])
   @Column({ type: 'text', array: true })
   tags: string[];

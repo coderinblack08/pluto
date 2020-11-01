@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Announcement } from './Announcement';
 import { Community } from './Community';
+import { User } from './User';
 
 @Entity()
 @ObjectType()
@@ -51,6 +52,15 @@ export class Post extends BaseEntity {
 
   @Field()
   isLiked: boolean;
+
+  @Field()
+  @Column()
+  creatorId: number;
+
+  @Field()
+  @JoinColumn({ name: 'creatorId' })
+  @ManyToOne(() => User)
+  creator: User;
 
   @Field(() => String)
   @UpdateDateColumn()

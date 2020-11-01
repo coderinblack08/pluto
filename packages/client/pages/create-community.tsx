@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Form, Formik } from 'formik';
 import { communitySchema } from '@pluto/common';
@@ -11,6 +11,8 @@ import {
   useCreateCommunityMutation,
 } from '../generated/graphql';
 import { useRouter } from 'next/router';
+import { Listbox, Transition } from '@headlessui/react';
+import { categories } from '../constants/categories';
 
 const onKeyDown = (keyEvent) => {
   if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
@@ -72,6 +74,9 @@ const secondTabPanel = (
 
 const Create: React.FC = () => {
   const [createCommunity] = useCreateCommunityMutation();
+  const [selectedCategory, setSelectedCategory] = useState(
+    categories[categories.length - 1]
+  );
   const router = useRouter();
 
   return (
@@ -141,6 +146,7 @@ const Create: React.FC = () => {
                       website: '',
                       email: '',
                       location: '',
+                      category: '',
                       tags: [],
                       isPrivate: false,
                       isSchool: false,
@@ -150,6 +156,7 @@ const Create: React.FC = () => {
                     validateOnChange={false}
                     validateOnBlur={false}
                     onSubmit={async (values) => {
+                      values.category = selectedCategory;
                       try {
                         const community = await createCommunity({
                           variables: { options: values as CommunityArgs },
@@ -188,6 +195,111 @@ const Create: React.FC = () => {
                                 placeholder="Enter tags..."
                                 setFormikValues={setFieldValue}
                               />
+                            </div>
+                            <div className="w-full max-w-xs">
+                              <Listbox
+                                as="div"
+                                className="space-y-1"
+                                value={selectedCategory}
+                                onChange={setSelectedCategory as any}
+                              >
+                                {({ open }) => (
+                                  <>
+                                    <Listbox.Label className="block text-sm leading-5 font-medium text-gray-700 mb-1">
+                                      Assigned Category
+                                    </Listbox.Label>
+                                    <div className="relative">
+                                      <span className="inline-block w-full rounded-md shadow-sm">
+                                        <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                          <span className="block truncate text-gray-700">
+                                            {selectedCategory}
+                                          </span>
+                                          <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                            <svg
+                                              className="h-5 w-5 text-gray-400"
+                                              viewBox="0 0 20 20"
+                                              fill="none"
+                                              stroke="currentColor"
+                                            >
+                                              <path
+                                                d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </Listbox.Button>
+                                      </span>
+
+                                      <Transition
+                                        show={open}
+                                        enter="transition ease-out duration-100"
+                                        enterFrom="transform opacity-0 scale-95"
+                                        enterTo="transform opacity-100 scale-100"
+                                        leave="transition ease-in duration-75"
+                                        leaveFrom="transform opacity-100 scale-100"
+                                        leaveTo="transform opacity-0 scale-95"
+                                        className="absolute mt-1 w-full rounded-md bg-white shadow-lg"
+                                      >
+                                        <Listbox.Options
+                                          static
+                                          className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
+                                        >
+                                          {categories.map((person) => (
+                                            <Listbox.Option
+                                              key={person}
+                                              value={person}
+                                            >
+                                              {({ selected, active }) => (
+                                                <div
+                                                  className={`${
+                                                    active
+                                                      ? 'text-white bg-indigo-500'
+                                                      : 'text-gray-800'
+                                                  } cursor-default select-none relative py-2 pl-8 pr-4`}
+                                                >
+                                                  <span
+                                                    className={`${
+                                                      selected
+                                                        ? 'font-medium'
+                                                        : 'font-normal'
+                                                    } block truncate pl-1`}
+                                                  >
+                                                    {person}
+                                                  </span>
+                                                  {selected && (
+                                                    <span
+                                                      className={`${
+                                                        active
+                                                          ? 'text-white'
+                                                          : 'text-indigo-500'
+                                                      } absolute inset-y-0 left-0 flex items-center pl-2`}
+                                                    >
+                                                      <svg
+                                                        className="h-5 w-5"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                      >
+                                                        <path
+                                                          fillRule="evenodd"
+                                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                          clipRule="evenodd"
+                                                        />
+                                                      </svg>
+                                                    </span>
+                                                  )}
+                                                </div>
+                                              )}
+                                            </Listbox.Option>
+                                          ))}
+                                        </Listbox.Options>
+                                      </Transition>
+                                    </div>
+                                  </>
+                                )}
+                              </Listbox>
                             </div>
                             <div className="max-w-lg">
                               <InputField

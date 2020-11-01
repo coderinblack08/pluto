@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
             <img
               src={require('../../../public/static/logo.svg')}
               alt="Pluto Logo"
-              className="w-8 md:h-auto h-8 md:w-auto"
+              className="w-10 h-10"
             />
             <span className="text-gray-700 text-2xl md:text-3xl font-medium">
               Pluto

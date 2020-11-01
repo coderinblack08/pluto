@@ -5,6 +5,7 @@ export declare const communitySchema: Yup.ObjectSchema<Yup.Shape<object | undefi
     website: string | undefined;
     about: string;
     location: any;
+    category: any;
     tags: string[] | undefined;
     maxParticipants: number | undefined;
     isSchool: any;

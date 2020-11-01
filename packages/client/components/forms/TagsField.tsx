@@ -23,7 +23,10 @@ export const TagsField: React.FC<TagsFieldProps> = ({
 
   return (
     <div>
-      <label htmlFor="tags" className="capitalize">
+      <label
+        htmlFor="tags"
+        className="capitalize text-gray-700 text-sm font-medium"
+      >
         {name}
       </label>
       <div className="flex flex-col sm:flex-row sm:items-center mt-1 rounded-md border w-full transition ease duration-200 shadow-sm focus:border focus:border-blue-400">

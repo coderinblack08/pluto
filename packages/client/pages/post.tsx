@@ -114,6 +114,10 @@ const Post: React.FC = () => {
                         } as AnnouncementArgs,
                       },
                       update: (cache, { data }) => {
+                        const newPost = JSON.parse(
+                          JSON.stringify(data.createAnnouncement.post)
+                        );
+                        newPost.isLiked = false;
                         cache.writeQuery<FindPostsQuery>({
                           query: FindPostsDocument,
                           variables: {
@@ -121,10 +125,7 @@ const Post: React.FC = () => {
                           },
                           data: {
                             __typename: 'Query',
-                            findPosts: [
-                              data.createAnnouncement.post,
-                              ...(posts.findPosts || []),
-                            ],
+                            findPosts: [newPost, ...(posts.findPosts || [])],
                           },
                         });
                         cache.writeQuery<GetCommunityQuery>({

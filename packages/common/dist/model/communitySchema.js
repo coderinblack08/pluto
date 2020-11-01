@@ -31,6 +31,7 @@ exports.communitySchema = Yup.object().shape({
         .max(1e5, 'About exceeds the character limit')
         .required('About is required'),
     location: Yup.string(),
+    category: Yup.string(),
     tags: Yup.array().of(Yup.string().required('Tag cannot be blank')),
     maxParticipants: Yup.number().min(0, 'Max Participants cannot be negative'),
     isSchool: Yup.boolean(),

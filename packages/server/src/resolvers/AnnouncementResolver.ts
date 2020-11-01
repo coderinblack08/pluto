@@ -28,7 +28,10 @@ export class AnnouncementResolver {
       throw new Error('You are not the creator of this community');
     }
 
-    const post = await Post.create({ communityId: options.communityId }).save();
+    const post = await Post.create({
+      communityId: options.communityId,
+      creatorId: req.session.userId,
+    }).save();
     const announcement = await Announcement.create({
       title: options.title,
       announcement: options.announcement,

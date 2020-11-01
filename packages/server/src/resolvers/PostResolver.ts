@@ -17,24 +17,23 @@ export class PostResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async deletePost(@Arg('postId') postId: number, @Ctx() { req }: MyContext) {
-    const postJoined = await Post.findOne(postId, { relations: ['community'] });
-
-    if (!postJoined) {
+    const post = await Post.findOne(postId);
+    if (!post) {
       throw new Error("Post doesn't exist");
     }
 
-    if (postJoined?.community.creatorId !== req.session.userId) {
-      throw new Error('You are not the creator');
-    }
+    await Post.delete({
+      id: postId,
+      creatorId: req.session.userId,
+    });
 
-    await Post.delete(postId);
     await getConnection().query(
       `
       update community
       set posts = posts - 1
       where id = $1;
     `,
-      [postJoined.communityId]
+      [post.communityId]
     );
 
     return true;

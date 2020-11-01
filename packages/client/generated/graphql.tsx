@@ -43,6 +43,7 @@ export type Community = {
   email?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
   location?: Maybe<Scalars['String']>;
+  category: Scalars['String'];
   tags: Array<Scalars['String']>;
   maxParticipants?: Maybe<Scalars['Int']>;
   isSchool: Scalars['Boolean'];
@@ -89,6 +90,8 @@ export type Post = {
   announcement: Announcement;
   pinned: Scalars['Boolean'];
   isLiked: Scalars['Boolean'];
+  creatorId: Scalars['Float'];
+  creator: User;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -180,6 +183,7 @@ export type CommunityArgs = {
   email?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
   location?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
   tags: Array<Scalars['String']>;
   maxParticipants?: Maybe<Scalars['Int']>;
   isSchool?: Maybe<Scalars['Boolean']>;
@@ -208,7 +212,7 @@ export type LoginArgs = {
 
 export type CommunityFragment = (
   { __typename?: 'Community' }
-  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'posts' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
+  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'category' | 'tags' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'posts' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
 );
 
 export type ErrorFragment = (
@@ -417,6 +421,7 @@ export const CommunityFragmentDoc = gql`
   name
   about
   email
+  category
   tags
   website
   location
