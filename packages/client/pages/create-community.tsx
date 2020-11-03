@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
+import { communitySchema } from '@pluto/common';
 import classNames from 'classnames';
 import { Form, Formik } from 'formik';
-import { communitySchema } from '@pluto/common';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import { InputField } from '../components/forms/InputField';
+import { TagsField } from '../components/forms/TagsField';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { Tabs } from '../components/shared/tabs';
-import { TagsField } from '../components/forms/TagsField';
+import { categories } from '../constants/categories';
 import {
   CommunityArgs,
   useCreateCommunityMutation,
 } from '../generated/graphql';
-import { useRouter } from 'next/router';
-import { Listbox, Transition } from '@headlessui/react';
-import { categories } from '../constants/categories';
 
-const onKeyDown = (keyEvent) => {
-  if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+const onKeyDown = (keyEvent: KeyboardEvent) => {
+  if (keyEvent.key === 'Enter') {
     keyEvent.preventDefault();
   }
 };
@@ -49,7 +49,12 @@ const secondTabPanel = (
           wrapper="flex items-center flex-row-reverse"
           className="form-checkbox border-gray-400 cursor-pointer transition ease duration-200 mr-2 text-indigo-500"
           labelStyles="text-gray-700 mr-auto"
-          label="School or Classroom (enables gradebook)"
+          label={
+            <p>
+              School or Classroom{' '}
+              <span className="text-gray-600">(enables gradebook)</span>
+            </p>
+          }
         />
         <InputField
           name="isPrivate"
@@ -57,7 +62,12 @@ const secondTabPanel = (
           wrapper="flex items-center flex-row-reverse"
           className="form-checkbox border-gray-400 cursor-pointer transition ease duration-200 mr-2 text-indigo-500"
           labelStyles="text-gray-700 mr-auto"
-          label="Private Community (requires access code)"
+          label={
+            <p>
+              Private Community{' '}
+              <span className="text-gray-600">(requires access code)</span>
+            </p>
+          }
         />
         <InputField
           name="emailNotifications"
@@ -150,7 +160,7 @@ const Create: React.FC = () => {
                       tags: [],
                       isPrivate: false,
                       isSchool: false,
-                      emailNotifications: false,
+                      emailNotifications: true,
                     }}
                     validationSchema={communitySchema}
                     validateOnChange={false}
@@ -160,11 +170,15 @@ const Create: React.FC = () => {
                       try {
                         const community = await createCommunity({
                           variables: { options: values as CommunityArgs },
+                          update: async (cache) => {
+                            cache.evict({ fieldName: 'findCommunities' });
+                          },
                         });
-                        console.log(community);
-                        router.push(
-                          `/c?id=${community.data.createCommunity.community.id}`
-                        );
+                        if (!community.errors) {
+                          router.push(
+                            `/c?id=${community.data.createCommunity.community.id}`
+                          );
+                        }
                       } catch (error) {
                         console.error(error);
                       }

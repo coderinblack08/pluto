@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Flag, LocationMarker, Users } from 'heroicons-react';
+import { Flag, LocationMarker, Tag, Users } from 'heroicons-react';
 import React from 'react';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { NextLink } from '../components/shared/nextlink';
@@ -18,8 +18,8 @@ const Browse: React.FC = () => {
 
   return (
     <main>
-      <AuthenticatedNavbar />
       <div className="fixed w-screen h-screen bg-gray-50 -z-1" />
+      <AuthenticatedNavbar />
       <div className="container mx-auto py-10 px-5">
         <h1 className="text-2xl font-bold">Explore Communities</h1>
         <div className="flex flex-col lg:flex-row items-start lg:space-x-10 mt-6">
@@ -40,7 +40,7 @@ const Browse: React.FC = () => {
                     }
                   )}
                 >
-                  <p className="text-gray-700 hover:text-gray-900 whitespace-no-wrap">
+                  <p className="text-gray-700 transform hover:translate-x-1 hover:text-gray-900 whitespace-no-wrap transition ease duration-300">
                     {category}
                   </p>
                 </button>
@@ -83,8 +83,8 @@ const Browse: React.FC = () => {
                       </div>
                     ) : null}
                     <div className="flex items-center text-gray-500 font-medium pl-4">
-                      <Flag className="mr-2" size={20} />
-                      24 Posts
+                      <Tag className="mr-2" size={20} />
+                      {community.category}
                     </div>
                   </div>
                   <p className="text-gray-700 max-w-xl mt-1 truncate">

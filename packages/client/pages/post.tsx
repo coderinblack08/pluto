@@ -8,6 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import React from 'react';
 import { InputField } from '../components/forms/InputField';
+import { SlateField } from '../components/forms/Slate';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { NextLink } from '../components/shared/nextlink';
 import { Tabs } from '../components/shared/tabs';
@@ -157,6 +158,7 @@ const Post: React.FC = () => {
                           placeholder="Hello World..."
                           textarea
                         />
+                        <SlateField />
                         <div className="flex items-center">
                           <InputField
                             name="pinned"

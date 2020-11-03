@@ -1,10 +1,15 @@
+import {
+  ChevronDown,
+  ChevronDownOutline,
+  ChevronRight,
+  ColorSwatch,
+} from 'heroicons-react';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
 import { Banner } from '../components/shared/navigation/banner';
 import { Navbar } from '../components/shared/navigation/navbar';
 import { NextLink } from '../components/shared/nextlink';
 import { useMeQuery } from '../generated/graphql';
-import { useRouter } from 'next/router';
 
 const Index: React.FC<{}> = () => {
   const { data: me, loading } = useMeQuery();
@@ -60,8 +65,8 @@ const Index: React.FC<{}> = () => {
         />
         <div className="hidden md:flex justify-center text-gray-600 hover:text-gray-800 animate-bounce">
           <a href="#features">
-            <ChevronDown
-              size={32}
+            <ChevronDownOutline
+              size={20}
               className="transition ease duration-200 cursor-pointer"
             />
           </a>

@@ -428,6 +428,7 @@ export const CommunityFragmentDoc = gql`
   isPrivate
   isSchool
   posts
+  category
   maxParticipants
   emailNotifications
   createdAt

@@ -1,6 +1,12 @@
 @tailwind base;
 
-/* Write your own custom base styles here */
+@tailwind components;
+
+@tailwind utilities;
+
+* {
+  outline: none !important;
+}
 
 html {
   scroll-behavior: smooth;
@@ -19,13 +25,3 @@ html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
-
-/* Start purging... */
-@tailwind utilities;
-/* Stop purging. */
-
-/* Your own custom utilities */

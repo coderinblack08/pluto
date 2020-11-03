@@ -10,6 +10,7 @@ fragment Community on Community {
   isPrivate
   isSchool
   posts
+  category
   maxParticipants
   emailNotifications
   createdAt
