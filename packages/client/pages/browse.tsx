@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Flag, LocationMarker, Tag, Users } from 'heroicons-react';
+import { LocationMarker, Tag, Users } from 'heroicons-react';
 import React from 'react';
 import { AuthenticatedNavbar } from '../components/shared/navigation/AuthenticatedNavbar';
 import { NextLink } from '../components/shared/nextlink';

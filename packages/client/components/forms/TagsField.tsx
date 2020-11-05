@@ -1,8 +1,9 @@
+import { Input, Kbd } from '@chakra-ui/core';
 import classNames from 'classnames';
 import { X } from 'heroicons-react';
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { useState } from 'react';
 
-type TagsFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+type TagsFieldProps = {
   name: string;
   initialTags?: any[];
   setFormikValues: (
@@ -65,19 +66,14 @@ export const TagsField: React.FC<TagsFieldProps> = ({
             </span>
           ))}
         </div>
-        <input
+        <Input
           type="text"
-          className={classNames(
-            'sm:rounded-r-md border-l px-3 py-2 focus:outline-none focus:shadow-outline text-gray-800 focus:placeholder-gray-500',
-            {
-              'rounded-t-md sm:rounded-l-md border-none': !tags.length,
-            }
-          )}
-          style={{
-            minWidth: '120px',
-          }}
+          placeholder="Enter tags..."
+          className={`border-l text-gray-800 focus:placeholder-gray-500
+            ${!tags.length ? 'border-none' : null}`}
           {...props}
           name={name}
+          minW="120px"
           onChange={(e) => setTagString(e.target.value)}
           value={tagString}
           onKeyDown={(e) => {
@@ -89,11 +85,9 @@ export const TagsField: React.FC<TagsFieldProps> = ({
           }}
         />
         {!tags.length ? (
-          <div className="my-2 ml-3 sm:my-0 sm:mb-0 sm:ml-auto mr-3 flex items-center text-gray-600 text-sm">
+          <div className="whitespace-no-wrap my-2 pl-3 sm:my-0 sm:mb-0 sm:pl-auto mr-3 text-gray-600 text-xs">
             Press
-            <div className="mx-2 bg-gray-50 border p-1 text-gray-700 text-sm leading-none rounded">
-              ↵
-            </div>
+            <Kbd mx="5px">enter</Kbd>
             to create
           </div>
         ) : null}

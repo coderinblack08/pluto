@@ -4,6 +4,7 @@ import {
   Flex,
   Icon,
   IconButton,
+  Link,
   Stack,
   Text,
 } from '@chakra-ui/core';
@@ -80,6 +81,7 @@ export const Navbar: React.FC = () => {
             </Text>
           </Stack>
           <IconButton
+            bg="white"
             aria-label="menu"
             icon={!open ? <MenuAlt4 size={24} /> : <X size={20} />}
             className="flex items-center justify-center md:hidden text-gray-600 hover:text-gray-700 p-3 focus:bg-gray-200 focus:outline-none rounded-sm"
@@ -109,7 +111,7 @@ export const Navbar: React.FC = () => {
             Solutions
             <Icon ml={2} as={ChevronDown} color="gray.600" />
           </Flex>
-          <Box
+          <Link
             href="/pricing"
             color="gray.700"
             px={4}
@@ -122,9 +124,9 @@ export const Navbar: React.FC = () => {
             w={['100%', 'auto']}
           >
             Pricing
-          </Box>
-          <Box
-            href="/pricing"
+          </Link>
+          <Link
+            href="#"
             color="gray.700"
             px={4}
             py={[2, 0]}
@@ -136,7 +138,7 @@ export const Navbar: React.FC = () => {
             w={['100%', 'auto']}
           >
             Contact
-          </Box>
+          </Link>
           <Flex
             align="center"
             className="md:border-l md:border-gray-400 h-5 md:ml-4 md:pl-4 space-x-2 md:space-x-0"
@@ -144,14 +146,15 @@ export const Navbar: React.FC = () => {
             mt={[5, 0]}
           >
             <Button
-              href="/pricing"
-              color="gray.700"
               px={4}
+              bg="white"
+              href="/login"
+              color="gray.700"
               py={[2, 0]}
               pl={[0, 4]}
               mr={[0, 2]}
               rounded="sm"
-              fontWeight="medium"
+              fontWeight="normal"
               _hover={{ color: 'gray.900', bg: ['gray.200', 'transparent'] }}
               as={NextLink}
               w={['100%', 'auto']}
@@ -160,12 +163,14 @@ export const Navbar: React.FC = () => {
             </Button>
             <Button
               ml={[0, 3]}
+              href="/register"
               color="white"
               bgColor="gray.800"
               fontWeight="medium"
               _hover={{ bg: 'gray.900' }}
               _focusWithin={{ bg: 'gray.900' }}
               w={['100%', 'auto']}
+              as={NextLink}
             >
               Get Started
             </Button>

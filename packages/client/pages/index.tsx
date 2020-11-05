@@ -1,9 +1,4 @@
-import {
-  ChevronDown,
-  ChevronDownOutline,
-  ChevronRight,
-  ColorSwatch,
-} from 'heroicons-react';
+import { ChevronDownOutline, ChevronRight, ColorSwatch } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { Banner } from '../components/shared/navigation/banner';
@@ -27,10 +22,10 @@ const Index: React.FC<{}> = () => {
       <div className="relative container mx-auto py-10 md:py-20 xl:pt-32 lg:pb-20 px-5 lg:px-10 xl:px-0 sm:px-0">
         <div className="relative z-10 pb-10 md:pb-20 xl:pb-32">
           <div className="flex items-center space-x-2">
-            <div className="w-14 text-sm text-white font-bold flex items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-blue-500">
+            <div className="w-12 sm:w-14 text-xs sm:text-sm text-white font-bold flex items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-blue-500">
               NEW
             </div>
-            <p className="font-bold mb-2 text-lg text-gradient bg-gradient-to-r from-blue-400 to-teal-400 mt-2">
+            <p className="font-bold mb-2 text-md sm:text-lg text-gradient bg-gradient-to-r from-blue-400 to-teal-400 mt-2">
               NOW IN EARLY ACCESS
             </p>
           </div>
@@ -38,7 +33,7 @@ const Index: React.FC<{}> = () => {
             Community Discussion
             <br /> Through One Platform
           </h1>
-          <p className="text-gray-600 text-xl sm:text-2xl my-4">
+          <p className="text-gray-600 text-lg sm:text-xl md:text-2xl my-6 lg:my-8">
             Pluto does all the heavy-lifting with all the features you{' '}
             <br className="hidden sm:block" />
             wished you had before!
@@ -59,7 +54,7 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
         <img
-          src={require('../public/static/skeleton.svg')}
+          src="/static/skeleton.svg"
           className="select-none hidden md:block absolute top-0 right-0 mt-10 md:-mt-10 lg:-mt-32 xl:-mt-48 -mr-32 md:-mr-48 xl:-mr-64 xl:max-w-6xl z-0 opacity-75"
           aria-hidden
         />
@@ -165,7 +160,7 @@ const Index: React.FC<{}> = () => {
             ></rect>
           </svg>
           {/* <img
-            src={require('../public/static/dots.svg')}
+            src="/static/dots.svg"
             className="select-none absolute top-0 left-0 h-full mt-3 z-0"
             aria-hidden
           /> */}
@@ -241,15 +236,11 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <footer className="py-6">
-        <div className="container mx-auto flex items-center justify-between">
+      <footer className="md:py-6">
+        <div className="container mx-auto hidden md:flex items-center justify-between">
           <div className="flex items-center">
             <NextLink href="/" className="flex items-center">
-              <img
-                src={require('../public/static/logo.svg')}
-                alt="Logo"
-                className="w-8 h-8 mr-2"
-              />
+              <img src="/static/logo.svg" alt="Logo" className="w-8 h-8 mr-2" />
               <span className="text-gray-700 text-lg md:text-xl font-medium">
                 Pluto
               </span>

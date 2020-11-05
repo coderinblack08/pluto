@@ -14,7 +14,7 @@ import {
   useCreateCommunityMutation,
 } from '../generated/graphql';
 
-const onKeyDown = (keyEvent: KeyboardEvent) => {
+const onKeyDown = (keyEvent: any) => {
   if (keyEvent.key === 'Enter') {
     keyEvent.preventDefault();
   }
@@ -195,18 +195,13 @@ const Create: React.FC = () => {
                               <InputField
                                 name="name"
                                 placeholder="Example"
-                                label={
-                                  <p>
-                                    Name
-                                    <span className="text-red-500 ml-1">*</span>
-                                  </p>
-                                }
+                                label="Name"
+                                isRequired
                               />
                             </div>
                             <div className="max-w-lg">
                               <TagsField
                                 name="tags"
-                                placeholder="Enter tags..."
                                 setFormikValues={setFieldValue}
                               />
                             </div>
@@ -327,13 +322,9 @@ const Create: React.FC = () => {
                                 name="about"
                                 placeholder="Example..."
                                 footer="Describe your community with a few words"
-                                label={
-                                  <p>
-                                    About
-                                    <span className="text-red-500 ml-1">*</span>
-                                  </p>
-                                }
+                                label="About"
                                 textarea
+                                isRequired
                               />
                             </div>
                           </div>
