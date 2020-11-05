@@ -5,8 +5,6 @@ import tailwindConfig from '../tailwind.config';
 
 const tailwind = resolveConfig(tailwindConfig);
 
-console.log(tailwind.theme.fontFamily);
-
 export const theme = {
   ...chakraTheme,
   fonts: {

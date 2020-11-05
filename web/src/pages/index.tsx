@@ -10,7 +10,7 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/core';
-import { ChevronDown, ChevronRight, ColorSwatch } from 'heroicons-react';
+import { ChevronDownOutline, ChevronRight, ColorSwatch } from 'heroicons-react';
 import React from 'react';
 import { SkeletonImage } from '../components/index/SkeletonImage';
 import { NextLink } from '../components/nextlink';
@@ -109,13 +109,13 @@ const Index: React.FC = () => {
       </Box>
       <Flex justify="center" pb={10}>
         <IconButton
-          icon={<ChevronDown />}
+          color="gray.600"
           aria-label="Scroll Down"
-          color={isDark ? 'gray.600' : 'gray.700'}
-          cursor="pointer"
-          bgColor="transparent"
           className="animate-bounce"
+          icon={<ChevronDownOutline size={20} />}
+          bgColor="transparent"
           href="#features"
+          cursor="pointer"
           as="a"
         />
       </Flex>
@@ -132,13 +132,13 @@ const Index: React.FC = () => {
               as="h1"
               color="gray.300"
               fontWeight="black"
-              fontSize={['4xl', '5xl', '6xl']}
-              mb={4}
+              fontSize={['3xl', '5xl', '6xl']}
+              mb={[2, 4]}
             >
               Convincing Features
             </Heading>
             <Text
-              fontSize={['xl', '2xl']}
+              fontSize={['sm', 'xl', '2xl']}
               color="gray.400"
               fontWeight="semibold"
             >
@@ -147,17 +147,18 @@ const Index: React.FC = () => {
           </Flex>
         </div>
         <SimpleGrid
-          columns={2}
+          columns={[1, 2]}
           spacing={3}
           maxW="3xl"
           mx="auto"
           w="100%"
           mt={10}
+          px={[5, 0]}
         >
           <Box
             role="group"
             bg="gray.800"
-            rounded="md"
+            rounded="lg"
             shadow="lg"
             p={4}
             _hover={{
@@ -175,11 +176,24 @@ const Index: React.FC = () => {
               A simple and intuitive UI
             </Text>
           </Box>
-          <Box role="group" bg="gray.800" rounded="md" shadow="lg" p={4}>
+          <Box
+            role="group"
+            bg="gray.800"
+            rounded="lg"
+            shadow="lg"
+            p={4}
+            _hover={{
+              backgroundImage: generateGradient('orange.500', 'red.500'),
+            }}
+          >
             <Text fontWeight="bold" fontSize="xl" color="gray.200" as="h3">
               Battery pack included
             </Text>
-            <Text color="gray.400" fontSize="lg">
+            <Text
+              color="gray.400"
+              fontSize="lg"
+              _groupHover={{ color: 'gray.300' }}
+            >
               Events, announcements, discussion threads, assignments, you name
               it!
             </Text>
@@ -187,33 +201,124 @@ const Index: React.FC = () => {
           <Box
             role="group"
             className="bg-gray-800 bg-opacity-50"
-            rounded="md"
+            rounded="lg"
             shadow="lg"
             p={4}
+            _hover={{
+              backgroundImage: generateGradient('blue.500', 'indigo.500'),
+            }}
           >
             <Text fontWeight="bold" fontSize="xl" color="gray.200" as="h3">
               Spread the word
             </Text>
-            <Text color="gray.400" fontSize="lg">
+            <Text
+              color="gray.400"
+              fontSize="lg"
+              _groupHover={{ color: 'gray.300' }}
+            >
               Extends the reach of your community
             </Text>
           </Box>
           <Box
             role="group"
             className="bg-gray-800 bg-opacity-50"
-            rounded="md"
+            rounded="lg"
             shadow="lg"
             p={4}
+            _hover={{
+              backgroundImage: generateGradient('green.500', 'yellow.500'),
+            }}
           >
             <Text fontWeight="bold" fontSize="xl" color="gray.200" as="h3">
               For schools
             </Text>
-            <Text color="gray.400" fontSize="lg">
+            <Text
+              color="gray.400"
+              fontSize="lg"
+              _groupHover={{ color: 'gray.300' }}
+            >
               Gradebooks, assignments, and other features dedicated for
               classroom settings
             </Text>
           </Box>
         </SimpleGrid>
+      </Box>
+      <Box>
+        <Box
+          pos="relative"
+          textAlign="center"
+          backgroundImage={
+            isDark ? 'gray.700' : generateGradient('gray.100', 'indigo.100')
+          }
+          className={`border-b ${isDark ? 'border-gray-700' : null}`}
+          py={[16, 20]}
+        >
+          <Box pos="relative" zIndex={10}>
+            <div className="relative z-10 flex items-center justify-center rounded-md mb-2 bg-gradient-to-r from-teal-500 to-blue-500 w-8 md:w-12 h-8 md:h-12 mx-auto">
+              <svg
+                className="w-5 md:w-8 h-5 md:h-8 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 21C7.58172 21 4 17.4183 4 13C4 8.58172 7.58172 5 12 5C16.4183 5 20 8.58172 20 13C19.995 17.4162 16.4162 20.995 12 21ZM12 7C8.68629 7 6 9.68629 6 13C6 16.3137 8.68629 19 12 19C15.3137 19 18 16.3137 18 13C17.9961 9.68789 15.3121 7.00386 12 7ZM13 14H11V9H13V14ZM19.293 7.707L17.293 5.707L18.707 4.293L20.707 6.293L19.294 7.706L19.293 7.707ZM15 4H9V2H15V4Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <Text
+              as="h1"
+              color="gray.300"
+              fontWeight="black"
+              fontSize={['3xl', '4xl', '5xl', '6xl']}
+              backgroundImage={generateGradient('teal.500', 'blue.500')}
+              className="text-gradient"
+            >
+              Frequently asked questions
+            </Text>
+            <Text
+              fontSize={['md', 'lg', 'xl', '2xl']}
+              color={isDark ? 'gray.500' : 'gray.600'}
+              fontWeight="semibold"
+            >
+              With frequently given answers to quench your questions
+            </Text>
+          </Box>
+          <svg
+            className="select-none absolute top-0 left-0 -ml-48 h-full mt-3 z-0"
+            width="404"
+            height="404"
+            fill="none"
+            viewBox="0 0 404 404"
+          >
+            <defs>
+              <pattern
+                id="85737c0e-0916-41d7-917f-596dc7edfa27"
+                name="85737c0e-0916-41d7-917f-596dc7edfa27"
+                x="0"
+                y="0"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="4"
+                  height="4"
+                  className={isDark ? 'text-gray-700' : 'text-gray-300'}
+                  fill="currentColor"
+                ></rect>
+              </pattern>
+            </defs>
+            <rect
+              width="404"
+              height="404"
+              fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)"
+            ></rect>
+          </svg>
+        </Box>
       </Box>
     </Box>
   );

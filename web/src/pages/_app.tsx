@@ -11,7 +11,11 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ChakraProvider resetCSS theme={theme}>
       <Head>
         <title>Pluto</title>
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link
+          rel="shortcut icon"
+          href={require('../public/favicon.ico')}
+          type="image/x-icon"
+        />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta
           name="keywords"
