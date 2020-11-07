@@ -56,7 +56,7 @@ const Register: React.FC = () => {
           }}
           validationSchema={registerSchema}
         >
-          {({}) => (
+          {({ isSubmitting }) => (
             <Stack spacing={6} as={Form} mt={6}>
               <Stack spacing={3} direction="row">
                 <InputField name="email" label="Email Address" type="email" />
@@ -74,6 +74,7 @@ const Register: React.FC = () => {
                 checkbox
               />
               <Button
+                isLoading={isSubmitting}
                 w="100%"
                 type="submit"
                 display="flex"

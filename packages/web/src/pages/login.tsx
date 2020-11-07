@@ -53,11 +53,12 @@ const Register: React.FC = () => {
           }}
           validationSchema={loginSchema}
         >
-          {({}) => (
+          {({ isSubmitting }) => (
             <Stack spacing={6} as={Form} mt={8}>
               <InputField name="email" label="Email Address" type="email" />
               <InputField name="password" label="Password" type="password" />
               <Button
+                isLoading={isSubmitting}
                 w="100%"
                 type="submit"
                 display="flex"
