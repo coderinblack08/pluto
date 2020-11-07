@@ -105,6 +105,8 @@ export const AuthNavbar: React.FC = () => {
                 leftIcon={<Plus size={20} />}
                 iconSpacing={1}
                 w="100%"
+                href="/create"
+                as={NextLink}
               >
                 Create
               </Button>

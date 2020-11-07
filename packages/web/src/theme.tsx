@@ -18,5 +18,6 @@ export const theme = {
     body: tailwind.theme.fontFamily.sans.join(', '),
   },
   colors: tailwind.theme.colors,
+  shadows: tailwind.theme.boxShadow,
   breakpoints: tailwind.theme.screens,
 };
