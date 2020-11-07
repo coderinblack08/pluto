@@ -29,20 +29,18 @@ export class UserResolver {
     @Arg('options') options: RegisterArgs,
     @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    console.log(options);
-
     if (options.confirmPassword !== options.password) {
       return generateError('confirmPassword', 'Passwords do not match');
     }
-
-    const hashedPassword = await argon2.hash(options.password);
-    delete options.confirmPassword;
 
     try {
       await registerSchema.validate(options);
     } catch (error) {
       return { errors: [parseYupErrors(error)] };
     }
+
+    const hashedPassword = await argon2.hash(options.password);
+    delete options.confirmPassword;
 
     try {
       const user = await User.create({
