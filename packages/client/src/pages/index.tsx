@@ -10,7 +10,6 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/core';
-import { SkipNavContent } from '@chakra-ui/skip-nav';
 import { ChevronDownOutline, ChevronRight, ColorSwatch } from 'heroicons-react';
 import React from 'react';
 import { SkeletonImage } from '../components/index/SkeletonImage';
@@ -34,7 +33,7 @@ const Index: React.FC = () => {
         py={[10, 20, 32]}
       >
         <Box>
-          <Stack align="center" direction="row" spacing={2} mb={2}>
+          <Stack align="center" direction="row" spacing={3} mb={2}>
             <Tag
               backgroundImage={generateGradient('teal.500', 'blue.500')}
               fontWeight="bold"
@@ -79,7 +78,7 @@ const Index: React.FC = () => {
             size="lg"
             href={!me ? '/register' : '/dashboard'}
             color="white"
-            bgColor={isDark ? 'gray.900' : 'gray.800'}
+            bgColor={isDark ? 'gray.700' : 'gray.800'}
             fontWeight="medium"
             _hover={{ bg: 'gray.900' }}
             _focusWithin={{ bg: isDark ? 'black' : 'gray.900' }}
@@ -290,7 +289,7 @@ const Index: React.FC = () => {
             </Text>
           </Box>
           <svg
-            className="select-none absolute top-0 left-0 -ml-48 h-full mt-3 z-0"
+            className="select-none absolute top-0 left-0 -ml-48 h-full mt-3 z-0 opacity-50"
             width="404"
             height="404"
             fill="none"

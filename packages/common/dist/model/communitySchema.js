@@ -32,7 +32,6 @@ exports.communitySchema = Yup.object().shape({
         .required('About is required'),
     location: Yup.string(),
     category: Yup.string(),
-    tags: Yup.array().of(Yup.string().required('Tag cannot be blank')),
     maxParticipants: Yup.number().min(0, 'Max Participants cannot be negative'),
     isSchool: Yup.boolean(),
     isPrivate: Yup.boolean(),

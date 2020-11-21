@@ -1,0 +1,15 @@
+fragment Community on Community {
+  id
+  name
+  about
+  email
+  website
+  location
+  isPrivate
+  isSchool
+  category
+  maxParticipants
+  emailNotifications
+  createdAt
+  updatedAt
+}

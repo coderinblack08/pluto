@@ -20,9 +20,6 @@ export class CommunityArgs {
   @Field({ nullable: true })
   category: string;
 
-  @Field(() => [String])
-  tags: string[];
-
   @Field(() => Int, { nullable: true })
   maxParticipants?: number;
 

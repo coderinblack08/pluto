@@ -19,7 +19,7 @@ export class Community extends BaseEntity {
   id: string;
 
   @Field()
-  @Column('varchar')
+  @Column()
   name: string;
 
   @Field()
@@ -41,10 +41,6 @@ export class Community extends BaseEntity {
   @Field()
   @Column({ default: 'Other' })
   category: string;
-
-  @Field(() => [String])
-  @Column({ type: 'text', array: true })
-  tags: string[];
 
   @Field(() => Int, { nullable: true })
   @Column({ nullable: true })

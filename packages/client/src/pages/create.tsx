@@ -18,13 +18,16 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/core';
+import { communitySchema } from '@pluto/common';
 import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { InputField } from '../components/form/InputField';
 import { AuthNavbar } from '../components/shared/AuthNavbar';
+import { useCommunityMutation } from '../generated/graphql';
 
 const Create: React.FC = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const [createCommunity] = useCommunityMutation();
   const { colorMode } = useColorMode();
   const isDark = colorMode === 'dark';
 
@@ -116,9 +119,14 @@ const Create: React.FC = () => {
             isSchool: false,
             emailNotifications: true,
           }}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             console.log(values);
+            const response = await createCommunity({
+              variables: { options: values },
+            });
+            console.log(response);
           }}
+          validationSchema={communitySchema}
         >
           {() => (
             <TabPanels

@@ -1,0 +1,10 @@
+mutation community($options: CommunityArgs!) {
+  createCommunity(options: $options) {
+    errors {
+      ...Error
+    }
+    community {
+      ...Community
+    }
+  }
+}
