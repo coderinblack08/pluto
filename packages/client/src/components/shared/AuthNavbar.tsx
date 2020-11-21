@@ -50,7 +50,7 @@ export const AuthNavbar: React.FC = () => {
               as={NextLink}
             >
               <LogoImage />
-              <Text fontSize={['xl', '2xl', '3xl']} fontWeight="medium">
+              <Text fontSize={['lg', 'xl', '2xl']} fontWeight="medium">
                 Pluto
               </Text>
             </Stack>
@@ -87,7 +87,7 @@ export const AuthNavbar: React.FC = () => {
                   className={
                     onPage('/dashboard')
                       ? isDark
-                        ? 'bg-black bg-opacity-25'
+                        ? 'bg-black bg-opacity-50 shadow-inner'
                         : 'bg-gray-900'
                       : undefined
                   }
@@ -108,7 +108,7 @@ export const AuthNavbar: React.FC = () => {
                   className={
                     onPage('#')
                       ? isDark
-                        ? 'bg-black bg-opacity-25'
+                        ? 'bg-black bg-opacity-50 shadow-inner'
                         : 'bg-gray-900'
                       : undefined
                   }
@@ -128,7 +128,7 @@ export const AuthNavbar: React.FC = () => {
                   className={
                     onPage('/browse')
                       ? isDark
-                        ? 'bg-black bg-opacity-25'
+                        ? 'bg-black bg-opacity-50 shadow-inner'
                         : 'bg-gray-900'
                       : undefined
                   }

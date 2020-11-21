@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, useColorMode } from '@chakra-ui/core';
+import { Box, Button, Flex, Stack, useColorMode } from '@chakra-ui/core';
 import { LocationMarker, Tag, Users } from 'heroicons-react';
 import React from 'react';
 import { NextLink } from '../components/nextlink';
@@ -11,20 +11,45 @@ import {
 const Item: React.FC<{ name: string; highlighted?: boolean }> = ({
   name,
   highlighted,
-}) => (
-  <Box
-    py={3}
-    px={6}
-    as="li"
-    bgColor="white"
-    color={highlighted ? 'indigo.600' : 'gray.700'}
-    className={`border border-gray-100 ${highlighted ? 'font-medium' : ''}`}
-  >
-    {name}
-  </Box>
-);
+}) => {
+  const { colorMode } = useColorMode();
+  const isDark = colorMode === 'dark';
+
+  return (
+    <Box
+      py={3}
+      px={6}
+      as="button"
+      textAlign="left"
+      rounded="none"
+      bgColor={isDark ? 'gray.900' : 'white'}
+      color={
+        highlighted
+          ? isDark
+            ? 'indigo.400'
+            : 'indigo.600'
+          : isDark
+          ? 'gray.600'
+          : 'gray.700'
+      }
+      className={`hover:opacity-75 focus:opacity-75 border-t ${
+        isDark ? 'border-gray-800' : 'border-gray-200'
+      }`}
+      fontWeight={highlighted ? 'font-medium' : 'font-normal'}
+    >
+      {name}
+    </Box>
+  );
+};
 
 const Browse: React.FC = () => {
+  const categories = [
+    'Gaming',
+    'Sports',
+    'Science & Technology',
+    'News & Politics',
+    'Other',
+  ];
   const { colorMode } = useColorMode();
   const isDark = colorMode === 'dark';
   const { data: communities, fetchMore, variables } = useFindCommunitiesQuery({
@@ -46,20 +71,31 @@ const Browse: React.FC = () => {
             as="ul"
             spacing={0}
             rounded="md"
-            className="overflow-hidden shadow-sm"
+            shadow="sm"
           >
-            <Box as="li" fontWeight="semibold" py={3} px={6} className="border">
+            <Box
+              as="li"
+              py={3}
+              px={6}
+              fontWeight="semibold"
+              className={`border ${
+                isDark
+                  ? 'border-gray-700 bg-gray-700 text-gray-300'
+                  : 'border-gray-200'
+              } rounded-t-md`}
+            >
               Categories
             </Box>
-            {[
-              'Gaming',
-              'Sports',
-              'Science & Technology',
-              'News & Politics',
-              'Other',
-            ].map((name, index) => (
+            {categories.map((name, index) => (
               <Item name={name} highlighted={!index} />
             ))}
+            <Box
+              as="li"
+              py={1}
+              bgColor={isDark ? 'gray.900' : 'white'}
+              fontWeight="semibold"
+              roundedBottom="md"
+            />
           </Stack>
           <Flex
             w="100%"
@@ -72,7 +108,9 @@ const Browse: React.FC = () => {
                 <NextLink
                   href={`/c?id=${community.id}`}
                   key={community.id}
-                  className={`relative text-left focus:outline-none p-5 hover:bg-white hover:bg-opacity-50 hover:shadow-sm rounded mb-5 ${
+                  className={`relative text-left focus:outline-none ${
+                    isDark ? 'bg-gray-700' : 'bg-white'
+                  } p-5 hover:shadow-sm rounded mb-5 ${
                     !index ? 'px-8 bg-white shadow-sm' : ''
                   }`}
                 >
@@ -84,11 +122,23 @@ const Browse: React.FC = () => {
                       <div className="absolute top-0 left-0 z-0 rounded-l flex items-center justify-center bg-gradient bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold w-1 h-full" />
                     </>
                   ) : null}
-                  <h2 className="font-semibold text-xl text-gray-800">
+                  <h2
+                    className={`font-semibold text-xl ${
+                      isDark ? 'text-gray-300' : 'text-gray-800'
+                    }`}
+                  >
                     {community.name}
                   </h2>
-                  <div className="flex items-center divide-x-2 divide-gray-200 my-1">
-                    <div className="flex items-center text-indigo-500 font-medium pr-4">
+                  <div
+                    className={`flex items-center divide-x-2 ${
+                      isDark ? 'divide-gray-500' : 'divide-gray-200'
+                    } my-1`}
+                  >
+                    <div
+                      className={`flex items-center ${
+                        isDark ? 'text-indigo-300' : 'text-indigo-500'
+                      } font-medium pr-4`}
+                    >
                       <Users className="mr-2" size={20} />
                       1.2k Members
                     </div>
@@ -98,12 +148,20 @@ const Browse: React.FC = () => {
                         {community.location}
                       </div>
                     ) : null}
-                    <div className="flex items-center text-gray-500 font-medium pl-4">
+                    <div
+                      className={`flex items-center ${
+                        isDark ? 'text-gray-400' : 'text-gray-500'
+                      } font-medium pl-4`}
+                    >
                       <Tag className="mr-2" size={20} />
                       {community.category}
                     </div>
                   </div>
-                  <p className="text-gray-700 max-w-xl mt-2 truncate">
+                  <p
+                    className={`max-w-xl mt-2 truncate ${
+                      isDark ? 'text-gray-400' : 'text-gray-600'
+                    } `}
+                  >
                     {community.about}
                   </p>
                 </NextLink>

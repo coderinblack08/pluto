@@ -65,10 +65,10 @@ const Index: React.FC = () => {
           <Text
             color={isDark ? 'gray.400' : 'gray.600'}
             fontSize={['md', 'lg', 'xl']}
-            mt={[3, 4]}
+            mt={[4, 6]}
             mb={8}
             maxW={['580px', '600px', '720px']}
-            className="leading-relaxed"
+            className="leading-7 md:leading-9"
           >
             Pluto does all the heavy-lifting with all the features you wished
             you had before! Tailored to everyone, including schools and
@@ -133,7 +133,7 @@ const Index: React.FC = () => {
             </Flex>
             <Heading
               as="h1"
-              color="gray.300"
+              color="gray.100"
               fontWeight="black"
               fontSize={['3xl', '5xl', '6xl']}
               mb={[2, 4]}
@@ -142,7 +142,7 @@ const Index: React.FC = () => {
             </Heading>
             <Text
               fontSize={['sm', 'xl', '2xl']}
-              color="gray.400"
+              color="gray.500"
               fontWeight="semibold"
             >
               Low footprint design with features you won’t forget
@@ -151,7 +151,7 @@ const Index: React.FC = () => {
         </div>
         <SimpleGrid
           columns={[1, 2]}
-          spacing={3}
+          spacing={2}
           maxW="3xl"
           mx="auto"
           w="100%"
@@ -176,7 +176,7 @@ const Index: React.FC = () => {
               fontSize="lg"
               _groupHover={{ color: 'gray.300' }}
             >
-              A simple and intuitive UI
+              A simple and intuitive UI/UX
             </Text>
           </Box>
           <Box

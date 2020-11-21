@@ -3,7 +3,7 @@ import { Image } from '@chakra-ui/core';
 
 export const LogoImage: React.FC = () => (
   <Image
-    w={[8, 8, 10]}
+    w={[6, 7, 9]}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     strokeWidth="1.55"

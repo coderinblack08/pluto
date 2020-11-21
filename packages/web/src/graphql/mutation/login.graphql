@@ -1,5 +1,0 @@
-mutation Login($options: LoginArgs!) {
-  login(options: $options) {
-    ...UserResponse
-  }
-}
