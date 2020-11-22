@@ -26,7 +26,7 @@ export const AuthNavbar: React.FC = () => {
   return (
     <Box
       bgColor={isDark ? 'gray.900' : 'gray.800'}
-      className="border-b"
+      className={!onPage('/c') ? 'border-b' : undefined}
       borderColor="gray.700"
     >
       <Box className="container" mx="auto">
@@ -83,11 +83,11 @@ export const AuthNavbar: React.FC = () => {
                   px={5}
                   py={[3, 3, 2]}
                   rounded="md"
-                  shadow="inner"
+                  shadow={onPage('/dashboard') ? 'inner' : 'none'}
                   className={
                     onPage('/dashboard')
                       ? isDark
-                        ? 'bg-black bg-opacity-50 shadow-inner'
+                        ? 'bg-black bg-opacity-50'
                         : 'bg-gray-900'
                       : undefined
                   }
@@ -103,12 +103,12 @@ export const AuthNavbar: React.FC = () => {
                   px={5}
                   py={[3, 3, 2]}
                   rounded="md"
-                  shadow="inner"
+                  shadow={onPage('/#') ? 'inner' : 'none'}
                   color="gray.400"
                   className={
                     onPage('#')
                       ? isDark
-                        ? 'bg-black bg-opacity-50 shadow-inner'
+                        ? 'bg-black bg-opacity-50'
                         : 'bg-gray-900'
                       : undefined
                   }
@@ -123,12 +123,12 @@ export const AuthNavbar: React.FC = () => {
                   px={5}
                   py={[3, 3, 2]}
                   rounded="md"
-                  shadow="inner"
+                  shadow={onPage('/browse') ? 'inner' : 'none'}
                   color="gray.400"
                   className={
                     onPage('/browse')
                       ? isDark
-                        ? 'bg-black bg-opacity-50 shadow-inner'
+                        ? 'bg-black bg-opacity-50'
                         : 'bg-gray-900'
                       : undefined
                   }

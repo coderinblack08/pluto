@@ -1,5 +1,5 @@
-import { Box, useColorMode, Link, Flex } from '@chakra-ui/core';
-import { ChevronRight, ChevronRightOutline } from 'heroicons-react';
+import { Box, Link, useColorMode } from '@chakra-ui/core';
+import { ChevronRightOutline } from 'heroicons-react';
 import React from 'react';
 
 export const Banner: React.FC = () => {

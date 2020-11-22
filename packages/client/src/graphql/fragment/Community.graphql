@@ -3,6 +3,7 @@ fragment Community on Community {
   name
   about
   email
+  posts
   website
   location
   isPrivate

@@ -1,0 +1,9 @@
+fragment Post on Post {
+  id
+  likes
+  comments
+  announcement {
+    title
+    announcement
+  }
+}

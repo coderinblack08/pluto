@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Stack, useColorMode } from '@chakra-ui/core';
+import { Box, Flex, Stack, useColorMode } from '@chakra-ui/core';
 import { LocationMarker, Tag, Users } from 'heroicons-react';
 import React from 'react';
 import { NextLink } from '../components/nextlink';
@@ -80,9 +80,9 @@ const Browse: React.FC = () => {
               fontWeight="semibold"
               className={`border ${
                 isDark
-                  ? 'border-gray-700 bg-gray-700 text-gray-300'
+                  ? 'border-none bg-gray-900 bg-opacity-25 text-gray-300'
                   : 'border-gray-200'
-              } rounded-t-md`}
+              } rounded-t-md border-b-0`}
             >
               Categories
             </Box>
@@ -108,11 +108,11 @@ const Browse: React.FC = () => {
                 <NextLink
                   href={`/c?id=${community.id}`}
                   key={community.id}
-                  className={`relative text-left focus:outline-none ${
+                  className={`transform transition ease duration-200 hover:-translate-y-1 relative text-left focus:outline-none ${
                     isDark ? 'bg-gray-700' : 'bg-white'
-                  } p-5 hover:shadow-sm rounded mb-5 ${
-                    !index ? 'px-8 bg-white shadow-sm' : ''
-                  }`}
+                  } p-5 shadow-sm hover:shadow rounded mb-5 ${
+                    !index ? 'px-8' : null
+                  } ${index ? 'bg-opacity-25' : 'bg-opacity-50'}`}
                 >
                   {!index ? (
                     <>

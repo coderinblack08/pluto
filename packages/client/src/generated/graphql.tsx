@@ -210,12 +210,21 @@ export type LoginArgs = {
 
 export type CommunityFragment = (
   { __typename?: 'Community' }
-  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'category' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
+  & Pick<Community, 'id' | 'name' | 'about' | 'email' | 'posts' | 'website' | 'location' | 'isPrivate' | 'isSchool' | 'category' | 'maxParticipants' | 'emailNotifications' | 'createdAt' | 'updatedAt'>
 );
 
 export type ErrorFragment = (
   { __typename?: 'FieldError' }
   & Pick<FieldError, 'field' | 'message'>
+);
+
+export type PostFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id' | 'likes' | 'comments'>
+  & { announcement: (
+    { __typename?: 'Announcement' }
+    & Pick<Announcement, 'title' | 'announcement'>
+  ) }
 );
 
 export type UserFragment = (
@@ -304,6 +313,24 @@ export type FindCommunitiesQuery = (
   ) }
 );
 
+export type GetCommunityQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetCommunityQuery = (
+  { __typename?: 'Query' }
+  & { getCommunity: (
+    { __typename?: 'Community' }
+    & Pick<Community, 'isCreator'>
+    & { creator: (
+      { __typename?: 'User' }
+      & UserFragment
+    ) }
+    & CommunityFragment
+  ) }
+);
+
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -323,12 +350,27 @@ export type MeQuery = (
   )> }
 );
 
+export type FindPostsQueryVariables = Exact<{
+  communityId: Scalars['String'];
+}>;
+
+
+export type FindPostsQuery = (
+  { __typename?: 'Query' }
+  & { findPosts: Array<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'isLiked'>
+    & PostFragment
+  )> }
+);
+
 export const CommunityFragmentDoc = gql`
     fragment Community on Community {
   id
   name
   about
   email
+  posts
   website
   location
   isPrivate
@@ -338,6 +380,17 @@ export const CommunityFragmentDoc = gql`
   emailNotifications
   createdAt
   updatedAt
+}
+    `;
+export const PostFragmentDoc = gql`
+    fragment Post on Post {
+  id
+  likes
+  comments
+  announcement {
+    title
+    announcement
+  }
 }
     `;
 export const ErrorFragmentDoc = gql`
@@ -532,6 +585,44 @@ export function useFindCommunitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type FindCommunitiesQueryHookResult = ReturnType<typeof useFindCommunitiesQuery>;
 export type FindCommunitiesLazyQueryHookResult = ReturnType<typeof useFindCommunitiesLazyQuery>;
 export type FindCommunitiesQueryResult = Apollo.QueryResult<FindCommunitiesQuery, FindCommunitiesQueryVariables>;
+export const GetCommunityDocument = gql`
+    query GetCommunity($id: String!) {
+  getCommunity(id: $id) {
+    ...Community
+    isCreator
+    creator {
+      ...User
+    }
+  }
+}
+    ${CommunityFragmentDoc}
+${UserFragmentDoc}`;
+
+/**
+ * __useGetCommunityQuery__
+ *
+ * To run a query within a React component, call `useGetCommunityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommunityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommunityQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetCommunityQuery(baseOptions: Apollo.QueryHookOptions<GetCommunityQuery, GetCommunityQueryVariables>) {
+        return Apollo.useQuery<GetCommunityQuery, GetCommunityQueryVariables>(GetCommunityDocument, baseOptions);
+      }
+export function useGetCommunityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommunityQuery, GetCommunityQueryVariables>) {
+          return Apollo.useLazyQuery<GetCommunityQuery, GetCommunityQueryVariables>(GetCommunityDocument, baseOptions);
+        }
+export type GetCommunityQueryHookResult = ReturnType<typeof useGetCommunityQuery>;
+export type GetCommunityLazyQueryHookResult = ReturnType<typeof useGetCommunityLazyQuery>;
+export type GetCommunityQueryResult = Apollo.QueryResult<GetCommunityQuery, GetCommunityQueryVariables>;
 export const HelloDocument = gql`
     query Hello {
   hello
@@ -594,3 +685,37 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const FindPostsDocument = gql`
+    query FindPosts($communityId: String!) {
+  findPosts(communityId: $communityId) {
+    ...Post
+    isLiked
+  }
+}
+    ${PostFragmentDoc}`;
+
+/**
+ * __useFindPostsQuery__
+ *
+ * To run a query within a React component, call `useFindPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindPostsQuery({
+ *   variables: {
+ *      communityId: // value for 'communityId'
+ *   },
+ * });
+ */
+export function useFindPostsQuery(baseOptions: Apollo.QueryHookOptions<FindPostsQuery, FindPostsQueryVariables>) {
+        return Apollo.useQuery<FindPostsQuery, FindPostsQueryVariables>(FindPostsDocument, baseOptions);
+      }
+export function useFindPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindPostsQuery, FindPostsQueryVariables>) {
+          return Apollo.useLazyQuery<FindPostsQuery, FindPostsQueryVariables>(FindPostsDocument, baseOptions);
+        }
+export type FindPostsQueryHookResult = ReturnType<typeof useFindPostsQuery>;
+export type FindPostsLazyQueryHookResult = ReturnType<typeof useFindPostsLazyQuery>;
+export type FindPostsQueryResult = Apollo.QueryResult<FindPostsQuery, FindPostsQueryVariables>;
